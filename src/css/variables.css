@@ -1,0 +1,21 @@
+:root {
+  /* colors */
+  --q-primary: #faf7f4;
+  --q-secondary: #7b7e81;
+  --q-tertiary: #b85981;
+  --q-accent: #e04f2e;
+  --q-info: #eaac82;
+
+  /* Font size variables */
+
+  --font-small: 0.8em;
+  --font-medium: 1em;
+  --font-large: 1.5em;
+  --font-large-xl: 2em;
+
+  /* spacing */
+  --spacing-xs: 5px;
+  --spacing-sm: 10px;
+  --spacing-md: 20px;
+  --spacing-lg: 30px;
+}
