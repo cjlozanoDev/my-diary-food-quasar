@@ -11,47 +11,54 @@ const changeLanguage = () => {
 <template>
   <div class="login">
     <header class="login-header">
-      <q-avatar size="100px">
-        <img src="https://cdn.quasar.dev/img/avatar.png" />
-      </q-avatar>
-      <span class="login-header__title-app"> My diary food</span>
+      <q-img
+        src="src/assets/LogoMyDiaryFood.png"
+        spinner-color="white"
+        class="logo-app"
+      />
     </header>
 
     <main class="page-my-diary-food">
       <article class="article-main">
         <h2>¡¡{{ $t("hello") }}!!</h2>
-        <section class="section-form">
-          <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
-            <q-input
-              filled
-              v-model="name"
-              label="Your name *"
-              hint="Name and surname"
-              lazy-rules
-              :rules="[
-                (val) => (val && val.length > 0) || 'Please type something',
-              ]"
-            />
+        <section class="section-container-form">
+          <q-card>
+            <q-card-section>
+              <q-form
+                @submit="onSubmit"
+                @reset="onReset"
+                class="section-container-form__form"
+              >
+                <q-input
+                  outlined
+                  v-model="text"
+                  :label="$t('label_email')"
+                  color="secondary"
+                />
+                <q-input
+                  outlined
+                  v-model="text"
+                  :label="$t('label_password')"
+                  type="password"
+                  color="secondary"
+                />
 
-            <q-input
-              filled
-              type="number"
-              v-model="age"
-              label="Your age *"
-              lazy-rules
-              :rules="[
-                (val) => (val !== null && val !== '') || 'Please type your age',
-                (val) => (val > 0 && val < 100) || 'Please type a real age',
-              ]"
-            />
+                <div class="section_form__actions">
+                  <q-btn
+                    :label="$t('entry')"
+                    type="submit"
+                    color="secondary"
+                    class="btn-login"
+                  />
+                </div>
+              </q-form>
+            </q-card-section>
+          </q-card>
 
-            <q-toggle v-model="accept" label="I accept the license and terms" />
-
-            <div>
-              <q-btn :label="$t('entry')" type="submit" color="accent" />
-            </div>
-          </q-form>
           <button @click="changeLanguage">cambiar a inglés</button>
+        </section>
+        <section class="section-create__account">
+          <p>¿No estás registrado/a? <a href="">Crear cuenta </a></p>
         </section>
       </article>
     </main>
@@ -63,7 +70,7 @@ const changeLanguage = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: var(--q-secondary);
   padding: var(--spacing-lg) 0;
   border-radius: 0 0 50% 50%;
   gap: var(--spacing-md);
@@ -76,9 +83,50 @@ const changeLanguage = () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: var(--spacing-md);
 }
-.section-form {
-  width: 80%;
+.section-container-form {
+  width: 100%;
+}
+.section-container-form__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.section_form__actions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.section-create__account {
+  font-size: 1.1em;
+}
+.btn-login {
+  width: 100%;
+  height: 56px;
+}
+.logo-app {
+  height: 140px;
+  max-width: 150px;
+}
+
+@media (min-width: 991px) {
+  .logo-app {
+    height: 240px;
+    max-width: 250px;
+  }
+  .login-header {
+    width: 50%;
+    height: 100%;
+  }
+  .login {
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+  .page-my-diary-food {
+    width: 50%;
+    display: flex;
+    align-items: center;
+  }
 }
 </style>
