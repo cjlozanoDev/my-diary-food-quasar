@@ -1,6 +1,7 @@
 <script setup>
 import { useI18n } from "vue-i18n";
 import { ref } from "vue";
+import { createUserWithEmailAndPasswordApi } from "src/api/auth";
 
 const { locale } = useI18n({ useScope: "global" });
 
@@ -11,7 +12,13 @@ const changeLanguage = () => {
 const email = ref("");
 const password = ref("");
 
-const onSubmit = () => {};
+const onSubmit = async () => {
+  try {
+    await createUserWithEmailAndPasswordApi(email.value, password.value);
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
 </script>
 
 <template>
