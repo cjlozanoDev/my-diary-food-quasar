@@ -1,11 +1,17 @@
 <script setup>
 import { useI18n } from "vue-i18n";
+import { ref } from "vue";
 
 const { locale } = useI18n({ useScope: "global" });
 
 const changeLanguage = () => {
   locale.value = "en-US";
 };
+
+const email = ref("");
+const password = ref("");
+
+const onSubmit = () => {};
 </script>
 
 <template>
@@ -25,21 +31,30 @@ const changeLanguage = () => {
           <q-card>
             <q-card-section>
               <q-form
-                @submit="onSubmit"
-                @reset="onReset"
+                @submit.prevent="onSubmit"
                 class="section-container-form__form"
               >
                 <q-input
                   outlined
-                  v-model="text"
-                  :label="$t('label_email')"
+                  v-model="email"
+                  :label="`${$t('label_email')} *`"
+                  lazy-rules
+                  reactive-rules
+                  :rules="[
+                    (val) => (val && val.length > 0) || $t('type_something'),
+                  ]"
                   color="secondary"
                 />
                 <q-input
                   outlined
-                  v-model="text"
-                  :label="$t('label_password')"
+                  v-model="password"
+                  :label="`${$t('label_password')} *`"
                   type="password"
+                  lazy-rules
+                  reactive-rules
+                  :rules="[
+                    (val) => (val && val.length > 0) || $t('type_something'),
+                  ]"
                   color="secondary"
                 />
 
@@ -58,7 +73,10 @@ const changeLanguage = () => {
           <button @click="changeLanguage">cambiar a inglés</button>
         </section>
         <section class="section-create__account">
-          <p>¿No estás registrado/a? <a href="">Crear cuenta </a></p>
+          <p>
+            {{ $t("answer_register")
+            }}<a href=""> {{ $t("create_account") }} </a>
+          </p>
         </section>
       </article>
     </main>
@@ -90,6 +108,7 @@ const changeLanguage = () => {
 .section-container-form__form {
   display: flex;
   flex-direction: column;
+  padding: var(--spacing-sm);
   gap: 20px;
 }
 .section_form__actions {
