@@ -6,8 +6,10 @@ import {
   addUserCollectionApi,
 } from "src/api/auth";
 import { errorCodes } from "src/utils/errorCodes";
+import { useStatePageStore } from "src/store/useStatePageStore";
 
 const { locale } = useI18n({ useScope: "global" });
+const statePageStore = useStatePageStore();
 
 const changeLanguage = () => {
   locale.value = "en-US";
@@ -18,6 +20,7 @@ const password = ref("");
 const errorEmailAlreadyInUse = ref(false);
 
 const onSubmit = async () => {
+  statePageStore.setLoading(true, "guardando usuario");
   try {
     const userCredential = await createUserWithEmailAndPasswordApi(
       email.value,
@@ -31,6 +34,8 @@ const onSubmit = async () => {
     } else {
       throw new Error(error.message);
     }
+  } finally {
+    statePageStore.setLoading(false, "cargando");
   }
 };
 </script>
