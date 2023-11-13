@@ -18,3 +18,7 @@ a {
   text-decoration: none;
   color: var(--q-secondary);
 }
+.banner-error {
+  color: white;
+  background-color: var(--q-negative);
+}

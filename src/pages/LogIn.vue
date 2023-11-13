@@ -1,7 +1,11 @@
 <script setup>
 import { useI18n } from "vue-i18n";
 import { ref } from "vue";
-import { createUserWithEmailAndPasswordApi } from "src/api/auth";
+import {
+  createUserWithEmailAndPasswordApi,
+  addUserCollectionApi,
+} from "src/api/auth";
+import { errorCodes } from "src/utils/errorCodes";
 
 const { locale } = useI18n({ useScope: "global" });
 
@@ -11,12 +15,22 @@ const changeLanguage = () => {
 
 const email = ref("");
 const password = ref("");
+const errorEmailAlreadyInUse = ref(false);
 
 const onSubmit = async () => {
   try {
-    await createUserWithEmailAndPasswordApi(email.value, password.value);
+    const userCredential = await createUserWithEmailAndPasswordApi(
+      email.value,
+      password.value
+    );
+    await addUserCollectionApi(userCredential.user);
+    errorEmailAlreadyInUse.value = false;
   } catch (error) {
-    throw new Error(error.message);
+    if (error.code === errorCodes["email_already_in_use"]) {
+      errorEmailAlreadyInUse.value = true;
+    } else {
+      throw new Error(error.message);
+    }
   }
 };
 </script>
@@ -41,6 +55,14 @@ const onSubmit = async () => {
                 @submit.prevent="onSubmit"
                 class="section-container-form__form"
               >
+                <q-banner
+                  v-if="errorEmailAlreadyInUse"
+                  inline-actions
+                  class="banner-error"
+                >
+                  <span v-text="$t('email_already_in_use')" />
+                </q-banner>
+
                 <q-input
                   outlined
                   v-model="email"

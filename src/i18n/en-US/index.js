@@ -6,4 +6,5 @@ export default {
   answer_register: "Are you not registered? ",
   create_account: "Create an account",
   type_something: "Please type something",
+  email_already_in_use: "Email already in use",
 };
