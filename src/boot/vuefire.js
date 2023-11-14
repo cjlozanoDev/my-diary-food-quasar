@@ -1,5 +1,6 @@
 import { boot } from "quasar/wrappers";
 import { VueFire, VueFireAuth } from "vuefire";
+import { firebaseApp } from "../api/firebase";
 
 // "async" is optional;
 // more info on params: https://v2.quasar.dev/quasar-cli/boot-files

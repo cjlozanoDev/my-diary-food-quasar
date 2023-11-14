@@ -1,13 +1,35 @@
 const routes = [
   {
     path: "/",
-    component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("pages/IndexPage.vue") }],
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem("signedin")) {
+        next({ path: "home" });
+      } else {
+        next();
+      }
+    },
+    component: () => import("layouts/LoginLayout.vue"),
+    children: [
+      {
+        path: "",
+        name: "Login",
+        component: () => import("pages/login/LogIn.vue"),
+      },
+    ],
   },
   {
-    path: "/login",
-    component: () => import("layouts/LoginLayout.vue"),
-    children: [{ path: "", component: () => import("pages/login/LogIn.vue") }],
+    path: "/home",
+    meta: {
+      auth: true,
+    },
+    component: () => import("layouts/MainLayout.vue"),
+    children: [
+      {
+        path: "",
+        name: "Home",
+        component: () => import("pages/IndexPage.vue"),
+      },
+    ],
   },
 
   // Always leave this as last one,
