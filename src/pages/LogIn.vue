@@ -71,6 +71,7 @@ const onSubmit = async () => {
                 <q-input
                   outlined
                   v-model="email"
+                  type="email"
                   :label="`${$t('label_email')} *`"
                   lazy-rules
                   reactive-rules
@@ -86,8 +87,16 @@ const onSubmit = async () => {
                   type="password"
                   lazy-rules
                   reactive-rules
+                  :hint="
+                    password.length > 5
+                      ? ''
+                      : $t('min_characters', { number: 6 })
+                  "
                   :rules="[
                     (val) => (val && val.length > 0) || $t('type_something'),
+                    (val) =>
+                      (val && val.length > 5) ||
+                      $t('min_characters', { number: 6 }),
                   ]"
                   color="secondary"
                 />
