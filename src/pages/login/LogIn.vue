@@ -98,7 +98,7 @@ const { email, password, errorInvalidCredentials, onSubmit } =
   </div>
 </template>
 
-<style>
+<style scoped>
 .login-header {
   display: flex;
   justify-content: center;

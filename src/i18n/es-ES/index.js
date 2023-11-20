@@ -6,6 +6,7 @@ export default {
   hello: "Hola",
   invalid_credentials: "La cuenta o la contraseña introducida no es correcta",
   label_email: "Email",
+  label_name: "Nombre",
   label_password: "Contraseña",
   loading: "Cargando...",
   min_characters: "Mínimo {number} caracteres",

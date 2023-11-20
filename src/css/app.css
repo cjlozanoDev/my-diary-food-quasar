@@ -14,6 +14,12 @@ body {
   padding: 20px;
   min-height: 100%;
 }
+.page-my-diary-food.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 a {
   text-decoration: none;
   color: var(--q-secondary);
