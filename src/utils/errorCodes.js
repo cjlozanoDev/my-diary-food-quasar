@@ -4,4 +4,5 @@
 
 export const errorCodes = {
   email_already_in_use: "auth/email-already-in-use",
+  invalid_credentials: "auth/invalid-login-credentials",
 };

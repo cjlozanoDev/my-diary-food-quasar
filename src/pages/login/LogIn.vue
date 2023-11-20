@@ -3,15 +3,13 @@ import { useI18n } from "vue-i18n";
 import { useServicesLogin } from "./composables/useServicesLogin";
 import { useCurrentUser } from "vuefire";
 
-const usuario = useCurrentUser();
-
 const { locale } = useI18n({ useScope: "global" });
 
 const changeLanguage = () => {
   locale.value = "en-US";
 };
 
-const { email, password, errorEmailAlreadyInUse, onSubmit } =
+const { email, password, errorInvalidCredentials, onSubmit } =
   useServicesLogin();
 </script>
 
@@ -28,7 +26,6 @@ const { email, password, errorEmailAlreadyInUse, onSubmit } =
     <main class="page-my-diary-food">
       <article class="article-main">
         <h2>¡¡{{ $t("hello") }}!!</h2>
-        <h3 v-if="usuario">El usuario es {{ usuario.email }}</h3>
         <section class="section-container-form">
           <q-card>
             <q-card-section>
@@ -37,11 +34,11 @@ const { email, password, errorEmailAlreadyInUse, onSubmit } =
                 class="section-container-form__form"
               >
                 <q-banner
-                  v-if="errorEmailAlreadyInUse"
+                  v-if="errorInvalidCredentials"
                   inline-actions
                   class="banner-error"
                 >
-                  <span v-text="$t('email_already_in_use')" />
+                  <span v-text="$t('invalid_credentials')" />
                 </q-banner>
 
                 <q-input
