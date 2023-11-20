@@ -1,7 +1,6 @@
 <script setup>
 import { useI18n } from "vue-i18n";
 import { useServicesLogin } from "./composables/useServicesLogin";
-import { useCurrentUser } from "vuefire";
 
 const { locale } = useI18n({ useScope: "global" });
 
@@ -91,7 +90,7 @@ const { email, password, errorInvalidCredentials, onSubmit } =
         <section class="section-create__account">
           <p>
             {{ $t("answer_register")
-            }}<a href=""> {{ $t("create_account") }} </a>
+            }}<a href="/create-account"> {{ $t("create_account") }} </a>
           </p>
         </section>
       </article>
