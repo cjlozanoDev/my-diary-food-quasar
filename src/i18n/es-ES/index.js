@@ -1,5 +1,6 @@
 export default {
   answer_register: "¿No estás registrado/a? ",
+  back: "volver",
   create_account: "Crear cuenta",
   entry: "Entrar",
   email_already_in_use: "El email ya está en uso",

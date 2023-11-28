@@ -1,5 +1,6 @@
 export default {
   answer_register: "Are you not registered? ",
+  back: "back",
   create_account: "Create an account",
   email_already_in_use: "Email already in use",
   entry: "Login",

@@ -15,6 +15,19 @@ const routes = [
         name: "Login",
         component: () => import("pages/login/LogIn.vue"),
       },
+    ],
+  },
+  {
+    path: "/create-account",
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem("signedin")) {
+        next({ path: "home" });
+      } else {
+        next();
+      }
+    },
+    component: () => import("layouts/CreateAccountLayout.vue"),
+    children: [
       {
         path: "/create-account",
         name: "CreateAccount",

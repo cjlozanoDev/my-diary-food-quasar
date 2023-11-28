@@ -5,7 +5,7 @@ onMounted(() => {
   window.addEventListener("resize", onResize);
 });
 onUnmounted(() => {
-  window.removeEventListener("resize");
+  window.removeEventListener("resize", onResize);
 });
 
 const widthSizeScreen = ref(window.innerWidth);
