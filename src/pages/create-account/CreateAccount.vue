@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted, onUnmounted, ref, computed } from "vue";
+import { useServicesCreateAccount } from "./composables/useServicesCreateAccount";
 
 onMounted(() => {
   window.addEventListener("resize", onResize);
@@ -19,7 +20,8 @@ const onResize = () => {
   widthSizeScreen.value = window.innerWidth;
 };
 
-const onSubmit = () => {};
+const { username, email, password, errorEmailAlreadyInUse, onSubmit } =
+  useServicesCreateAccount();
 </script>
 
 <template>
@@ -28,7 +30,7 @@ const onSubmit = () => {};
       <q-avatar :size="sizeAvatar">
         <img src="src/assets/AvatarChef.jpeg" />
       </q-avatar>
-      <span class="text-create-acccount">Crear cuenta</span>
+      <span class="text-create-acccount" v-text="$t('create_account')" />
     </header>
     <main class="page-my-diary-food center">
       <section class="section-container-form">
@@ -37,7 +39,16 @@ const onSubmit = () => {};
             <q-form
               @submit.prevent="onSubmit"
               class="section-container-form__form"
-              ><q-input
+            >
+              <q-banner
+                v-if="errorEmailAlreadyInUse"
+                inline-actions
+                class="banner-error"
+              >
+                <span v-text="$t('email_already_in_use')" />
+              </q-banner>
+              <q-input
+                v-model="username"
                 outlined
                 type="text"
                 :label="`${$t('label_name')} *`"
@@ -48,7 +59,9 @@ const onSubmit = () => {};
                 ]"
                 color="secondary"
               />
+
               <q-input
+                v-model="email"
                 outlined
                 type="email"
                 :label="`${$t('label_email')} *`"
@@ -60,6 +73,7 @@ const onSubmit = () => {};
                 color="secondary"
               />
               <q-input
+                v-model="password"
                 outlined
                 :label="`${$t('label_password')} *`"
                 type="password"
@@ -76,10 +90,10 @@ const onSubmit = () => {};
 
               <div class="section_form__actions">
                 <q-btn
-                  :label="$t('entry')"
+                  :label="$t('create_account')"
                   type="submit"
                   color="secondary"
-                  class="btn-login"
+                  class="btn-create-account"
                 />
               </div>
             </q-form>
@@ -104,11 +118,13 @@ const onSubmit = () => {};
   display: flex;
   justify-content: center;
 }
+.create-account__card-form {
+  padding: var(--spacing-sm);
+}
 .section-container-form__form {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: var(--spacing-sm);
 }
 .section_form__actions {
   display: flex;
@@ -120,5 +136,9 @@ const onSubmit = () => {};
 .create-account__card-form {
   width: 100%;
   max-width: 1200px;
+}
+.btn-create-account {
+  height: 50px;
+  width: 100%;
 }
 </style>

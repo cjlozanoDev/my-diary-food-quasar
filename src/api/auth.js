@@ -22,9 +22,9 @@ const createUserWithEmailAndPasswordApi = (email, password) => {
   return createUserWithEmailAndPassword(auth, email, password);
 };
 
-const addUserCollectionApi = async ({ email, uid }) => {
+const addUserCollectionApi = async (username, { email, uid }) => {
   return setDoc(doc(db, "users", uid), {
-    name: "",
+    name: username,
     email,
     uid,
   });

@@ -50,7 +50,7 @@ const goToLogin = () => {
       <router-view />
     </q-page-container>
 
-    <q-footer elevated class="bg-secondary">
+    <q-footer elevated class="create-account-layout__footer">
       <q-toolbar>
         <q-toolbar-title>
           <div>Title</div>
@@ -64,9 +64,16 @@ const goToLogin = () => {
 .header-create-account-layout {
   height: 80px;
 }
+.create-account-layout__footer {
+  background-color: var(--orange-light);
+  color: black;
+}
 @media (min-width: 991px) {
   .header-create-account-layout {
     height: 120px;
+  }
+  .q-footer {
+    display: none;
   }
 }
 </style>
