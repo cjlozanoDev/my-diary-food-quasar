@@ -45,7 +45,10 @@ const routes = [
       {
         path: "",
         name: "Home",
-        component: () => import("pages/IndexPage.vue"),
+        meta: {
+          namePage: "Principal",
+        },
+        component: () => import("pages/home-page/HomePage.vue"),
       },
     ],
   },

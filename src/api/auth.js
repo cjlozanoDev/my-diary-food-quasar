@@ -34,9 +34,7 @@ const signInWithEmailAndPasswordApi = (email, password) => {
   return signInWithEmailAndPassword(auth, email, password);
 };
 
-const logoutApi = () => {
-  signOut(auth);
-};
+const logoutApi = () => signOut(auth);
 
 export {
   onAuthStateChangedApi,

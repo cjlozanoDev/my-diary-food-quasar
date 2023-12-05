@@ -54,6 +54,7 @@ const { email, password, errorInvalidCredentials, onSubmit } =
                 />
                 <q-input
                   outlined
+                  autocomplete="on"
                   v-model="password"
                   :label="`${$t('label_password')} *`"
                   type="password"
