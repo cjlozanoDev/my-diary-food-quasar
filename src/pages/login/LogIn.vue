@@ -2,6 +2,7 @@
 import { useI18n } from "vue-i18n";
 import { useServicesLogin } from "./composables/useServicesLogin";
 import DiaryButton from "src/components/Button/DiaryButton.vue";
+import DiaryInput from "src/components/Input/DiaryInput.vue";
 
 const { locale } = useI18n({ useScope: "global" });
 
@@ -41,7 +42,7 @@ const { email, password, errorInvalidCredentials, onSubmit } =
                   <span v-text="$t('invalid_credentials')" />
                 </q-banner>
 
-                <q-input
+                <DiaryInput
                   outlined
                   v-model="email"
                   type="email"
@@ -53,7 +54,7 @@ const { email, password, errorInvalidCredentials, onSubmit } =
                   ]"
                   color="secondary"
                 />
-                <q-input
+                <DiaryInput
                   outlined
                   autocomplete="on"
                   v-model="password"

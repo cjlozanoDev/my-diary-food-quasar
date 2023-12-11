@@ -1,5 +1,6 @@
 <script setup>
 import DiaryButton from "src/components/Button/DiaryButton.vue";
+import DiaryInput from "src/components/Input/DiaryInput.vue";
 import { onMounted, onUnmounted, ref, computed } from "vue";
 import { useServicesCreateAccount } from "./composables/useServicesCreateAccount";
 
@@ -48,7 +49,7 @@ const { username, email, password, errorEmailAlreadyInUse, onSubmit } =
               >
                 <span v-text="$t('email_already_in_use')" />
               </q-banner>
-              <q-input
+              <DiaryInput
                 v-model="username"
                 outlined
                 type="text"
@@ -61,7 +62,7 @@ const { username, email, password, errorEmailAlreadyInUse, onSubmit } =
                 color="secondary"
               />
 
-              <q-input
+              <DiaryInput
                 v-model="email"
                 outlined
                 type="email"
@@ -73,7 +74,7 @@ const { username, email, password, errorEmailAlreadyInUse, onSubmit } =
                 ]"
                 color="secondary"
               />
-              <q-input
+              <DiaryInput
                 v-model="password"
                 outlined
                 :label="`${$t('label_password')} *`"
