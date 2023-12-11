@@ -1,4 +1,5 @@
 <script setup>
+import DiaryButton from "src/components/Button/DiaryButton.vue";
 import { onMounted, onUnmounted, ref, computed } from "vue";
 import { useServicesCreateAccount } from "./composables/useServicesCreateAccount";
 
@@ -89,7 +90,7 @@ const { username, email, password, errorEmailAlreadyInUse, onSubmit } =
               />
 
               <div class="section_form__actions">
-                <q-btn
+                <DiaryButton
                   :label="$t('create_account')"
                   type="submit"
                   color="secondary"

@@ -1,4 +1,5 @@
 <script setup>
+import DiaryButton from "src/components/Button/DiaryButton.vue";
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useRouter } from "vue-router";
 
@@ -36,7 +37,7 @@ const goToLogin = () => {
             <img src="src/assets/LogoMyDiaryFood.png" />
           </q-avatar>
         </q-toolbar-title>
-        <q-btn
+        <DiaryButton
           outline
           :label="$t('back')"
           color="secondary"

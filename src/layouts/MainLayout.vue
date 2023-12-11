@@ -1,4 +1,5 @@
 <script setup>
+import DiaryButton from "src/components/Button/DiaryButton.vue";
 import { logoutApi } from "src/api/auth";
 import { computed, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
@@ -35,7 +36,7 @@ const logout = async () => {
           >
             <img src="src/assets/LogoMyDiaryFood.png" />
           </q-avatar>
-          <q-btn
+          <DiaryButton
             v-else
             class="main-layout__button-icon-back"
             name="arrow_back"
@@ -47,7 +48,7 @@ const logout = async () => {
           <span v-text="namePageRouter" class="main-layout__name-page" />
         </q-toolbar-title>
 
-        <q-btn dense flat round icon="menu" @click="toggleRightDrawer" />
+        <DiaryButton dense flat round icon="menu" @click="toggleRightDrawer" />
       </q-toolbar>
     </q-header>
 

@@ -1,6 +1,7 @@
 <script setup>
 import { useI18n } from "vue-i18n";
 import { useServicesLogin } from "./composables/useServicesLogin";
+import DiaryButton from "src/components/Button/DiaryButton.vue";
 
 const { locale } = useI18n({ useScope: "global" });
 
@@ -75,7 +76,7 @@ const { email, password, errorInvalidCredentials, onSubmit } =
                 />
 
                 <div class="section_form__actions">
-                  <q-btn
+                  <DiaryButton
                     :label="$t('entry')"
                     type="submit"
                     color="secondary"
