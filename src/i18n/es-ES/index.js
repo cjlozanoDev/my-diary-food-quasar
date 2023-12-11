@@ -9,6 +9,7 @@ export default {
   label_email: "Email",
   label_name: "Nombre",
   label_password: "Contraseña",
+  label_your_current_menu: "Tu menú actual",
   loading: "Cargando...",
   min_characters: "Mínimo {number} caracteres",
   type_something: "Por favor, escribe algo",
