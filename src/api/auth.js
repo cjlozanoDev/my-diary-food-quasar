@@ -6,14 +6,19 @@ import {
 } from "firebase/auth";
 
 import { auth, doc, db, setDoc } from "./firebase";
+import { useUserStore } from "src/store/useUserStore";
 
 const onAuthStateChangedApi = () => {
   onAuthStateChanged(auth, (user) => {
+    const userStore = useUserStore();
+
     if (user) {
       localStorage.setItem("signedin", "true");
+      userStore.setUser(auth);
     }
     if (!user) {
       localStorage.removeItem("signedin");
+      userStore.removeUser();
     }
   });
 };
