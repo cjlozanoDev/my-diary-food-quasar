@@ -9,7 +9,25 @@ body {
   margin: 0;
   background: var(--q-primary);
 }
-
+a {
+  text-decoration: none;
+  color: var(--q-secondary);
+}
+.banner-error {
+  color: white;
+  background-color: var(--q-negative);
+}
+.head-title,
+.head-subtitle {
+  display: block;
+  margin-bottom: var(--spacing-md);
+}
+.head-title {
+  font-size: var(--font-head-h1);
+}
+.head-subtitle {
+  font-size: var(--font-head-h2);
+}
 .page-my-diary-food {
   padding: 20px;
   min-height: 100%;
@@ -19,12 +37,4 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-a {
-  text-decoration: none;
-  color: var(--q-secondary);
-}
-.banner-error {
-  color: white;
-  background-color: var(--q-negative);
 }

@@ -1,5 +1,6 @@
 <script setup>
 import SkeletonCardMenu from "components/skeletons/SkeletonCardMenu.vue";
+import NoCreatedMenu from "./components/NoCreatedMenu.vue";
 import { getCurrenMenuApi } from "src/api/menus";
 import { onMounted, ref } from "vue";
 
@@ -27,12 +28,19 @@ const getMenusUser = async () => {
 <template>
   <div class="page-my-diary-food">
     <main>
-      <h2>{{ $t("label_your_current_menu") }}</h2>
+      <span class="head-title">{{ $t("label_your_current_menu") }}</span>
       <SkeletonCardMenu v-if="loadingCurrenMenu" :number-repeat="3" />
-      <div v-else>
-        <p v-if="!Object.keys(currentMenu).length">No has creado menús</p>
+      <article class="article-current-menu" v-else>
+        <NoCreatedMenu v-if="!Object.keys(currentMenu).length" />
         <p v-else>Aquí irá tu menú</p>
-      </div>
+      </article>
     </main>
   </div>
 </template>
+
+<style scoped>
+.article-current-menu {
+  display: flex;
+  justify-content: center;
+}
+</style>

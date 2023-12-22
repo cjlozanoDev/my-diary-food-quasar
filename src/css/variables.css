@@ -16,6 +16,12 @@
   --font-large: 1.5em;
   --font-large-xl: 2em;
 
+  --font-head-h1: 2.8em;
+  --font-head-h2: 2em;
+  --font-head-h3: 1.67em;
+  --font-head-h4: 1.5em;
+  --font-head-h5: 1.33em;
+
   /* spacing */
   --spacing-xs: 5px;
   --spacing-sm: 10px;

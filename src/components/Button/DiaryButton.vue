@@ -14,7 +14,7 @@ defineProps({
   },
   icon: {
     type: String,
-    default: "",
+    default: null,
   },
   label: {
     type: String,
@@ -48,10 +48,23 @@ defineProps({
 
 <template>
   <q-btn
+    v-if="icon"
     :color="color"
     :dense="dense"
     :flat="flat"
     :icon="icon"
+    :label="label"
+    :onclick="onclick"
+    :outline="outline"
+    :round="round"
+    :size="size"
+    :type="type"
+  />
+  <q-btn
+    v-else
+    :color="color"
+    :dense="dense"
+    :flat="flat"
     :label="label"
     :onclick="onclick"
     :outline="outline"
