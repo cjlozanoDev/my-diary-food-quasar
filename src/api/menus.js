@@ -8,4 +8,16 @@ const getMenusUserApi = () => {
   return getDocs(q);
 };
 
-export { getMenusUserApi };
+const getCurrenMenuApi = () => {
+  const userStoreLocalStorage = JSON.parse(localStorage.getItem("userStore"));
+  const userUid = userStoreLocalStorage.uid;
+
+  const q = query(
+    collection(db, "menus"),
+    where("creatorUid", "==", userUid),
+    where("currentMenu", "==", true)
+  );
+  return getDocs(q);
+};
+
+export { getMenusUserApi, getCurrenMenuApi };
