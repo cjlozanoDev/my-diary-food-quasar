@@ -1,11 +1,20 @@
 <script setup>
 import DiaryButton from "src/components/Button/DiaryButton.vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const goToCreateMenu = () => {
+  router.push({
+    name: "CreateMenu",
+  });
+};
 </script>
 
 <template>
   <div class="no-created-menu">
     <section class="head-sm">
-      Parece que todavía no has creado ningún menú.
+      {{ $t("no_menu_created") }}
     </section>
     <section class="section-image">
       <img
@@ -15,8 +24,12 @@ import DiaryButton from "src/components/Button/DiaryButton.vue";
       />
     </section>
     <section class="section__create-menu">
-      <p class="text-create-menu">Crea tu primer menú</p>
-      <DiaryButton color="secondary" label="Crear menú" />
+      <p class="text-create-menu">{{ $t("create_first_menu") }}</p>
+      <DiaryButton
+        color="secondary"
+        :onclick="goToCreateMenu"
+        label="Crear menú"
+      />
     </section>
   </div>
 </template>

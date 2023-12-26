@@ -52,7 +52,24 @@ const routes = [
       },
     ],
   },
-
+  {
+    path: "/create-menu",
+    meta: {
+      auth: true,
+    },
+    component: () => import("layouts/MainLayout.vue"),
+    children: [
+      {
+        path: "",
+        name: "CreateMenu",
+        meta: {
+          namePage: "Crear menú",
+          nameBackPage: "Home",
+        },
+        component: () => import("pages/create-menu/CreateMenu.vue"),
+      },
+    ],
+  },
   // Always leave this as last one,
   // but you can also remove it
   {

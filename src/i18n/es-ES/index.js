@@ -2,6 +2,8 @@ export default {
   answer_register: "¿No estás registrado/a? ",
   back: "volver",
   create_account: "Crear cuenta",
+  create_first_menu: " Crea tu primer menú",
+  create_menu: "Crear menú",
   entry: "Entrar",
   email_already_in_use: "El email ya está en uso",
   hello: "Hola",
@@ -12,5 +14,6 @@ export default {
   label_your_current_menu: "Tu menú actual",
   loading: "Cargando...",
   min_characters: "Mínimo {number} caracteres",
+  no_menu_created: "Parece que todavía no has creado ningún menú",
   type_something: "Por favor, escribe algo",
 };

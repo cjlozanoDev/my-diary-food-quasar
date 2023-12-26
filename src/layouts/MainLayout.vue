@@ -22,6 +22,13 @@ const logout = async () => {
     name: "Login",
   });
 };
+
+const goToBackPage = () => {
+  const nameBackRoute = route.meta.nameBackPage;
+  router.push({
+    name: nameBackRoute,
+  });
+};
 </script>
 
 <template>
@@ -43,6 +50,7 @@ const logout = async () => {
             flat
             color="primary"
             icon="arrow_back"
+            :onclick="goToBackPage"
           />
 
           <span v-text="namePageRouter" class="main-layout__name-page" />
