@@ -17,6 +17,13 @@ a {
   color: white;
   background-color: var(--q-negative);
 }
+.head-diary-food {
+  background-color: var(--q-info);
+  display: block;
+  text-align: center;
+  padding: var(--spacing-sm);
+  color: white;
+}
 .head-title,
 .head-subtitle {
   display: block;
@@ -28,11 +35,20 @@ a {
 .head-subtitle {
   font-size: var(--font-head-h2);
 }
+.head-sm {
+  font-size: var(--font-head-h3);
+}
 .page-my-diary-food {
   padding: 20px;
   min-height: 100%;
 }
-.page-my-diary-food.center {
+.page-my-diary-food {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.content-center {
   display: flex;
   flex-direction: column;
   justify-content: center;

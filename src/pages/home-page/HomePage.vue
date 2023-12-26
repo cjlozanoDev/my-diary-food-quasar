@@ -26,9 +26,11 @@ const getMenusUser = async () => {
 </script>
 
 <template>
-  <div class="page-my-diary-food">
-    <main>
-      <span class="head-title">{{ $t("label_your_current_menu") }}</span>
+  <div>
+    <span class="head-diary-food head-subtitle">{{
+      $t("label_your_current_menu")
+    }}</span>
+    <main class="page-my-diary-food content-center">
       <SkeletonCardMenu v-if="loadingCurrenMenu" :number-repeat="3" />
       <article class="article-current-menu" v-else>
         <NoCreatedMenu v-if="!Object.keys(currentMenu).length" />
@@ -37,10 +39,3 @@ const getMenusUser = async () => {
     </main>
   </div>
 </template>
-
-<style scoped>
-.article-current-menu {
-  display: flex;
-  justify-content: center;
-}
-</style>
