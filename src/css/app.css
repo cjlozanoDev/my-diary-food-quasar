@@ -38,6 +38,9 @@ a {
 .head-sm {
   font-size: var(--font-head-h3);
 }
+.head-xs {
+  font-size: var(--font-head-h4);
+}
 .page-my-diary-food {
   padding: 20px;
   min-height: 100%;

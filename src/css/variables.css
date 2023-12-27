@@ -7,6 +7,7 @@
   --q-info: #eaac82;
   --q-negative: #c10015;
 
+  --brown-ligth: #deb599;
   --orange-light: #fdca8f;
 
   /* Font size variables */
@@ -27,6 +28,7 @@
   --spacing-sm: 10px;
   --spacing-md: 20px;
   --spacing-lg: 30px;
+  --spacing-xl: 40px;
 
   /* grid size */
   --grid-sm: 576px;
