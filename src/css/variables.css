@@ -7,13 +7,17 @@
   --q-info: #eaac82;
   --q-negative: #c10015;
 
+  --brown: #974c00;
   --brown-ligth: #deb599;
+  --gray: #9d9d9d;
+  --gray-ligth: #fcfcfc;
   --orange-light: #fdca8f;
 
   /* Font size variables */
 
   --font-small: 0.8em;
   --font-medium: 1em;
+  --font-medium-large: 1.2em;
   --font-large: 1.5em;
   --font-large-xl: 2em;
 
