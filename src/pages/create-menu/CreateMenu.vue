@@ -1,5 +1,22 @@
 <script setup>
+import { ref } from "vue";
 import DiaryButton from "src/components/Button/DiaryButton.vue";
+import DialogCreateFood from "./components/DialogCreateFood.vue";
+
+const dialogVisible = ref(false);
+const dayWeekSelected = ref("");
+const nameMomentFoodSelected = ref("");
+
+const showDialog = (dayWeek, nameMomentFood) => {
+  return () => {
+    dayWeekSelected.value = dayWeek;
+    nameMomentFoodSelected.value = nameMomentFood;
+    dialogVisible.value = true;
+  };
+};
+const closeDialog = () => {
+  dialogVisible.value = false;
+};
 </script>
 
 <template>
@@ -15,6 +32,7 @@ import DiaryButton from "src/components/Button/DiaryButton.vue";
             size="xs"
             class="create-menu__card__button-edit"
             color=""
+            :onclick="showDialog('Lunes', 'Desayuno')"
           />
         </p>
         <p class="create-menu__card__text-food">
@@ -113,6 +131,15 @@ import DiaryButton from "src/components/Button/DiaryButton.vue";
       <section class="create-menu__card">
         <span class="card-title">DOMINGO</span>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti in sit
+      </section>
+      <section>
+        <DialogCreateFood
+          v-model="dialogVisible"
+          :day-week="dayWeekSelected"
+          :name-moment-food="nameMomentFoodSelected"
+          @saveFood="closeDialog"
+          @close-dialog="closeDialog"
+        />
       </section>
     </main>
   </div>

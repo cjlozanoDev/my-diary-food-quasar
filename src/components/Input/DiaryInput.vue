@@ -1,5 +1,4 @@
 <script setup>
-import { logoutApi } from "src/api/auth";
 import { computed } from "vue";
 
 const emit = defineEmits(["update:modelValue"]);
@@ -14,7 +13,7 @@ const props = defineProps({
   },
   label: {
     type: String,
-    default: "",
+    default: undefined,
   },
   lazyRules: {
     type: Boolean,
@@ -39,7 +38,7 @@ const props = defineProps({
       return [
         "text",
         "password",
-        "textArea",
+        "textarea",
         "email",
         "search",
         "tel",
