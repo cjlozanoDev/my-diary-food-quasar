@@ -6,81 +6,100 @@ import DialogCreateFood from "./components/DialogCreateFood.vue";
 const dialogVisible = ref(false);
 const dayWeekSelected = ref("");
 const nameMomentFoodSelected = ref("");
+const completeNameMomentFoodSelected = ref("");
+const descriptionFoodSelected = ref("");
 
-const showDialog = (dayWeek, nameMomentFood) => {
-  return () => {
-    dayWeekSelected.value = dayWeek;
-    nameMomentFoodSelected.value = nameMomentFood;
-    dialogVisible.value = true;
-  };
-};
-const closeDialog = () => {
-  dialogVisible.value = false;
-};
-const daysWeekMenu = {
+const daysWeekMenu = ref({
   monday: {
     completeName: "Monday",
     traductorName: "monday",
     breakfast: "Esto sería un desayuno rico",
-    snackMorning: "",
+    snackmorning: "",
     lunch: "",
-    snackEvening: "",
+    snackevening: "",
     dinner: "",
   },
   tuesday: {
     completeName: "Tuesday",
     traductorName: "tuesday",
     breakfast: "",
-    snackMorning: "",
+    snackmorning: "",
     lunch: "",
-    snackEvening: "",
+    snackevening: "",
     dinner: "",
   },
   wednesday: {
     completeName: "Wednesday",
     traductorName: "wednesday",
     breakfast: "",
-    snackMorning: "",
+    snackmorning: "",
     lunch: "",
-    snackEvening: "",
+    snackevening: "",
     dinner: "",
   },
   thursday: {
     completeName: "Thursday",
     traductorName: "thursday",
     breakfast: "",
-    snackMorning: "",
+    snackmorning: "",
     lunch: "",
-    snackEvening: "",
+    snackevening: "",
     dinner: "",
   },
   friday: {
     completeName: "Friday",
     traductorName: "friday",
     breakfast: "",
-    snackMorning: "",
+    snackmorning: "",
     lunch: "",
-    snackEvening: "",
+    snackevening: "",
     dinner: "",
   },
   saturday: {
     completeName: "Saturday",
     traductorName: "saturday",
     breakfast: "",
-    snackMorning: "",
+    snackmorning: "",
     lunch: "",
-    snackEvening: "",
+    snackevening: "",
     dinner: "",
   },
   sunday: {
     completeName: "Sunday",
     traductorName: "sunday",
     breakfast: "",
-    snackMorning: "",
+    snackmorning: "",
     lunch: "",
-    snackEvening: "",
+    snackevening: "",
     dinner: "",
   },
+});
+
+const showDialog = (
+  dayWeek,
+  nameMomentFood,
+  completeNameMomentFood,
+  descriptionFood
+) => {
+  return () => {
+    dayWeekSelected.value = dayWeek;
+    nameMomentFoodSelected.value = nameMomentFood;
+    completeNameMomentFoodSelected.value = completeNameMomentFood;
+    descriptionFoodSelected.value = descriptionFood;
+    dialogVisible.value = true;
+  };
+};
+
+const saveFood = (descriptionFood) => {
+  const dayWeek = dayWeekSelected.value.toLocaleLowerCase();
+  const nameFood = nameMomentFoodSelected.value;
+
+  daysWeekMenu.value[dayWeek][nameFood] = descriptionFood;
+  closeDialog();
+};
+
+const closeDialog = () => {
+  dialogVisible.value = false;
 };
 </script>
 
@@ -102,7 +121,12 @@ const daysWeekMenu = {
             class="create-menu__card__button-edit"
             color=""
             :onclick="
-              showDialog(daysWeekMenu[dayWeek].completeName, 'Breakfast')
+              showDialog(
+                daysWeekMenu[dayWeek].completeName,
+                'breakfast',
+                'Breakfast',
+                daysWeekMenu[dayWeek]['breakfast']
+              )
             "
           />
         </p>
@@ -118,12 +142,17 @@ const daysWeekMenu = {
             class="create-menu__card__button-edit"
             color=""
             :onclick="
-              showDialog(daysWeekMenu[dayWeek].completeName, 'SnackMorning')
+              showDialog(
+                daysWeekMenu[dayWeek].completeName,
+                'snackmorning',
+                'Snack Morning',
+                daysWeekMenu[dayWeek]['snackmorning']
+              )
             "
           />
         </p>
         <p class="create-menu__card__text-food">
-          {{ daysWeekMenu[dayWeek].snackMorning }}
+          {{ daysWeekMenu[dayWeek].snackmorning }}
         </p>
 
         <p class="create-menu__card__text-day">
@@ -133,7 +162,14 @@ const daysWeekMenu = {
             size="xs"
             class="create-menu__card__button-edit"
             color=""
-            :onclick="showDialog(daysWeekMenu[dayWeek].completeName, 'Lunch')"
+            :onclick="
+              showDialog(
+                daysWeekMenu[dayWeek].completeName,
+                'lunch',
+                'Lunch',
+                daysWeekMenu[dayWeek]['lunch']
+              )
+            "
           />
         </p>
         <p class="create-menu__card__text-food">
@@ -141,19 +177,24 @@ const daysWeekMenu = {
         </p>
 
         <p class="create-menu__card__text-day">
-          <span>SnackEvening</span>
+          <span>Snack Evening</span>
           <DiaryButton
             icon="edit"
             size="xs"
             class="create-menu__card__button-edit"
             color=""
             :onclick="
-              showDialog(daysWeekMenu[dayWeek].completeName, 'SnackEvening')
+              showDialog(
+                daysWeekMenu[dayWeek].completeName,
+                'snackevening',
+                'Snack Evening',
+                daysWeekMenu[dayWeek]['snackevening']
+              )
             "
           />
         </p>
         <p class="create-menu__card__text-food">
-          {{ daysWeekMenu[dayWeek].snackEvening }}
+          {{ daysWeekMenu[dayWeek].snackevening }}
         </p>
 
         <p class="create-menu__card__text-day">
@@ -163,7 +204,14 @@ const daysWeekMenu = {
             size="xs"
             class="create-menu__card__button-edit"
             color=""
-            :onclick="showDialog(dayWeek.completeName, 'Dinner')"
+            :onclick="
+              showDialog(
+                dayWeek.completeName,
+                'dinner',
+                'Dinner',
+                daysWeekMenu[dayWeek]['dinner']
+              )
+            "
           />
         </p>
         <p class="create-menu__card__text-food">
@@ -175,8 +223,9 @@ const daysWeekMenu = {
         <DialogCreateFood
           v-model="dialogVisible"
           :day-week="dayWeekSelected"
-          :name-moment-food="nameMomentFoodSelected"
-          @saveFood="closeDialog"
+          :name-moment-food="completeNameMomentFoodSelected"
+          :description-food-prop="descriptionFoodSelected"
+          @saveFood="saveFood"
           @close-dialog="closeDialog"
         />
       </section>

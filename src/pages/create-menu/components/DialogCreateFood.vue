@@ -18,9 +18,17 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  descriptionFoodProp: {
+    type: String,
+    default: "",
+  },
 });
 
 const descriptionFood = ref("");
+
+const handleBeforeShowDialog = () => {
+  descriptionFood.value = props.descriptionFoodProp;
+};
 
 const value = computed({
   get() {
@@ -33,12 +41,12 @@ const closeDialog = () => {
 };
 
 const saveFood = () => {
-  emit("save-food");
+  emit("save-food", descriptionFood.value);
 };
 </script>
 
 <template>
-  <q-dialog v-model="value" persistent>
+  <q-dialog @before-show="handleBeforeShowDialog" v-model="value" persistent>
     <q-card class="dialog-create-food">
       <q-card-section class="dialog-create-food__card__section-head">
         <div>
