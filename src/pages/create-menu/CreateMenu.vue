@@ -17,121 +17,160 @@ const showDialog = (dayWeek, nameMomentFood) => {
 const closeDialog = () => {
   dialogVisible.value = false;
 };
+const daysWeekMenu = {
+  monday: {
+    completeName: "Monday",
+    traductorName: "monday",
+    breakfast: "Esto sería un desayuno rico",
+    snackMorning: "",
+    lunch: "",
+    snackEvening: "",
+    dinner: "",
+  },
+  tuesday: {
+    completeName: "Tuesday",
+    traductorName: "tuesday",
+    breakfast: "",
+    snackMorning: "",
+    lunch: "",
+    snackEvening: "",
+    dinner: "",
+  },
+  wednesday: {
+    completeName: "Wednesday",
+    traductorName: "wednesday",
+    breakfast: "",
+    snackMorning: "",
+    lunch: "",
+    snackEvening: "",
+    dinner: "",
+  },
+  thursday: {
+    completeName: "Thursday",
+    traductorName: "thursday",
+    breakfast: "",
+    snackMorning: "",
+    lunch: "",
+    snackEvening: "",
+    dinner: "",
+  },
+  friday: {
+    completeName: "Friday",
+    traductorName: "friday",
+    breakfast: "",
+    snackMorning: "",
+    lunch: "",
+    snackEvening: "",
+    dinner: "",
+  },
+  saturday: {
+    completeName: "Saturday",
+    traductorName: "saturday",
+    breakfast: "",
+    snackMorning: "",
+    lunch: "",
+    snackEvening: "",
+    dinner: "",
+  },
+  sunday: {
+    completeName: "Sunday",
+    traductorName: "sunday",
+    breakfast: "",
+    snackMorning: "",
+    lunch: "",
+    snackEvening: "",
+    dinner: "",
+  },
+};
 </script>
 
 <template>
   <div>
     <span class="head-diary-food head-subtitle">{{ $t("create_menu") }}</span>
     <main class="page-my-diary-food">
-      <section class="create-menu__card">
-        <span class="card-title">LUNES</span>
+      <section
+        class="create-menu__card"
+        v-for="dayWeek in Object.keys(daysWeekMenu)"
+        :key="dayWeek"
+      >
+        <span class="create-menu__card-title">{{ dayWeek.toUpperCase() }}</span>
         <p class="create-menu__card__text-day">
-          Desayuno
+          <span>Breakfast</span>
           <DiaryButton
             icon="edit"
             size="xs"
             class="create-menu__card__button-edit"
             color=""
-            :onclick="showDialog('Lunes', 'Desayuno')"
+            :onclick="
+              showDialog(daysWeekMenu[dayWeek].completeName, 'Breakfast')
+            "
           />
         </p>
         <p class="create-menu__card__text-food">
-          Esto sería lo que yo qiero para desayunar, es bien sano además, habrái
-          que ver más cosas
+          {{ daysWeekMenu[dayWeek].breakfast }}
         </p>
+
         <p class="create-menu__card__text-day">
-          Comida
+          <span>Snack Morning</span>
           <DiaryButton
             icon="edit"
             size="xs"
             class="create-menu__card__button-edit"
-            color="secondary"
+            color=""
+            :onclick="
+              showDialog(daysWeekMenu[dayWeek].completeName, 'SnackMorning')
+            "
           />
         </p>
         <p class="create-menu__card__text-food">
-          Esto sería lo que yo qiero para desayunar, es bien sano además, habrái
-          que ver más cosas
+          {{ daysWeekMenu[dayWeek].snackMorning }}
         </p>
+
         <p class="create-menu__card__text-day">
-          Merienda
+          <span>Lunch</span>
           <DiaryButton
             icon="edit"
             size="xs"
             class="create-menu__card__button-edit"
-            color="secondary"
+            color=""
+            :onclick="showDialog(daysWeekMenu[dayWeek].completeName, 'Lunch')"
           />
         </p>
         <p class="create-menu__card__text-food">
-          Esto sería lo que yo qiero para desayunar, es bien sano además, habrái
-          que ver más cosas
+          {{ daysWeekMenu[dayWeek].lunch }}
         </p>
+
         <p class="create-menu__card__text-day">
-          Cena
+          <span>SnackEvening</span>
           <DiaryButton
             icon="edit"
             size="xs"
             class="create-menu__card__button-edit"
-            color="secondary"
+            color=""
+            :onclick="
+              showDialog(daysWeekMenu[dayWeek].completeName, 'SnackEvening')
+            "
           />
         </p>
         <p class="create-menu__card__text-food">
-          Esto sería lo que yo qiero para desayunar, es bien sano además, habrái
-          que ver más cosas Esto sería lo que yo qiero para desayunar, es bien
-          sano además, habrái que ver más cosasEsto sería lo que yo qiero para
-          desayunar, es bien sano además, habrái que ver más cosasEsto sería lo
-          que yo qiero para desayunar, es bien sano además, habrái que ver más
-          cosasEsto sería lo que yo qiero para desayunar, es bien sano además,
-          habrái que ver más cosasEsto sería lo que yo qiero para desayunar, es
-          bien sano además, habrái que ver más cosasEsto sería lo que yo qiero
-          para desayunar, es bien sano además, habrái que ver más cosasEsto
-          sería lo que yo qiero para desayunar, es bien sano además, habrái que
-          ver más cosasEsto sería lo que yo qiero para desayunar, es bien sano
-          además, habrái que ver más cosasEsto sería lo que yo qiero para
-          desayunar, es bien sano además, habrái que ver más cosasEsto sería lo
-          que yo qiero para desayunar, es bien sano además, habrái que ver más
-          cosasEsto sería lo que yo qiero para desayunar, es bien sano además,
-          habrái que ver más cosasEsto sería lo que yo qiero para desayunar, es
-          bien sano además, habrái que ver más cosasEsto sería lo que yo qiero
-          para desayunar, es bien sano además, habrái que ver más cosasEsto
-          sería lo que yo qiero para desayunar, es bien sano además, habrái que
-          ver más cosasEsto sería lo que yo qiero para desayunar, es bien sano
-          además, habrái que ver más cosasEsto sería lo que yo qiero para
-          desayunar, es bien sano además, habrái que ver más cosasEsto sería lo
-          que yo qiero para desayunar, es bien sano además, habrái que ver más
-          cosasEsto sería lo que yo qiero para desayunar, es bien sano además,
-          habrái que ver más cosasEsto sería lo que yo qiero para desayunar, es
-          bien sano además, habrái que ver más cosasEsto sería lo que yo qiero
-          para desayunar, es bien sano además, habrái que ver más cosasEsto
-          sería lo que yo qiero para desayunar, es bien sano además, habrái que
-          ver más cosasEsto sería lo que yo qiero para desayunar, es bien sano
-          además, habrái que ver más cosasEsto sería lo que yo qiero para
-          desayunar, es bien sano además, habrái que ver más cosas
+          {{ daysWeekMenu[dayWeek].snackEvening }}
+        </p>
+
+        <p class="create-menu__card__text-day">
+          <span>Dinner</span>
+          <DiaryButton
+            icon="edit"
+            size="xs"
+            class="create-menu__card__button-edit"
+            color=""
+            :onclick="showDialog(dayWeek.completeName, 'Dinner')"
+          />
+        </p>
+        <p class="create-menu__card__text-food">
+          {{ daysWeekMenu[dayWeek].dinner }}
         </p>
       </section>
-      <section class="create-menu__card">
-        <span class="card-title">MARTES</span>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti in sit
-      </section>
-      <section class="create-menu__card">
-        <span class="card-title">MIERCOLES</span>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti in sit
-      </section>
-      <section class="create-menu__card">
-        <span class="card-title">JUEVES</span>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti in sit
-      </section>
-      <section class="create-menu__card">
-        <span class="card-title">VIERNES</span>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti in sit
-      </section>
-      <section class="create-menu__card">
-        <span class="card-title">SÁBADO</span>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti in sit
-      </section>
-      <section class="create-menu__card">
-        <span class="card-title">DOMINGO</span>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti in sit
-      </section>
+
       <section>
         <DialogCreateFood
           v-model="dialogVisible"
@@ -159,7 +198,7 @@ const closeDialog = () => {
   padding: 5px;
   background: var(--gray-ligth);
 }
-.card-title {
+.create-menu__card-title {
   position: absolute;
   top: -46px;
   margin: 0;
@@ -182,6 +221,7 @@ const closeDialog = () => {
 }
 .create-menu__card__text-food {
   line-height: 25px;
+  min-height: 45px;
 }
 
 @media (min-width: 798px) {
@@ -189,7 +229,7 @@ const closeDialog = () => {
     font-size: var(--font-medium-large);
     margin-bottom: var(--spacing-xl);
   }
-  .card-title {
+  .create-menu__card-title {
     top: -57px;
   }
   .create-menu__card__text-food {
