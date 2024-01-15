@@ -2,12 +2,16 @@
 import { ref } from "vue";
 import DiaryButton from "src/components/Button/DiaryButton.vue";
 import DialogCreateFood from "./components/DialogCreateFood.vue";
+import DialogCreateMenuName from "./components/DialogCreateMenuName.vue";
 
-const dialogVisible = ref(false);
+const dialogCreateMenuVisible = ref(false);
+const dialogCreateMenuNameVisible = ref(true);
 const dayWeekSelected = ref("");
 const nameMomentFoodSelected = ref("");
 const completeNameMomentFoodSelected = ref("");
 const descriptionFoodSelected = ref("");
+
+const menuCreated = ref(false);
 
 const daysWeekMenu = ref({
   monday: {
@@ -86,7 +90,7 @@ const showDialog = (
     nameMomentFoodSelected.value = nameMomentFood;
     completeNameMomentFoodSelected.value = completeNameMomentFood;
     descriptionFoodSelected.value = descriptionFood;
-    dialogVisible.value = true;
+    dialogCreateMenuVisible.value = true;
   };
 };
 
@@ -99,7 +103,7 @@ const saveFood = (descriptionFood) => {
 };
 
 const closeDialog = () => {
-  dialogVisible.value = false;
+  dialogCreateMenuVisible.value = false;
 };
 </script>
 
@@ -107,121 +111,129 @@ const closeDialog = () => {
   <div>
     <span class="head-diary-food head-subtitle">{{ $t("create_menu") }}</span>
     <main class="page-my-diary-food">
-      <section
-        class="create-menu__card"
-        v-for="dayWeek in Object.keys(daysWeekMenu)"
-        :key="dayWeek"
-      >
-        <span class="create-menu__card-title">{{ dayWeek.toUpperCase() }}</span>
-        <p class="create-menu__card__text-day">
-          <span>Breakfast</span>
-          <DiaryButton
-            icon="edit"
-            size="xs"
-            class="create-menu__card__button-edit"
-            color=""
-            :onclick="
-              showDialog(
-                daysWeekMenu[dayWeek].completeName,
-                'breakfast',
-                'Breakfast',
-                daysWeekMenu[dayWeek]['breakfast']
-              )
-            "
-          />
-        </p>
-        <p class="create-menu__card__text-food">
-          {{ daysWeekMenu[dayWeek].breakfast }}
-        </p>
+      <div v-if="!dialogCreateMenuNameVisible">
+        <section
+          class="create-menu__card"
+          v-for="dayWeek in Object.keys(daysWeekMenu)"
+          :key="dayWeek"
+        >
+          <span class="create-menu__card-title">{{
+            dayWeek.toUpperCase()
+          }}</span>
+          <p class="create-menu__card__text-day">
+            <span>Breakfast</span>
+            <DiaryButton
+              icon="edit"
+              size="xs"
+              class="create-menu__card__button-edit"
+              color=""
+              :onclick="
+                showDialog(
+                  daysWeekMenu[dayWeek].completeName,
+                  'breakfast',
+                  'Breakfast',
+                  daysWeekMenu[dayWeek]['breakfast']
+                )
+              "
+            />
+          </p>
+          <p class="create-menu__card__text-food">
+            {{ daysWeekMenu[dayWeek].breakfast }}
+          </p>
 
-        <p class="create-menu__card__text-day">
-          <span>Snack Morning</span>
-          <DiaryButton
-            icon="edit"
-            size="xs"
-            class="create-menu__card__button-edit"
-            color=""
-            :onclick="
-              showDialog(
-                daysWeekMenu[dayWeek].completeName,
-                'snackmorning',
-                'Snack Morning',
-                daysWeekMenu[dayWeek]['snackmorning']
-              )
-            "
-          />
-        </p>
-        <p class="create-menu__card__text-food">
-          {{ daysWeekMenu[dayWeek].snackmorning }}
-        </p>
+          <p class="create-menu__card__text-day">
+            <span>Snack Morning</span>
+            <DiaryButton
+              icon="edit"
+              size="xs"
+              class="create-menu__card__button-edit"
+              color=""
+              :onclick="
+                showDialog(
+                  daysWeekMenu[dayWeek].completeName,
+                  'snackmorning',
+                  'Snack Morning',
+                  daysWeekMenu[dayWeek]['snackmorning']
+                )
+              "
+            />
+          </p>
+          <p class="create-menu__card__text-food">
+            {{ daysWeekMenu[dayWeek].snackmorning }}
+          </p>
 
-        <p class="create-menu__card__text-day">
-          <span>Lunch</span>
-          <DiaryButton
-            icon="edit"
-            size="xs"
-            class="create-menu__card__button-edit"
-            color=""
-            :onclick="
-              showDialog(
-                daysWeekMenu[dayWeek].completeName,
-                'lunch',
-                'Lunch',
-                daysWeekMenu[dayWeek]['lunch']
-              )
-            "
-          />
-        </p>
-        <p class="create-menu__card__text-food">
-          {{ daysWeekMenu[dayWeek].lunch }}
-        </p>
+          <p class="create-menu__card__text-day">
+            <span>Lunch</span>
+            <DiaryButton
+              icon="edit"
+              size="xs"
+              class="create-menu__card__button-edit"
+              color=""
+              :onclick="
+                showDialog(
+                  daysWeekMenu[dayWeek].completeName,
+                  'lunch',
+                  'Lunch',
+                  daysWeekMenu[dayWeek]['lunch']
+                )
+              "
+            />
+          </p>
+          <p class="create-menu__card__text-food">
+            {{ daysWeekMenu[dayWeek].lunch }}
+          </p>
 
-        <p class="create-menu__card__text-day">
-          <span>Snack Evening</span>
-          <DiaryButton
-            icon="edit"
-            size="xs"
-            class="create-menu__card__button-edit"
-            color=""
-            :onclick="
-              showDialog(
-                daysWeekMenu[dayWeek].completeName,
-                'snackevening',
-                'Snack Evening',
-                daysWeekMenu[dayWeek]['snackevening']
-              )
-            "
-          />
-        </p>
-        <p class="create-menu__card__text-food">
-          {{ daysWeekMenu[dayWeek].snackevening }}
-        </p>
+          <p class="create-menu__card__text-day">
+            <span>Snack Evening</span>
+            <DiaryButton
+              icon="edit"
+              size="xs"
+              class="create-menu__card__button-edit"
+              color=""
+              :onclick="
+                showDialog(
+                  daysWeekMenu[dayWeek].completeName,
+                  'snackevening',
+                  'Snack Evening',
+                  daysWeekMenu[dayWeek]['snackevening']
+                )
+              "
+            />
+          </p>
+          <p class="create-menu__card__text-food">
+            {{ daysWeekMenu[dayWeek].snackevening }}
+          </p>
 
-        <p class="create-menu__card__text-day">
-          <span>Dinner</span>
-          <DiaryButton
-            icon="edit"
-            size="xs"
-            class="create-menu__card__button-edit"
-            color=""
-            :onclick="
-              showDialog(
-                dayWeek.completeName,
-                'dinner',
-                'Dinner',
-                daysWeekMenu[dayWeek]['dinner']
-              )
-            "
-          />
-        </p>
-        <p class="create-menu__card__text-food">
-          {{ daysWeekMenu[dayWeek].dinner }}
-        </p>
+          <p class="create-menu__card__text-day">
+            <span>Dinner</span>
+            <DiaryButton
+              icon="edit"
+              size="xs"
+              class="create-menu__card__button-edit"
+              color=""
+              :onclick="
+                showDialog(
+                  dayWeek.completeName,
+                  'dinner',
+                  'Dinner',
+                  daysWeekMenu[dayWeek]['dinner']
+                )
+              "
+            />
+          </p>
+          <p class="create-menu__card__text-food">
+            {{ daysWeekMenu[dayWeek].dinner }}
+          </p>
+        </section>
+      </div>
+
+      <section v-if="dialogCreateMenuNameVisible">
+        <DialogCreateMenuName :dialog-visible="dialogCreateMenuNameVisible" />
       </section>
 
       <section>
         <DialogCreateFood
-          v-model="dialogVisible"
+          v-model="dialogCreateMenuVisible"
           :day-week="dayWeekSelected"
           :name-moment-food="completeNameMomentFoodSelected"
           :description-food-prop="descriptionFoodSelected"

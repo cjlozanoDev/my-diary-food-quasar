@@ -23,6 +23,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  placeholder: {
+    type: String,
+    default: "",
+  },
   reactiveRules: {
     type: Boolean,
     default: false,
@@ -69,6 +73,7 @@ const value = computed({
     :type="type"
     :label="label"
     :lazy-rules="lazyRules"
+    :placeholder="placeholder"
     :reactive-rules="reactiveRules"
     :rules="rules"
     :color="color"
