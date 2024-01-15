@@ -25,7 +25,7 @@ const closeDialog = () => {
 };
 
 const createMenu = () => {
-  emit("save-food", descriptionFood.value);
+  emit("create-menu", nameMenu.value);
 };
 </script>
 

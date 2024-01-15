@@ -1,17 +1,14 @@
-import { getDocs, db, collection, query, where } from "./firebase";
+import { getDocs, addDoc, db, collection, query, where } from "./firebase";
+
+const userStoreLocalStorage = JSON.parse(localStorage.getItem("userStore"));
+const userUid = userStoreLocalStorage.uid;
 
 const getMenusUserApi = () => {
-  const userStoreLocalStorage = JSON.parse(localStorage.getItem("userStore"));
-  const userUid = userStoreLocalStorage.uid;
-
   const q = query(collection(db, "menus"), where("creatorUid", "==", userUid));
   return getDocs(q);
 };
 
 const getCurrenMenuApi = () => {
-  const userStoreLocalStorage = JSON.parse(localStorage.getItem("userStore"));
-  const userUid = userStoreLocalStorage.uid;
-
   const q = query(
     collection(db, "menus"),
     where("creatorUid", "==", userUid),
@@ -20,4 +17,14 @@ const getCurrenMenuApi = () => {
   return getDocs(q);
 };
 
-export { getMenusUserApi, getCurrenMenuApi };
+const createMenuApi = (nameMenu, menu, props = { currentMenu: false }) => {
+  return addDoc(collection(db, "menus"), {
+    creatorUid: userUid,
+    currentMenu: props.currentMenu,
+    name: nameMenu,
+    menu,
+    created_at: Date.now(),
+  });
+};
+
+export { getMenusUserApi, getCurrenMenuApi, createMenuApi };

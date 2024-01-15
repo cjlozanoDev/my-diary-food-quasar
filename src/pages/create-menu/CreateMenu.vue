@@ -1,9 +1,15 @@
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
+import { createMenuApi } from "src/api/menus";
 import DiaryButton from "src/components/Button/DiaryButton.vue";
 import DialogCreateFood from "./components/DialogCreateFood.vue";
 import DialogCreateMenuName from "./components/DialogCreateMenuName.vue";
 
+const { t } = useI18n();
+
+const router = useRouter();
 const dialogCreateMenuVisible = ref(false);
 const dialogCreateMenuNameVisible = ref(true);
 const dayWeekSelected = ref("");
@@ -79,16 +85,11 @@ const daysWeekMenu = ref({
   },
 });
 
-const showDialog = (
-  dayWeek,
-  nameMomentFood,
-  completeNameMomentFood,
-  descriptionFood
-) => {
+const showDialog = (dayWeek, nameMomentFood, descriptionFood) => {
   return () => {
-    dayWeekSelected.value = dayWeek;
+    dayWeekSelected.value = t(`${dayWeek}`);
     nameMomentFoodSelected.value = nameMomentFood;
-    completeNameMomentFoodSelected.value = completeNameMomentFood;
+    completeNameMomentFoodSelected.value = t(`${nameMomentFood}`);
     descriptionFoodSelected.value = descriptionFood;
     dialogCreateMenuVisible.value = true;
   };
@@ -105,23 +106,42 @@ const saveFood = (descriptionFood) => {
 const closeDialog = () => {
   dialogCreateMenuVisible.value = false;
 };
+
+const backToHome = () => {
+  router.push({ name: "Home" });
+};
+
+const createMenu = async (nameMenu) => {
+  menuCreated.value = nameMenu;
+  dialogCreateMenuNameVisible.value = false;
+  try {
+    await createMenuApi(nameMenu, JSON.stringify(daysWeekMenu.value), {
+      currentMenu: true,
+    });
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
 </script>
 
 <template>
   <div>
     <span class="head-diary-food head-subtitle">{{ $t("create_menu") }}</span>
     <main class="page-my-diary-food">
-      <div v-if="!dialogCreateMenuNameVisible">
+      <div
+        class="page-my-diary-food__container__menu"
+        v-if="!dialogCreateMenuNameVisible"
+      >
         <section
           class="create-menu__card"
           v-for="dayWeek in Object.keys(daysWeekMenu)"
           :key="dayWeek"
         >
           <span class="create-menu__card-title">{{
-            dayWeek.toUpperCase()
+            $t(`${dayWeek}`).toUpperCase()
           }}</span>
           <p class="create-menu__card__text-day">
-            <span>Breakfast</span>
+            <span>{{ $t("breakfast") }}</span>
             <DiaryButton
               icon="edit"
               size="xs"
@@ -129,9 +149,8 @@ const closeDialog = () => {
               color=""
               :onclick="
                 showDialog(
-                  daysWeekMenu[dayWeek].completeName,
+                  daysWeekMenu[dayWeek].traductorName,
                   'breakfast',
-                  'Breakfast',
                   daysWeekMenu[dayWeek]['breakfast']
                 )
               "
@@ -142,7 +161,7 @@ const closeDialog = () => {
           </p>
 
           <p class="create-menu__card__text-day">
-            <span>Snack Morning</span>
+            <span>{{ $t("snackmorning") }}</span>
             <DiaryButton
               icon="edit"
               size="xs"
@@ -150,9 +169,8 @@ const closeDialog = () => {
               color=""
               :onclick="
                 showDialog(
-                  daysWeekMenu[dayWeek].completeName,
+                  daysWeekMenu[dayWeek].traductorName,
                   'snackmorning',
-                  'Snack Morning',
                   daysWeekMenu[dayWeek]['snackmorning']
                 )
               "
@@ -163,7 +181,7 @@ const closeDialog = () => {
           </p>
 
           <p class="create-menu__card__text-day">
-            <span>Lunch</span>
+            <span>{{ $t("lunch") }}</span>
             <DiaryButton
               icon="edit"
               size="xs"
@@ -171,9 +189,8 @@ const closeDialog = () => {
               color=""
               :onclick="
                 showDialog(
-                  daysWeekMenu[dayWeek].completeName,
+                  daysWeekMenu[dayWeek].traductorName,
                   'lunch',
-                  'Lunch',
                   daysWeekMenu[dayWeek]['lunch']
                 )
               "
@@ -184,7 +201,7 @@ const closeDialog = () => {
           </p>
 
           <p class="create-menu__card__text-day">
-            <span>Snack Evening</span>
+            <span>{{ $t("snackevening") }}</span>
             <DiaryButton
               icon="edit"
               size="xs"
@@ -192,9 +209,8 @@ const closeDialog = () => {
               color=""
               :onclick="
                 showDialog(
-                  daysWeekMenu[dayWeek].completeName,
+                  daysWeekMenu[dayWeek].traductorName,
                   'snackevening',
-                  'Snack Evening',
                   daysWeekMenu[dayWeek]['snackevening']
                 )
               "
@@ -205,7 +221,7 @@ const closeDialog = () => {
           </p>
 
           <p class="create-menu__card__text-day">
-            <span>Dinner</span>
+            <span>{{ $t("dinner") }}</span>
             <DiaryButton
               icon="edit"
               size="xs"
@@ -215,7 +231,6 @@ const closeDialog = () => {
                 showDialog(
                   dayWeek.completeName,
                   'dinner',
-                  'Dinner',
                   daysWeekMenu[dayWeek]['dinner']
                 )
               "
@@ -227,8 +242,12 @@ const closeDialog = () => {
         </section>
       </div>
 
-      <section v-if="dialogCreateMenuNameVisible">
-        <DialogCreateMenuName :dialog-visible="dialogCreateMenuNameVisible" />
+      <section v-else>
+        <DialogCreateMenuName
+          :dialog-visible="dialogCreateMenuNameVisible"
+          @create-menu="createMenu"
+          @close-dialog="backToHome"
+        />
       </section>
 
       <section>
@@ -246,6 +265,12 @@ const closeDialog = () => {
 </template>
 
 <style scoped>
+.page-my-diary-food__container__menu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .create-menu__card {
   position: relative;
   width: 100%;
