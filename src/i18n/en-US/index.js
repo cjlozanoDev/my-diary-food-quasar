@@ -17,6 +17,7 @@ export default {
   label_your_current_menu: "Your current menu",
   loading: "Loading...",
   lunch: "Lunch",
+  max_characters: "Max {number} characters",
   min_characters: "Min {number} characters",
   monday: "Monday",
   no_menu_created: "It looks like you haven't created any menus yet",

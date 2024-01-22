@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import DiaryButton from "src/components/Button/DiaryButton.vue";
 import DiaryInput from "src/components/Input/DiaryInput.vue";
 
@@ -12,6 +12,7 @@ const props = defineProps({
   },
 });
 
+const numMaxCharacters = 80;
 const nameMenu = ref("");
 
 const value = computed({
@@ -42,23 +43,36 @@ const createMenu = () => {
       </q-card-section>
 
       <q-card-section class="q-pt-none">
-        <DiaryInput
-          class="text-area"
-          v-model="nameMenu"
-          type="text"
-          placeholder="Sin nombre"
-        />
+        <q-form @submit.prevent="createMenu">
+          <DiaryInput
+            class="text-area"
+            v-model="nameMenu"
+            :counter="true"
+            type="text"
+            placeholder="Sin nombre"
+            :hint="`${
+              nameMenu.length > numMaxCharacters
+                ? ''
+                : $t('max_characters', { number: numMaxCharacters })
+            }`"
+            :rules="[
+              (val) => (val && val.length > 0) || $t('type_something'),
+              (val) =>
+                (val && val.length < numMaxCharacters) ||
+                $t('max_characters', { number: numMaxCharacters }),
+            ]"
+          />
+          <div class="q-form__actions">
+            <DiaryButton
+              flat
+              label="cancel"
+              color="secondary"
+              :onclick="closeDialog"
+            />
+            <DiaryButton label="Aceptar" color="secondary" type="submit" />
+          </div>
+        </q-form>
       </q-card-section>
-
-      <q-card-actions align="right" class="text-primary">
-        <DiaryButton
-          flat
-          label="cancel"
-          color="secondary"
-          :onclick="closeDialog"
-        />
-        <DiaryButton label="Aceptar" color="secondary" :onclick="createMenu" />
-      </q-card-actions>
     </q-card>
   </q-dialog>
 </template>
@@ -74,6 +88,12 @@ const createMenu = () => {
 }
 .text-name-moment-food {
   font-style: italic;
+}
+.q-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
 }
 @media (min-width: 768px) {
   .dialog-create-menu-name {

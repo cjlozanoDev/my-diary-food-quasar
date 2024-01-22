@@ -11,6 +11,14 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  counter: {
+    type: Boolean,
+    default: false,
+  },
+  hint: {
+    type: String,
+    default: "",
+  },
   label: {
     type: String,
     default: undefined,
@@ -71,11 +79,13 @@ const value = computed({
     outlined
     v-model="value"
     :type="type"
+    :hint="hint"
     :label="label"
     :lazy-rules="lazyRules"
     :placeholder="placeholder"
     :reactive-rules="reactiveRules"
     :rules="rules"
     :color="color"
+    :counter="counter"
   />
 </template>
