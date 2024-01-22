@@ -1,4 +1,13 @@
-import { getDocs, addDoc, db, collection, query, where } from "./firebase";
+import {
+  getDocs,
+  addDoc,
+  updateDoc,
+  db,
+  doc,
+  collection,
+  query,
+  where,
+} from "./firebase";
 
 const userStoreLocalStorage = JSON.parse(localStorage.getItem("userStore"));
 const userUid = userStoreLocalStorage.uid;
@@ -26,5 +35,11 @@ const createMenuApi = (nameMenu, menu, props = { currentMenu: false }) => {
     created_at: Date.now(),
   });
 };
+const updateMenuApi = (idMenu, menu) => {
+  const docRef = doc(db, "menus", idMenu);
+  return updateDoc(docRef, {
+    menu: JSON.stringify(menu),
+  });
+};
 
-export { getMenusUserApi, getCurrenMenuApi, createMenuApi };
+export { getMenusUserApi, getCurrenMenuApi, createMenuApi, updateMenuApi };

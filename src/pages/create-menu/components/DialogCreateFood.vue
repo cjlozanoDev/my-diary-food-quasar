@@ -50,8 +50,8 @@ const saveFood = () => {
     <q-card class="dialog-create-food">
       <q-card-section class="dialog-create-food__card__section-head">
         <div>
-          <div class="text-h6">{{ dayWeek }}</div>
-          <span class="text-name-moment-food"> {{ nameMomentFood }}</span>
+          <div class="text-h6">{{ $t(dayWeek) }}</div>
+          <span class="text-name-moment-food"> {{ $t(nameMomentFood) }} </span>
         </div>
         <q-avatar square>
           <img src="src/assets/tablePencil.png" />

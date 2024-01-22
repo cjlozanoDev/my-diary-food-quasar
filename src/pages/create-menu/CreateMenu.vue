@@ -1,23 +1,20 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useI18n } from "vue-i18n";
-import { createMenuApi } from "src/api/menus";
+import { createMenuApi, updateMenuApi } from "src/api/menus";
 import DiaryButton from "src/components/Button/DiaryButton.vue";
 import DialogCreateFood from "./components/DialogCreateFood.vue";
 import DialogCreateMenuName from "./components/DialogCreateMenuName.vue";
-
-const { t } = useI18n();
 
 const router = useRouter();
 const dialogCreateMenuVisible = ref(false);
 const dialogCreateMenuNameVisible = ref(true);
 const dayWeekSelected = ref("");
 const nameMomentFoodSelected = ref("");
-const completeNameMomentFoodSelected = ref("");
 const descriptionFoodSelected = ref("");
 
 const menuCreated = ref(false);
+const menuId = ref(null);
 
 const daysWeekMenu = ref({
   monday: {
@@ -87,19 +84,24 @@ const daysWeekMenu = ref({
 
 const showDialog = (dayWeek, nameMomentFood, descriptionFood) => {
   return () => {
-    dayWeekSelected.value = t(`${dayWeek}`);
+    dayWeekSelected.value = dayWeek;
     nameMomentFoodSelected.value = nameMomentFood;
-    completeNameMomentFoodSelected.value = t(`${nameMomentFood}`);
     descriptionFoodSelected.value = descriptionFood;
     dialogCreateMenuVisible.value = true;
   };
 };
 
-const saveFood = (descriptionFood) => {
+const saveFood = async (descriptionFood) => {
   const dayWeek = dayWeekSelected.value.toLocaleLowerCase();
   const nameFood = nameMomentFoodSelected.value;
 
   daysWeekMenu.value[dayWeek][nameFood] = descriptionFood;
+
+  try {
+    await updateMenuApi(menuId.value, daysWeekMenu.value);
+  } catch (error) {
+    throw new Error(error.message);
+  }
   closeDialog();
 };
 
@@ -115,9 +117,14 @@ const createMenu = async (nameMenu) => {
   menuCreated.value = nameMenu;
   dialogCreateMenuNameVisible.value = false;
   try {
-    await createMenuApi(nameMenu, JSON.stringify(daysWeekMenu.value), {
-      currentMenu: true,
-    });
+    const menuRef = await createMenuApi(
+      nameMenu,
+      JSON.stringify(daysWeekMenu.value),
+      {
+        currentMenu: true,
+      }
+    );
+    menuId.value = menuRef.id;
   } catch (error) {
     throw new Error(error.message);
   }
@@ -254,7 +261,7 @@ const createMenu = async (nameMenu) => {
         <DialogCreateFood
           v-model="dialogCreateMenuVisible"
           :day-week="dayWeekSelected"
-          :name-moment-food="completeNameMomentFoodSelected"
+          :name-moment-food="nameMomentFoodSelected"
           :description-food-prop="descriptionFoodSelected"
           @saveFood="saveFood"
           @close-dialog="closeDialog"
