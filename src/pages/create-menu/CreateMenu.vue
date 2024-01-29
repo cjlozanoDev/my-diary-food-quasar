@@ -191,14 +191,15 @@ const {
   border: 2px solid black; /* Grosor y color del borde del título */
 }
 .create-menu__card__text-day {
-  background: var(--q-accent);
+  background: var(--brown);
   border-radius: 19px;
   padding: 5px;
   color: white;
 }
 .create-menu__card__button-edit {
   padding: 5px;
-  background-color: var(--brown);
+  margin-left: 10px;
+  background: var(--brown-ligth-medium);
 }
 .create-menu__card__text-food {
   line-height: 25px;
