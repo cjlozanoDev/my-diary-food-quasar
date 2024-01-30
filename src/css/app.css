@@ -9,17 +9,18 @@ body {
   margin: 0;
 }
 body::before {
-  content: ""; /* Contenido vacío para que el ::before se visualice */
+  content: "";
   background-image: url("../assets/patternFood.png");
   background-color: #f6e7cb;
-  background-size: 40%;
-  position: absolute;
+  background-repeat: repeat;
+  background-size: 200px;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   opacity: 0.5;
-  z-index: -1; /* Coloca el ::before detrás del contenido del body */
+  z-index: -1;
 }
 a {
   text-decoration: none;
@@ -72,11 +73,11 @@ a {
 
 @media (min-width: 798px) {
   body::before {
-    background-size: 40%;
+    background-size: 250px;
   }
 }
 @media (min-width: 992px) {
   body::before {
-    background-size: 33%;
+    background-size: 300px;
   }
 }

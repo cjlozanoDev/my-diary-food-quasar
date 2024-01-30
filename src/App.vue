@@ -14,6 +14,8 @@ export default defineComponent({
 </script>
 
 <template>
-  <LoadingPage />
-  <router-view />
+  <div class="content">
+    <LoadingPage />
+    <router-view />
+  </div>
 </template>
