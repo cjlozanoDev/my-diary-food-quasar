@@ -23,6 +23,19 @@ const {
   <div>
     <span class="head-diary-food head-subtitle">{{ $t("create_menu") }}</span>
     <main class="page-my-diary-food">
+      <section v-if="!dialogCreateMenuNameVisible" class="section__name-menu">
+        <div class="section__name-menu__label">
+          <img
+            class="create_menu__img-dish"
+            src="src/assets/dish.svg"
+            alt="icon dish with name Menu"
+          />
+          <span>
+            Nombre del menú: Alguno asdfasd fas fasdfa sdfa sfsfnsa
+            fnasldnflasldkf als lfak sfkdlas
+          </span>
+        </div>
+      </section>
       <div
         class="page-my-diary-food__container__menu"
         v-if="!dialogCreateMenuNameVisible"
@@ -124,7 +137,7 @@ const {
               color=""
               :onclick="
                 showDialog(
-                  dayWeek.completeName,
+                  daysWeekMenu[dayWeek].traductorName,
                   'dinner',
                   daysWeekMenu[dayWeek]['dinner']
                 )
@@ -165,6 +178,24 @@ const {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.section__name-menu {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: right;
+}
+.section__name-menu__label {
+  background-color: white;
+  border: 2px solid;
+  border-radius: 100px 15px 100px 10px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 28px;
+}
+.create_menu__img-dish {
+  width: 80px;
 }
 .create-menu__card {
   position: relative;
