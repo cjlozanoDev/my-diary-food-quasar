@@ -59,7 +59,7 @@ const { username, email, password, errorEmailAlreadyInUse, onSubmit } =
                 :rules="[
                   (val) => (val && val.length > 0) || $t('type_something'),
                 ]"
-                color="secondary"
+                color="primary"
               />
 
               <DiaryInput
@@ -72,7 +72,7 @@ const { username, email, password, errorEmailAlreadyInUse, onSubmit } =
                 :rules="[
                   (val) => (val && val.length > 0) || $t('type_something'),
                 ]"
-                color="secondary"
+                color="primary"
               />
               <DiaryInput
                 v-model="password"
@@ -87,14 +87,14 @@ const { username, email, password, errorEmailAlreadyInUse, onSubmit } =
                     (val && val.length > 5) ||
                     $t('min_characters', { number: 6 }),
                 ]"
-                color="secondary"
+                color="primary"
               />
 
               <div class="section_form__actions">
                 <DiaryButton
                   :label="$t('create_account')"
                   type="submit"
-                  color="secondary"
+                  color="primary"
                   class="btn-create-account"
                 />
               </div>

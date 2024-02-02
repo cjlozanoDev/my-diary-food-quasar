@@ -40,7 +40,7 @@ const goToLogin = () => {
         <DiaryButton
           outline
           :label="$t('back')"
-          color="secondary"
+          color="primary"
           icon="arrow_back"
           @click="goToLogin"
         />
@@ -66,7 +66,7 @@ const goToLogin = () => {
   height: 80px;
 }
 .create-account-layout__footer {
-  background-color: var(--orange-light);
+  background-color: var(--steel);
   color: black;
 }
 @media (min-width: 991px) {

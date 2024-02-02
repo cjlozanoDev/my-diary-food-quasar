@@ -11,7 +11,7 @@ body {
 body::before {
   content: "";
   background-image: url("../assets/patternFood.png");
-  background-color: #f6e7cb;
+  background-color: #d5d8cf;
   background-repeat: repeat;
   background-size: 200px;
   position: fixed;
@@ -19,19 +19,19 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  opacity: 0.5;
+  opacity: 0.2;
   z-index: -1;
 }
 a {
   text-decoration: none;
-  color: var(--q-secondary);
+  color: var(--q-primary);
 }
 .banner-error {
   color: white;
   background-color: var(--q-negative);
 }
 .head-diary-food {
-  background-color: var(--q-info);
+  background-color: var(--q-tertiary);
   display: block;
   text-align: center;
   padding: var(--spacing-sm);

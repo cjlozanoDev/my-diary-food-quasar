@@ -1,8 +1,8 @@
 :root {
   /* colors */
-  --q-primary: #faf7f4;
-  --q-secondary: #b85981;
-  --q-tertiary: #7b7e81;
+  --q-primary: #a85690;
+  --q-secondary: #b37841;
+  --q-tertiary: #89b5bf;
   --q-accent: #e04f2e;
   --q-info: #eaac82;
   --q-negative: #c10015;
@@ -10,9 +10,14 @@
   --brown: #974c00;
   --brown-ligth: #deb599;
   --brown-ligth-medium: #d17e46;
+
   --gray: #9d9d9d;
   --gray-ligth: #fcfcfc;
+  --gray-steel: #d5d8cf;
+
   --orange-light: #fdca8f;
+
+  --steel: #576669;
 
   /* Font size variables */
 

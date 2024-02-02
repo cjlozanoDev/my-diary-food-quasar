@@ -33,7 +33,7 @@ const goToBackPage = () => {
 
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-header elevated class="bg-secondary text-white" height-hint="98">
+    <q-header elevated class="main-layout__header text-white" height-hint="98">
       <q-toolbar>
         <q-toolbar-title>
           <q-avatar
@@ -48,7 +48,7 @@ const goToBackPage = () => {
             class="main-layout__button-icon-back"
             name="arrow_back"
             flat
-            color="primary"
+            color="#fff"
             icon="arrow_back"
             :onclick="goToBackPage"
           />
@@ -98,7 +98,7 @@ const goToBackPage = () => {
       <router-view />
     </q-page-container>
 
-    <q-footer elevated class="bg-grey-8 text-white">
+    <q-footer elevated class="main-layout__footer text-white">
       <q-toolbar>
         <q-toolbar-title>
           <q-avatar>
@@ -112,6 +112,9 @@ const goToBackPage = () => {
 </template>
 
 <style scoped>
+.main-layout__header {
+  background-color: var(--steel);
+}
 .main-layout__button-icon-back {
   margin-right: var(--spacing-sm);
   padding-left: 0;
@@ -122,9 +125,15 @@ const goToBackPage = () => {
 .main-layout__name-page {
   font-size: var(--font-medium);
 }
+.main-layout__footer {
+  background-color: var(--q-tertiary);
+}
 .q-toolbar__title {
   display: flex;
   align-items: center;
+}
+.q-btn--dense.q-btn--round {
+  color: white !important;
 }
 
 @media (min-width: 991px) {

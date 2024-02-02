@@ -66,10 +66,10 @@ const createMenu = () => {
             <DiaryButton
               flat
               label="cancel"
-              color="secondary"
+              color="primary"
               :onclick="closeDialog"
             />
-            <DiaryButton label="Aceptar" color="secondary" type="submit" />
+            <DiaryButton label="Aceptar" color="primary" type="submit" />
           </div>
         </q-form>
       </q-card-section>

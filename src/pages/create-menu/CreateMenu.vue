@@ -30,10 +30,7 @@ const {
             src="src/assets/dish.svg"
             alt="icon dish with name Menu"
           />
-          <span>
-            Nombre del menú: Alguno asdfasd fas fasdfa sdfa sfsfnsa
-            fnasldnflasldkf als lfak sfkdlas
-          </span>
+          <span> Nombre del menú: Marikey menu verduras </span>
         </div>
       </section>
       <div

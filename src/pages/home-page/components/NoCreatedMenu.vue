@@ -26,7 +26,7 @@ const goToCreateMenu = () => {
     <section class="section__create-menu">
       <p class="text-create-menu">{{ $t("create_first_menu") }}</p>
       <DiaryButton
-        color="secondary"
+        color="primary"
         :onclick="goToCreateMenu"
         label="Crear menú"
       />

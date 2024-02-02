@@ -71,10 +71,10 @@ const saveFood = () => {
         <DiaryButton
           flat
           label="cancel"
-          color="secondary"
+          color="primary"
           :onclick="closeDialog"
         />
-        <DiaryButton label="Aceptar" color="secondary" :onclick="saveFood" />
+        <DiaryButton label="Aceptar" color="primary" :onclick="saveFood" />
       </q-card-actions>
     </q-card>
   </q-dialog>
