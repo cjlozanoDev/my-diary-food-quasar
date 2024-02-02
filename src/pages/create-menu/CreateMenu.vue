@@ -3,6 +3,9 @@ import DiaryButton from "src/components/Button/DiaryButton.vue";
 import DialogCreateFood from "./components/DialogCreateFood.vue";
 import DialogCreateMenuName from "./components/DialogCreateMenuName.vue";
 import { useCreateFood } from "./composables/useCreateFood";
+import { ref } from "vue";
+
+const tab = ref("monday");
 
 const {
   backToHome,
@@ -21,19 +24,142 @@ const {
 
 <template>
   <div>
-    <span class="head-diary-food head-subtitle">{{ $t("create_menu") }}</span>
+    <span class="head-diary-food head-subtitle">Nombre: Menú alpiste</span>
     <main class="page-my-diary-food">
-      <section v-if="!dialogCreateMenuNameVisible" class="section__name-menu">
-        <div class="section__name-menu__label">
-          <img
-            class="create_menu__img-dish"
-            src="src/assets/dish.svg"
-            alt="icon dish with name Menu"
-          />
-          <span> Nombre del menú: Marikey menu verduras </span>
-        </div>
-      </section>
-      <div
+      <q-tabs
+        v-if="!dialogCreateMenuNameVisible"
+        v-model="tab"
+        inline-label
+        outside-arrows
+        mobile-arrows
+        class="bg-primary text-white shadow-2 full-width"
+      >
+        <q-tab name="monday" icon="today" label="Lunes"></q-tab>
+        <q-tab name="tuesday" icon="today" label="Martes"></q-tab>
+        <q-tab name="wednesday" icon="today" label="Miércoles"></q-tab>
+        <q-tab name="thursday" icon="today" label="Jueves"></q-tab>
+        <q-tab name="friday" icon="today" label="Viernes"></q-tab>
+        <q-tab name="saturday" icon="today" label="Sábado"></q-tab>
+        <q-tab name="sunday" icon="today" label="Domingo"></q-tab>
+      </q-tabs>
+
+      <q-tab-panels
+        v-if="!dialogCreateMenuNameVisible"
+        class="tab_panels"
+        v-model="tab"
+        animated
+      >
+        <q-tab-panel
+          v-for="dayWeek in Object.keys(daysWeekMenu)"
+          :key="dayWeek"
+          :name="dayWeek"
+        >
+          <span class="create-menu__card-title">{{
+            $t(`${dayWeek}`).toUpperCase()
+          }}</span>
+          <p class="create-menu__card__text-day">
+            <span>{{ $t("breakfast") }}</span>
+            <DiaryButton
+              icon="edit"
+              size="xs"
+              class="create-menu__card__button-edit"
+              color=""
+              :onclick="
+                showDialog(
+                  daysWeekMenu[dayWeek].traductorName,
+                  'breakfast',
+                  daysWeekMenu[dayWeek]['breakfast']
+                )
+              "
+            />
+          </p>
+          <p class="create-menu__card__text-food">
+            {{ daysWeekMenu[dayWeek].breakfast }}
+          </p>
+
+          <p class="create-menu__card__text-day">
+            <span>{{ $t("snackmorning") }}</span>
+            <DiaryButton
+              icon="edit"
+              size="xs"
+              class="create-menu__card__button-edit"
+              color=""
+              :onclick="
+                showDialog(
+                  daysWeekMenu[dayWeek].traductorName,
+                  'snackmorning',
+                  daysWeekMenu[dayWeek]['snackmorning']
+                )
+              "
+            />
+          </p>
+          <p class="create-menu__card__text-food">
+            {{ daysWeekMenu[dayWeek].snackmorning }}
+          </p>
+
+          <p class="create-menu__card__text-day">
+            <span>{{ $t("lunch") }}</span>
+            <DiaryButton
+              icon="edit"
+              size="xs"
+              class="create-menu__card__button-edit"
+              color=""
+              :onclick="
+                showDialog(
+                  daysWeekMenu[dayWeek].traductorName,
+                  'lunch',
+                  daysWeekMenu[dayWeek]['lunch']
+                )
+              "
+            />
+          </p>
+          <p class="create-menu__card__text-food">
+            {{ daysWeekMenu[dayWeek].lunch }}
+          </p>
+
+          <p class="create-menu__card__text-day">
+            <span>{{ $t("snackevening") }}</span>
+            <DiaryButton
+              icon="edit"
+              size="xs"
+              class="create-menu__card__button-edit"
+              color=""
+              :onclick="
+                showDialog(
+                  daysWeekMenu[dayWeek].traductorName,
+                  'snackevening',
+                  daysWeekMenu[dayWeek]['snackevening']
+                )
+              "
+            />
+          </p>
+          <p class="create-menu__card__text-food">
+            {{ daysWeekMenu[dayWeek].snackevening }}
+          </p>
+
+          <p class="create-menu__card__text-day">
+            <span>{{ $t("dinner") }}</span>
+            <DiaryButton
+              icon="edit"
+              size="xs"
+              class="create-menu__card__button-edit"
+              color=""
+              :onclick="
+                showDialog(
+                  daysWeekMenu[dayWeek].traductorName,
+                  'dinner',
+                  daysWeekMenu[dayWeek]['dinner']
+                )
+              "
+            />
+          </p>
+          <p class="create-menu__card__text-food">
+            {{ daysWeekMenu[dayWeek].dinner }}
+          </p>
+        </q-tab-panel>
+      </q-tab-panels>
+
+      <!--  <div
         class="page-my-diary-food__container__menu"
         v-if="!dialogCreateMenuNameVisible"
       >
@@ -144,10 +270,10 @@ const {
           <p class="create-menu__card__text-food">
             {{ daysWeekMenu[dayWeek].dinner }}
           </p>
-        </section>
-      </div>
+        </section> 
+      </div> -->
 
-      <section v-else>
+      <section v-if="dialogCreateMenuNameVisible">
         <DialogCreateMenuName
           :dialog-visible="dialogCreateMenuNameVisible"
           @create-menu="createMenu"
@@ -176,11 +302,17 @@ const {
   flex-direction: column;
   align-items: center;
 }
+.tab_panels {
+  width: 100%;
+}
 .section__name-menu {
   width: 100%;
   max-width: 1200px;
   display: flex;
   justify-content: right;
+}
+.section__tabs {
+  max-width: 1200px;
 }
 .section__name-menu__label {
   background-color: white;
