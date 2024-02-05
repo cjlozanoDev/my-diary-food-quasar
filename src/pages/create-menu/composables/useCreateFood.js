@@ -94,14 +94,11 @@ export const useCreateFood = () => {
   };
 
   const showDialog = (dayWeek, nameMomentFood, descriptionFood) => {
-    return () => {
-      dayWeekSelected.value = dayWeek;
-      nameMomentFoodSelected.value = nameMomentFood;
-      descriptionFoodSelected.value = descriptionFood;
-      dialogCreateMenuVisible.value = true;
-    };
+    dayWeekSelected.value = dayWeek;
+    nameMomentFoodSelected.value = nameMomentFood;
+    descriptionFoodSelected.value = descriptionFood;
+    dialogCreateMenuVisible.value = true;
   };
-
   const closeDialog = () => {
     dialogCreateMenuVisible.value = false;
   };

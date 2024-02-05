@@ -32,7 +32,7 @@ const {
         inline-label
         outside-arrows
         mobile-arrows
-        class="bg-primary text-white shadow-2 full-width"
+        class="create-menu__tabs bg-primary text-white shadow-2 full-width"
       >
         <q-tab name="monday" icon="today" label="Lunes"></q-tab>
         <q-tab name="tuesday" icon="today" label="Martes"></q-tab>
@@ -45,7 +45,7 @@ const {
 
       <q-tab-panels
         v-if="!dialogCreateMenuNameVisible"
-        class="tab_panels"
+        class="create-menu__tab_panels"
         v-model="tab"
         animated
       >
@@ -54,7 +54,121 @@ const {
           :key="dayWeek"
           :name="dayWeek"
         >
-          <span class="create-menu__card-title">{{
+          <q-card bordered class="create-menu__card">
+            <q-card-section>
+              <div class="create-menu__card__title">
+                <span class="create-menu__card__title__text"
+                  >{{ $t("breakfast") }}
+                  <q-icon
+                    class="create-menu__card__icon-edit"
+                    @click="
+                      showDialog(
+                        daysWeekMenu[dayWeek].traductorName,
+                        'breakfast',
+                        daysWeekMenu[dayWeek]['breakfast']
+                      )
+                    "
+                    name="edit"
+                /></span>
+              </div>
+              <div class="create_memu__card__description-food">
+                <span>{{ daysWeekMenu[dayWeek].breakfast }} </span>
+              </div>
+            </q-card-section>
+          </q-card>
+
+          <q-card bordered class="create-menu__card">
+            <q-card-section>
+              <div class="create-menu__card__title">
+                <span class="create-menu__card__title__text"
+                  >{{ $t("snackmorning") }}
+                  <q-icon
+                    class="create-menu__card__icon-edit"
+                    @click="
+                      showDialog(
+                        daysWeekMenu[dayWeek].traductorName,
+                        'snackmorning',
+                        daysWeekMenu[dayWeek]['snackmorning']
+                      )
+                    "
+                    name="edit"
+                /></span>
+              </div>
+              <div class="create_memu__card__description-food">
+                <span>{{ daysWeekMenu[dayWeek].snackmorning }} </span>
+              </div>
+            </q-card-section>
+          </q-card>
+
+          <q-card bordered class="create-menu__card">
+            <q-card-section>
+              <div class="create-menu__card__title">
+                <span class="create-menu__card__title__text"
+                  >{{ $t("lunch") }}
+                  <q-icon
+                    class="create-menu__card__icon-edit"
+                    @click="
+                      showDialog(
+                        daysWeekMenu[dayWeek].traductorName,
+                        'lunch',
+                        daysWeekMenu[dayWeek]['lunch']
+                      )
+                    "
+                    name="edit"
+                /></span>
+              </div>
+              <div class="create_memu__card__description-food">
+                <span>{{ daysWeekMenu[dayWeek].lunch }} </span>
+              </div>
+            </q-card-section>
+          </q-card>
+
+          <q-card bordered class="create-menu__card">
+            <q-card-section>
+              <div class="create-menu__card__title">
+                <span class="create-menu__card__title__text"
+                  >{{ $t("snackevening") }}
+                  <q-icon
+                    class="create-menu__card__icon-edit"
+                    @click="
+                      showDialog(
+                        daysWeekMenu[dayWeek].traductorName,
+                        'snackevening',
+                        daysWeekMenu[dayWeek]['snackevening']
+                      )
+                    "
+                    name="edit"
+                /></span>
+              </div>
+              <div class="create_memu__card__description-food">
+                <span>{{ daysWeekMenu[dayWeek].snackevening }} </span>
+              </div>
+            </q-card-section>
+          </q-card>
+
+          <q-card bordered class="create-menu__card">
+            <q-card-section>
+              <div class="create-menu__card__title">
+                <span class="create-menu__card__title__text"
+                  >{{ $t("dinner") }}
+                  <q-icon
+                    class="create-menu__card__icon-edit"
+                    @click="
+                      showDialog(
+                        daysWeekMenu[dayWeek].traductorName,
+                        'dinner',
+                        daysWeekMenu[dayWeek]['dinner']
+                      )
+                    "
+                    name="edit"
+                /></span>
+              </div>
+              <div class="create_memu__card__description-food">
+                <span>{{ daysWeekMenu[dayWeek].dinner }} </span>
+              </div>
+            </q-card-section>
+          </q-card>
+          <!--  <span class="create-menu__card-title">{{
             $t(`${dayWeek}`).toUpperCase()
           }}</span>
           <p class="create-menu__card__text-day">
@@ -155,123 +269,9 @@ const {
           </p>
           <p class="create-menu__card__text-food">
             {{ daysWeekMenu[dayWeek].dinner }}
-          </p>
+          </p> -->
         </q-tab-panel>
       </q-tab-panels>
-
-      <!--  <div
-        class="page-my-diary-food__container__menu"
-        v-if="!dialogCreateMenuNameVisible"
-      >
-        <section
-          class="create-menu__card"
-          v-for="dayWeek in Object.keys(daysWeekMenu)"
-          :key="dayWeek"
-        >
-          <span class="create-menu__card-title">{{
-            $t(`${dayWeek}`).toUpperCase()
-          }}</span>
-          <p class="create-menu__card__text-day">
-            <span>{{ $t("breakfast") }}</span>
-            <DiaryButton
-              icon="edit"
-              size="xs"
-              class="create-menu__card__button-edit"
-              color=""
-              :onclick="
-                showDialog(
-                  daysWeekMenu[dayWeek].traductorName,
-                  'breakfast',
-                  daysWeekMenu[dayWeek]['breakfast']
-                )
-              "
-            />
-          </p>
-          <p class="create-menu__card__text-food">
-            {{ daysWeekMenu[dayWeek].breakfast }}
-          </p>
-
-          <p class="create-menu__card__text-day">
-            <span>{{ $t("snackmorning") }}</span>
-            <DiaryButton
-              icon="edit"
-              size="xs"
-              class="create-menu__card__button-edit"
-              color=""
-              :onclick="
-                showDialog(
-                  daysWeekMenu[dayWeek].traductorName,
-                  'snackmorning',
-                  daysWeekMenu[dayWeek]['snackmorning']
-                )
-              "
-            />
-          </p>
-          <p class="create-menu__card__text-food">
-            {{ daysWeekMenu[dayWeek].snackmorning }}
-          </p>
-
-          <p class="create-menu__card__text-day">
-            <span>{{ $t("lunch") }}</span>
-            <DiaryButton
-              icon="edit"
-              size="xs"
-              class="create-menu__card__button-edit"
-              color=""
-              :onclick="
-                showDialog(
-                  daysWeekMenu[dayWeek].traductorName,
-                  'lunch',
-                  daysWeekMenu[dayWeek]['lunch']
-                )
-              "
-            />
-          </p>
-          <p class="create-menu__card__text-food">
-            {{ daysWeekMenu[dayWeek].lunch }}
-          </p>
-
-          <p class="create-menu__card__text-day">
-            <span>{{ $t("snackevening") }}</span>
-            <DiaryButton
-              icon="edit"
-              size="xs"
-              class="create-menu__card__button-edit"
-              color=""
-              :onclick="
-                showDialog(
-                  daysWeekMenu[dayWeek].traductorName,
-                  'snackevening',
-                  daysWeekMenu[dayWeek]['snackevening']
-                )
-              "
-            />
-          </p>
-          <p class="create-menu__card__text-food">
-            {{ daysWeekMenu[dayWeek].snackevening }}
-          </p>
-
-          <p class="create-menu__card__text-day">
-            <span>{{ $t("dinner") }}</span>
-            <DiaryButton
-              icon="edit"
-              size="xs"
-              class="create-menu__card__button-edit"
-              color=""
-              :onclick="
-                showDialog(
-                  daysWeekMenu[dayWeek].traductorName,
-                  'dinner',
-                  daysWeekMenu[dayWeek]['dinner']
-                )
-              "
-            />
-          </p>
-          <p class="create-menu__card__text-food">
-            {{ daysWeekMenu[dayWeek].dinner }}
-          </p>
-        </section> 
-      </div> -->
 
       <section v-if="dialogCreateMenuNameVisible">
         <DialogCreateMenuName
@@ -302,17 +302,22 @@ const {
   flex-direction: column;
   align-items: center;
 }
-.tab_panels {
+.q-tab-panels {
+  background: none;
+}
+.q-tab-panel {
+  padding: 0;
+}
+.create-menu__tabs,
+.create-menu__tab_panels {
   width: 100%;
+  max-width: 1200px;
 }
 .section__name-menu {
   width: 100%;
   max-width: 1200px;
   display: flex;
   justify-content: right;
-}
-.section__tabs {
-  max-width: 1200px;
 }
 .section__name-menu__label {
   background-color: white;
@@ -327,55 +332,31 @@ const {
   width: 80px;
 }
 .create-menu__card {
-  position: relative;
-  width: 100%;
-  min-height: 300px;
-  max-width: 1200px;
-  margin-bottom: var(--spacing-lg);
-  background: white;
-  border-radius: 20px;
-  border: 25px solid var(--brown-ligth);
-  box-shadow: 0 0 0 2px black;
-  padding: 5px;
-  background: var(--gray-ligth);
+  margin: 20px 0;
+  min-height: 200px;
+  font-size: var(--font-medium-large);
 }
-.create-menu__card-title {
-  position: absolute;
-  top: -46px;
-  margin: 0;
-  min-width: 100px;
-  text-align: center;
-  padding: 8px;
-  background: white;
-  border-radius: 10px;
-  border: 2px solid black; /* Grosor y color del borde del título */
+.create-menu__card__title {
+  margin-bottom: 10px;
 }
-.create-menu__card__text-day {
-  background: var(--brown);
-  border-radius: 19px;
-  padding: 5px;
+.create-menu__card__title__text {
+  background-color: var(--steel);
+  padding: 6px;
   color: white;
 }
-.create-menu__card__button-edit {
-  padding: 5px;
-  margin-left: 10px;
-  background: var(--brown-ligth-medium);
+.create-menu__card__icon-edit {
+  cursor: pointer;
 }
-.create-menu__card__text-food {
-  line-height: 25px;
-  min-height: 45px;
+.create_memu__card__description-food {
+  font-size: var(--font-small);
 }
 
 @media (min-width: 798px) {
-  .create-menu__card {
+  .create-menu__card__title__text {
     font-size: var(--font-medium-large);
-    margin-bottom: var(--spacing-xl);
   }
-  .create-menu__card-title {
-    top: -57px;
-  }
-  .create-menu__card__text-food {
-    line-height: 45px;
+  .create_memu__card__description-food {
+    font-size: var(--font-medium);
   }
 }
 </style>
