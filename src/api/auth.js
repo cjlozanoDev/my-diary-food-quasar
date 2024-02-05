@@ -7,6 +7,9 @@ import {
 
 import { auth, doc, db, setDoc } from "./firebase";
 import { useUserStore } from "src/store/useUserStore";
+import { useStatePageStore } from "src/store/useStatePageStore";
+import { useMenusStore } from "src/store/useMenusStore";
+import { getMenusUserApi } from "./menus";
 
 const onAuthStateChangedApi = () => {
   onAuthStateChanged(auth, (user) => {
@@ -15,12 +18,32 @@ const onAuthStateChangedApi = () => {
     if (user) {
       localStorage.setItem("signedin", "true");
       userStore.setUser(auth);
+      getMenusUser();
     }
     if (!user) {
       localStorage.removeItem("signedin");
       userStore.removeUser();
     }
   });
+};
+
+const getMenusUser = async () => {
+  const statePageStore = useStatePageStore();
+  const menusStore = useMenusStore();
+  statePageStore.setLoading(true);
+
+  try {
+    const querySnapshot = await getMenusUserApi();
+
+    if (querySnapshot.size > 0) {
+      const menusArray = querySnapshot.docs.map((doc) => doc.data());
+      menusStore.setMenus(menusArray);
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  } finally {
+    statePageStore.setLoading(false);
+  }
 };
 
 const createUserWithEmailAndPasswordApi = (email, password) => {
