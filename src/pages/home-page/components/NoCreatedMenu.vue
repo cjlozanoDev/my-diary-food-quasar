@@ -60,16 +60,13 @@ const goToCreateMenu = () => {
     gap: 40px;
   }
   .img-chef-empty-dish {
-    width: 400px;
+    width: 370px;
   }
 }
 
 @media (min-width: 1200px) {
   .no-created-menu {
     gap: 60px;
-  }
-  .img-chef-empty-dish {
-    width: 500px;
   }
 }
 </style>

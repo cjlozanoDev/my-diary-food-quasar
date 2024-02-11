@@ -13,6 +13,7 @@ const {
   createMenu,
   saveFood,
   showDialog,
+  nameMenu,
   daysWeekMenu,
   dayWeekSelected,
   descriptionFoodSelected,
@@ -24,7 +25,7 @@ const {
 
 <template>
   <div>
-    <span class="head-diary-food head-subtitle">Nombre: Menú alpiste</span>
+    <span class="head-diary-food head-subtitle">Nombre: {{ nameMenu }}</span>
     <main class="page-my-diary-food">
       <q-tabs
         v-if="!dialogCreateMenuNameVisible"
@@ -168,108 +169,6 @@ const {
               </div>
             </q-card-section>
           </q-card>
-          <!--  <span class="create-menu__card-title">{{
-            $t(`${dayWeek}`).toUpperCase()
-          }}</span>
-          <p class="create-menu__card__text-day">
-            <span>{{ $t("breakfast") }}</span>
-            <DiaryButton
-              icon="edit"
-              size="xs"
-              class="create-menu__card__button-edit"
-              color=""
-              :onclick="
-                showDialog(
-                  daysWeekMenu[dayWeek].traductorName,
-                  'breakfast',
-                  daysWeekMenu[dayWeek]['breakfast']
-                )
-              "
-            />
-          </p>
-          <p class="create-menu__card__text-food">
-            {{ daysWeekMenu[dayWeek].breakfast }}
-          </p>
-
-          <p class="create-menu__card__text-day">
-            <span>{{ $t("snackmorning") }}</span>
-            <DiaryButton
-              icon="edit"
-              size="xs"
-              class="create-menu__card__button-edit"
-              color=""
-              :onclick="
-                showDialog(
-                  daysWeekMenu[dayWeek].traductorName,
-                  'snackmorning',
-                  daysWeekMenu[dayWeek]['snackmorning']
-                )
-              "
-            />
-          </p>
-          <p class="create-menu__card__text-food">
-            {{ daysWeekMenu[dayWeek].snackmorning }}
-          </p>
-
-          <p class="create-menu__card__text-day">
-            <span>{{ $t("lunch") }}</span>
-            <DiaryButton
-              icon="edit"
-              size="xs"
-              class="create-menu__card__button-edit"
-              color=""
-              :onclick="
-                showDialog(
-                  daysWeekMenu[dayWeek].traductorName,
-                  'lunch',
-                  daysWeekMenu[dayWeek]['lunch']
-                )
-              "
-            />
-          </p>
-          <p class="create-menu__card__text-food">
-            {{ daysWeekMenu[dayWeek].lunch }}
-          </p>
-
-          <p class="create-menu__card__text-day">
-            <span>{{ $t("snackevening") }}</span>
-            <DiaryButton
-              icon="edit"
-              size="xs"
-              class="create-menu__card__button-edit"
-              color=""
-              :onclick="
-                showDialog(
-                  daysWeekMenu[dayWeek].traductorName,
-                  'snackevening',
-                  daysWeekMenu[dayWeek]['snackevening']
-                )
-              "
-            />
-          </p>
-          <p class="create-menu__card__text-food">
-            {{ daysWeekMenu[dayWeek].snackevening }}
-          </p>
-
-          <p class="create-menu__card__text-day">
-            <span>{{ $t("dinner") }}</span>
-            <DiaryButton
-              icon="edit"
-              size="xs"
-              class="create-menu__card__button-edit"
-              color=""
-              :onclick="
-                showDialog(
-                  daysWeekMenu[dayWeek].traductorName,
-                  'dinner',
-                  daysWeekMenu[dayWeek]['dinner']
-                )
-              "
-            />
-          </p>
-          <p class="create-menu__card__text-food">
-            {{ daysWeekMenu[dayWeek].dinner }}
-          </p> -->
         </q-tab-panel>
       </q-tab-panels>
 

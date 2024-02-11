@@ -10,7 +10,7 @@ export const useCreateFood = () => {
   const nameMomentFoodSelected = ref("");
   const descriptionFoodSelected = ref("");
 
-  const menuCreated = ref(false);
+  const nameMenu = ref("");
   const menuId = ref(null);
 
   const daysWeekMenu = ref({
@@ -107,12 +107,12 @@ export const useCreateFood = () => {
     router.push({ name: "Home" });
   };
 
-  const createMenu = async (nameMenu) => {
-    menuCreated.value = nameMenu;
+  const createMenu = async (nameMenuForm) => {
+    nameMenu.value = nameMenuForm;
     dialogCreateMenuNameVisible.value = false;
     try {
       const menuRef = await createMenuApi(
-        nameMenu,
+        nameMenuForm,
         JSON.stringify(daysWeekMenu.value),
         {
           currentMenu: true,
@@ -130,6 +130,7 @@ export const useCreateFood = () => {
     showDialog,
     closeDialog,
     createMenu,
+    nameMenu,
     daysWeekMenu,
     dayWeekSelected,
     nameMomentFoodSelected,

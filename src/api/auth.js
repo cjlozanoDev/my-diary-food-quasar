@@ -30,7 +30,6 @@ const onAuthStateChangedApi = () => {
 const getMenusUser = async () => {
   const statePageStore = useStatePageStore();
   const menusStore = useMenusStore();
-  statePageStore.setLoadingMenus(true);
 
   try {
     const querySnapshot = await getMenusUserApi();

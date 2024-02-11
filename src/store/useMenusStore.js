@@ -9,4 +9,11 @@ export const useMenusStore = defineStore("menusStore", {
       this.menus = menus;
     },
   },
+  getters: {
+    currentMenu() {
+      return !this.menus.length
+        ? {}
+        : this.menus.find((menu) => menu.currentMenu);
+    },
+  },
 });
