@@ -8,6 +8,10 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  disable: {
+    type: Boolean,
+    default: false,
+  },
   flat: {
     type: Boolean,
     default: false,
@@ -25,6 +29,10 @@ defineProps({
     default: () => {},
   },
   outline: {
+    type: Boolean,
+    default: false,
+  },
+  push: {
     type: Boolean,
     default: false,
   },
@@ -51,11 +59,13 @@ defineProps({
     v-if="icon"
     :color="color"
     :dense="dense"
+    :disable="disable"
     :flat="flat"
     :icon="icon"
     :label="label"
     :onclick="onclick"
     :outline="outline"
+    :push="push"
     :round="round"
     :size="size"
     :type="type"
@@ -64,10 +74,12 @@ defineProps({
     v-else
     :color="color"
     :dense="dense"
+    :disable="disable"
     :flat="flat"
     :label="label"
     :onclick="onclick"
     :outline="outline"
+    :push="push"
     :round="round"
     :size="size"
     :type="type"

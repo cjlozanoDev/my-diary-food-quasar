@@ -35,7 +35,9 @@ const getMenusUser = async () => {
     const querySnapshot = await getMenusUserApi();
 
     if (querySnapshot.size > 0) {
-      const menusArray = querySnapshot.docs.map((doc) => doc.data());
+      const menusArray = querySnapshot.docs.map((doc) =>
+        Object.assign(doc.data(), { id: doc.id })
+      );
       menusStore.setMenus(menusArray);
     }
   } catch (error) {

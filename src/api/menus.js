@@ -26,15 +26,27 @@ const getCurrenMenuApi = () => {
   return getDocs(q);
 };
 
-const createMenuApi = (nameMenu, menu, props = { currentMenu: false }) => {
-  return addDoc(collection(db, "menus"), {
+const createMenuApi = async (
+  nameMenu,
+  menu,
+  props = { currentMenu: false }
+) => {
+  const menuToCreate = {
     creatorUid: userUid,
     currentMenu: props.currentMenu,
     name: nameMenu,
     menu,
     created_at: Date.now(),
+  };
+
+  const docMenuRef = await addDoc(collection(db, "menus"), {
+    ...menuToCreate,
   });
+
+  menuToCreate.id = docMenuRef.id;
+  return menuToCreate;
 };
+
 const updateMenuApi = (idMenu, menu) => {
   const docRef = doc(db, "menus", idMenu);
   return updateDoc(docRef, {

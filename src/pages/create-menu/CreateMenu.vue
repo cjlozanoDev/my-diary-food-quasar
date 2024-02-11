@@ -13,6 +13,8 @@ const {
   createMenu,
   saveFood,
   showDialog,
+  markMenuToCurrent,
+  isCurrentMenu,
   nameMenu,
   daysWeekMenu,
   dayWeekSelected,
@@ -26,9 +28,21 @@ const {
 <template>
   <div>
     <span class="head-diary-food head-subtitle">Nombre: {{ nameMenu }}</span>
-    <main class="page-my-diary-food">
+    <main v-if="!dialogCreateMenuNameVisible" class="page-my-diary-food">
+      <section class="create_menu__section-marked-menu">
+        <DiaryButton
+          push
+          color="white"
+          label="Marcar este menú como actual"
+          text-color="primary"
+          icon="push_pin"
+          :onclick="markMenuToCurrent"
+          :disable="isCurrentMenu"
+        />
+        <span v-if="isCurrentMenu"> *Este menú ya es tu menu actual</span>
+      </section>
+
       <q-tabs
-        v-if="!dialogCreateMenuNameVisible"
         v-model="tab"
         inline-label
         outside-arrows
@@ -44,12 +58,7 @@ const {
         <q-tab name="sunday" icon="today" label="Domingo"></q-tab>
       </q-tabs>
 
-      <q-tab-panels
-        v-if="!dialogCreateMenuNameVisible"
-        class="create-menu__tab_panels"
-        v-model="tab"
-        animated
-      >
+      <q-tab-panels class="create-menu__tab_panels" v-model="tab" animated>
         <q-tab-panel
           v-for="dayWeek in Object.keys(daysWeekMenu)"
           :key="dayWeek"
@@ -172,14 +181,6 @@ const {
         </q-tab-panel>
       </q-tab-panels>
 
-      <section v-if="dialogCreateMenuNameVisible">
-        <DialogCreateMenuName
-          :dialog-visible="dialogCreateMenuNameVisible"
-          @create-menu="createMenu"
-          @close-dialog="backToHome"
-        />
-      </section>
-
       <section>
         <DialogCreateFood
           v-model="dialogCreateMenuVisible"
@@ -191,6 +192,13 @@ const {
         />
       </section>
     </main>
+    <section v-if="dialogCreateMenuNameVisible">
+      <DialogCreateMenuName
+        :dialog-visible="dialogCreateMenuNameVisible"
+        @create-menu="createMenu"
+        @close-dialog="backToHome"
+      />
+    </section>
   </div>
 </template>
 
@@ -200,6 +208,14 @@ const {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.create_menu__section-marked-menu {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  font-size: var(--font-medium-large);
+  margin-bottom: 20px;
 }
 .q-tab-panels {
   background: none;

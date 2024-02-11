@@ -1,6 +1,7 @@
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { createMenuApi, updateMenuApi } from "src/api/menus";
+import { useMenusStore } from "src/store/useMenusStore";
 
 export const useCreateFood = () => {
   const router = useRouter();
@@ -9,6 +10,9 @@ export const useCreateFood = () => {
   const dayWeekSelected = ref("");
   const nameMomentFoodSelected = ref("");
   const descriptionFoodSelected = ref("");
+  const menuCurrentMarked = ref(false);
+
+  const menusStore = useMenusStore();
 
   const nameMenu = ref("");
   const menuId = ref(null);
@@ -111,18 +115,25 @@ export const useCreateFood = () => {
     nameMenu.value = nameMenuForm;
     dialogCreateMenuNameVisible.value = false;
     try {
-      const menuRef = await createMenuApi(
-        nameMenuForm,
-        JSON.stringify(daysWeekMenu.value),
-        {
-          currentMenu: true,
-        }
-      );
-      menuId.value = menuRef.id;
+      const parsedMenu = JSON.stringify(daysWeekMenu.value);
+      const menuCreated = await createMenuApi(nameMenuForm, parsedMenu, {
+        currentMenu: !menusStore.menus.length,
+      });
+      menuId.value = menuCreated.id;
+      menusStore.addMenu(menuCreated);
     } catch (error) {
       throw new Error(error.message);
     }
   };
+
+  const markMenuToCurrent = () => {
+    menusStore.markCurrentMenu(menuId.value);
+    menuCurrentMarked.value = true;
+  };
+
+  const isCurrentMenu = computed(
+    () => menusStore.menus.length === 1 || menuCurrentMarked.value
+  );
 
   return {
     saveFood,
@@ -130,6 +141,8 @@ export const useCreateFood = () => {
     showDialog,
     closeDialog,
     createMenu,
+    markMenuToCurrent,
+    isCurrentMenu,
     nameMenu,
     daysWeekMenu,
     dayWeekSelected,
