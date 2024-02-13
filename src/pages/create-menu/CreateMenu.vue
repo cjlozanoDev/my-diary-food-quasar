@@ -250,14 +250,18 @@ const {
   margin: 20px 0;
   min-height: 200px;
   font-size: var(--font-medium-large);
+  background-image: linear-gradient(
+    rgb(169, 182, 183) 0%,
+    rgb(228, 232, 233) 50%
+  );
 }
 .create-menu__card__title {
   margin-bottom: 10px;
 }
 .create-menu__card__title__text {
-  background-color: var(--steel);
+  border-bottom: 4px solid var(--steel-dark);
+  color: var(--steel-dark);
   padding: 6px;
-  color: white;
 }
 .create-menu__card__icon-edit {
   cursor: pointer;
