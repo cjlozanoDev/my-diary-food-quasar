@@ -1,3 +1,5 @@
+import { useMenusStore } from "src/store/useMenusStore";
+
 import {
   getDocs,
   addDoc,
@@ -5,6 +7,7 @@ import {
   db,
   doc,
   collection,
+  runTransaction,
   query,
   where,
 } from "./firebase";
@@ -54,4 +57,28 @@ const updateMenuApi = (idMenu, menu) => {
   });
 };
 
-export { getMenusUserApi, getCurrenMenuApi, createMenuApi, updateMenuApi };
+const updateCurrentMenu = (idPreviousCurrentMenu, idNewCurrentMendu) => {
+  const menuNewCurrentDocRef = doc(db, "menus", idNewCurrentMendu);
+  const menuPreviousCurrentRef = doc(db, "menus", idPreviousCurrentMenu);
+
+  return runTransaction(db, async (transaction) => {
+    const menuDocSnapshot1 = await transaction.get(menuNewCurrentDocRef);
+    if (!menuDocSnapshot1.exists()) {
+      throw new Error("El primer documento de menú no existe!");
+    }
+    const menuDocSnapshot2 = await transaction.get(menuPreviousCurrentRef);
+    if (!menuDocSnapshot2.exists()) {
+      throw new Error("El segundo documento de menú no existe!");
+    }
+    transaction.update(menuNewCurrentDocRef, { currentMenu: true });
+    transaction.update(menuPreviousCurrentRef, { currentMenu: false });
+  });
+};
+
+export {
+  getMenusUserApi,
+  getCurrenMenuApi,
+  createMenuApi,
+  updateMenuApi,
+  updateCurrentMenu,
+};

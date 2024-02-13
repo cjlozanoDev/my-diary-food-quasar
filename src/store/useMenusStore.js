@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { updateCurrentMenu } from "src/api/menus";
 
 export const useMenusStore = defineStore("menusStore", {
   state: () => ({
@@ -11,12 +12,18 @@ export const useMenusStore = defineStore("menusStore", {
     addMenu(menu) {
       this.menus.push(menu);
     },
-    markCurrentMenu(idMenu) {
-      const previousCurrentMenu = this.menus.find((menu) => menu.currentMenu);
+    async markCurrentMenu(idMenu) {
+      const previousCurrentMenu = this.currentMenu;
       previousCurrentMenu.currentMenu = false;
 
       const newCurrentMenu = this.menus.find((menu) => menu.id === idMenu);
       newCurrentMenu.currentMenu = true;
+
+      try {
+        await updateCurrentMenu(previousCurrentMenu.id, newCurrentMenu.id);
+      } catch (e) {
+        throw new Error(e.message);
+      }
     },
   },
   getters: {
