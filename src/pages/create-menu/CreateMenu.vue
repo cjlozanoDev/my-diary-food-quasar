@@ -1,6 +1,6 @@
 <script setup>
 import DiaryButton from "src/components/Button/DiaryButton.vue";
-import DialogCreateFood from "./components/DialogCreateFood.vue";
+import BoardMenu from "src/components/BoardMenu/BoardMenu.vue";
 import DialogCreateMenuName from "./components/DialogCreateMenuName.vue";
 import { useCreateFood } from "./composables/useCreateFood";
 import { ref } from "vue";
@@ -12,11 +12,10 @@ const {
   closeDialog,
   createMenu,
   saveFood,
-  showDialog,
   markMenuToCurrent,
   isCurrentMenu,
   nameMenu,
-  daysWeekMenu,
+  menuCreated,
   dayWeekSelected,
   descriptionFoodSelected,
   dialogCreateMenuNameVisible,
@@ -42,7 +41,11 @@ const {
         <span v-if="isCurrentMenu"> *Este menú ya es tu menu actual</span>
       </section>
 
-      <q-tabs
+      <section v-if="menuCreated" class="create_menu__section-board-menu">
+        <BoardMenu :week-menu="menuCreated" />
+      </section>
+
+      <!--  <q-tabs
         v-model="tab"
         inline-label
         outside-arrows
@@ -67,8 +70,8 @@ const {
           <q-card bordered class="create-menu__card">
             <q-card-section>
               <div class="create-menu__card__title">
-                <span class="create-menu__card__title__text"
-                  >{{ $t("breakfast") }}
+                <span class="create-menu__card__title__text">
+                  {{ $t("breakfast") }}
                   <q-icon
                     class="create-menu__card__icon-edit"
                     @click="
@@ -79,7 +82,8 @@ const {
                       )
                     "
                     name="edit"
-                /></span>
+                  />
+                </span>
               </div>
               <div class="create_memu__card__description-food">
                 <span>{{ daysWeekMenu[dayWeek].breakfast }} </span>
@@ -189,8 +193,8 @@ const {
           :description-food-prop="descriptionFoodSelected"
           @saveFood="saveFood"
           @close-dialog="closeDialog"
-        />
-      </section>
+        /> 
+      </section> -->
     </main>
     <section v-if="dialogCreateMenuNameVisible">
       <DialogCreateMenuName
@@ -217,6 +221,10 @@ const {
   font-size: var(--font-medium-large);
   margin-bottom: 20px;
 }
+.create_menu__section-board-menu {
+  width: 100%;
+  max-width: 1200px;
+}
 .q-tab-panels {
   background: none;
 }
@@ -227,24 +235,6 @@ const {
 .create-menu__tab_panels {
   width: 100%;
   max-width: 1200px;
-}
-.section__name-menu {
-  width: 100%;
-  max-width: 1200px;
-  display: flex;
-  justify-content: right;
-}
-.section__name-menu__label {
-  background-color: white;
-  border: 2px solid;
-  border-radius: 100px 15px 100px 10px;
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  gap: 28px;
-}
-.create_menu__img-dish {
-  width: 80px;
 }
 .create-menu__card {
   margin: 20px 0;

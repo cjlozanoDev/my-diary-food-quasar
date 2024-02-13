@@ -11,6 +11,7 @@ export const useCreateFood = () => {
   const nameMomentFoodSelected = ref("");
   const descriptionFoodSelected = ref("");
   const menuCurrentMarked = ref(false);
+  const menuCreated = ref(null);
 
   const menusStore = useMenusStore();
 
@@ -97,7 +98,7 @@ export const useCreateFood = () => {
     closeDialog();
   };
 
-  const showDialog = (dayWeek, nameMomentFood, descriptionFood) => {
+  /*   const showDialog = (dayWeek, nameMomentFood, descriptionFood) => {
     dayWeekSelected.value = dayWeek;
     nameMomentFoodSelected.value = nameMomentFood;
     descriptionFoodSelected.value = descriptionFood;
@@ -105,7 +106,7 @@ export const useCreateFood = () => {
   };
   const closeDialog = () => {
     dialogCreateMenuVisible.value = false;
-  };
+  }; */
 
   const backToHome = () => {
     router.push({ name: "Home" });
@@ -116,11 +117,11 @@ export const useCreateFood = () => {
     dialogCreateMenuNameVisible.value = false;
     try {
       const parsedMenu = JSON.stringify(daysWeekMenu.value);
-      const menuCreated = await createMenuApi(nameMenuForm, parsedMenu, {
+      menuCreated.value = await createMenuApi(nameMenuForm, parsedMenu, {
         currentMenu: !menusStore.menus.length,
       });
-      menuId.value = menuCreated.id;
-      menusStore.addMenu(menuCreated);
+      menuId.value = menuCreated.value.id;
+      menusStore.addMenu(menuCreated.value);
     } catch (error) {
       throw new Error(error.message);
     }
@@ -138,13 +139,11 @@ export const useCreateFood = () => {
   return {
     saveFood,
     backToHome,
-    showDialog,
-    closeDialog,
     createMenu,
     markMenuToCurrent,
+    menuCreated,
     isCurrentMenu,
     nameMenu,
-    daysWeekMenu,
     dayWeekSelected,
     nameMomentFoodSelected,
     descriptionFoodSelected,
