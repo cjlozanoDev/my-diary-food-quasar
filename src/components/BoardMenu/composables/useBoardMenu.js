@@ -1,6 +1,6 @@
 import { ref } from "vue";
 
-export const useBoardMenu = () => {
+export const useBoardMenu = (emit) => {
   const dialogCreateFoodVisible = ref(false);
   const dayWeekSelected = ref("");
   const nameMomentFoodSelected = ref("");
@@ -14,9 +14,17 @@ export const useBoardMenu = () => {
     "dinner",
   ]);
 
-  const saveFood = () => {};
+  const saveFood = (descriptionFood) => {
+    emit(
+      "save-food",
+      descriptionFood,
+      dayWeekSelected.value,
+      nameMomentFoodSelected.value
+    );
+    closeDialog();
+  };
 
-  const showDialog = (dayWeek, nameMomentFood, descriptionFood) => {
+  const showDialog = (dayWeek, nameMomentFood, descriptionFood) => () => {
     dayWeekSelected.value = dayWeek;
     nameMomentFoodSelected.value = nameMomentFood;
     descriptionFoodSelected.value = descriptionFood;

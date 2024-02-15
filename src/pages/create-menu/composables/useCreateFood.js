@@ -5,14 +5,11 @@ import { useMenusStore } from "src/store/useMenusStore";
 
 export const useCreateFood = () => {
   const router = useRouter();
-  const dialogCreateMenuVisible = ref(false);
+
   const dialogCreateMenuNameVisible = ref(true);
-  const dayWeekSelected = ref("");
-  const nameMomentFoodSelected = ref("");
-  const descriptionFoodSelected = ref("");
+
   const menuCurrentMarked = ref(false);
   const menuCreated = ref(null);
-
   const menusStore = useMenusStore();
 
   const nameMenu = ref("");
@@ -84,29 +81,20 @@ export const useCreateFood = () => {
     },
   });
 
-  const saveFood = async (descriptionFood) => {
-    const dayWeek = dayWeekSelected.value.toLocaleLowerCase();
-    const nameFood = nameMomentFoodSelected.value;
-
-    daysWeekMenu.value[dayWeek][nameFood] = descriptionFood;
+  const saveFood = async (
+    descriptionFood,
+    dayWeekSelected,
+    nameFoodSelected
+  ) => {
+    daysWeekMenu.value[dayWeekSelected][nameFoodSelected] = descriptionFood;
+    menuCreated.value.menu = JSON.stringify(daysWeekMenu.value);
 
     try {
       await updateMenuApi(menuId.value, daysWeekMenu.value);
     } catch (error) {
       throw new Error(error.message);
     }
-    closeDialog();
   };
-
-  /*   const showDialog = (dayWeek, nameMomentFood, descriptionFood) => {
-    dayWeekSelected.value = dayWeek;
-    nameMomentFoodSelected.value = nameMomentFood;
-    descriptionFoodSelected.value = descriptionFood;
-    dialogCreateMenuVisible.value = true;
-  };
-  const closeDialog = () => {
-    dialogCreateMenuVisible.value = false;
-  }; */
 
   const backToHome = () => {
     router.push({ name: "Home" });
@@ -141,13 +129,9 @@ export const useCreateFood = () => {
     backToHome,
     createMenu,
     markMenuToCurrent,
+    dialogCreateMenuNameVisible,
     menuCreated,
     isCurrentMenu,
     nameMenu,
-    dayWeekSelected,
-    nameMomentFoodSelected,
-    descriptionFoodSelected,
-    dialogCreateMenuVisible,
-    dialogCreateMenuNameVisible,
   };
 };

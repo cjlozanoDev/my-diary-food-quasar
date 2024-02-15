@@ -43,6 +43,13 @@ defineProps({
   size: {
     type: String,
     default: "md",
+    validator(value) {
+      return ["xs", "sm", "md", "lg", "xl"].includes(value);
+    },
+  },
+  square: {
+    type: Boolean,
+    default: false,
   },
   type: {
     type: String,
@@ -68,6 +75,7 @@ defineProps({
     :push="push"
     :round="round"
     :size="size"
+    :square="square"
     :type="type"
   />
   <q-btn
@@ -82,6 +90,7 @@ defineProps({
     :push="push"
     :round="round"
     :size="size"
+    :square="square"
     :type="type"
   />
 </template>

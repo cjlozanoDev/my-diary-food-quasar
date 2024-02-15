@@ -1,7 +1,10 @@
 <script setup>
 import DialogCreateFood from "./DialogCreateFood.vue";
+import DiaryButton from "src/components/Button/DiaryButton.vue";
 import { computed, ref } from "vue";
 import { useBoardMenu } from "./composables/useBoardMenu";
+
+const emit = defineEmits(["save-food"]);
 
 const props = defineProps({
   weekMenu: {
@@ -19,7 +22,7 @@ const {
   saveFood,
   showDialog,
   closeDialog,
-} = useBoardMenu();
+} = useBoardMenu(emit);
 
 const tab = ref("monday");
 
@@ -60,136 +63,33 @@ const daysWeekMenu = computed(() => {
           class="board-menu__card"
         >
           <section class="board-menu__card__section-day">
-            {{ $t(typeFood) }}
+            <span> {{ $t(typeFood) }} </span>
+            <DiaryButton
+              icon="edit"
+              class="board-menu__card__section-day__icon"
+              color="#ff0000"
+              :round="true"
+              size="xs"
+              :onclick="
+                showDialog(dayWeek, typeFood, daysWeekMenu[dayWeek][typeFood])
+              "
+            />
           </section>
           <hr class="board-menu__card__hr" />
           <section class="board-menu__card__section-food">
             {{ daysWeekMenu[dayWeek][typeFood] }}
           </section>
         </div>
-        <!-- <q-card bordered class="create-menu__card">
-          <q-card-section>
-            <div class="create-menu__card__title">
-              <span class="create-menu__card__title__text"
-                >{{ $t("breakfast") }}
-                <q-icon
-                  class="create-menu__card__icon-edit"
-                  @click="
-                    showDialog(
-                      daysWeekMenu[dayWeek].traductorName,
-                      'breakfast',
-                      daysWeekMenu[dayWeek]['breakfast']
-                    )
-                  "
-                  name="edit"
-              /></span>
-            </div>
-            <div class="create_memu__card__description-food">
-              <span>{{ daysWeekMenu[dayWeek].breakfast }} </span>
-            </div>
-          </q-card-section>
-        </q-card>
-
-        <q-card bordered class="create-menu__card">
-          <q-card-section>
-            <div class="create-menu__card__title">
-              <span class="create-menu__card__title__text"
-                >{{ $t("snackmorning") }}
-                <q-icon
-                  class="create-menu__card__icon-edit"
-                  @click="
-                    showDialog(
-                      daysWeekMenu[dayWeek].traductorName,
-                      'snackmorning',
-                      daysWeekMenu[dayWeek]['snackmorning']
-                    )
-                  "
-                  name="edit"
-              /></span>
-            </div>
-            <div class="create_memu__card__description-food">
-              <span>{{ daysWeekMenu[dayWeek].snackmorning }} </span>
-            </div>
-          </q-card-section>
-        </q-card>
-
-        <q-card bordered class="create-menu__card">
-          <q-card-section>
-            <div class="create-menu__card__title">
-              <span class="create-menu__card__title__text"
-                >{{ $t("lunch") }}
-                <q-icon
-                  class="create-menu__card__icon-edit"
-                  @click="
-                    showDialog(
-                      daysWeekMenu[dayWeek].traductorName,
-                      'lunch',
-                      daysWeekMenu[dayWeek]['lunch']
-                    )
-                  "
-                  name="edit"
-              /></span>
-            </div>
-            <div class="create_memu__card__description-food">
-              <span>{{ daysWeekMenu[dayWeek].lunch }} </span>
-            </div>
-          </q-card-section>
-        </q-card>
-
-        <q-card bordered class="create-menu__card">
-          <q-card-section>
-            <div class="create-menu__card__title">
-              <span class="create-menu__card__title__text"
-                >{{ $t("snackevening") }}
-                <q-icon
-                  class="create-menu__card__icon-edit"
-                  @click="
-                    showDialog(
-                      daysWeekMenu[dayWeek].traductorName,
-                      'snackevening',
-                      daysWeekMenu[dayWeek]['snackevening']
-                    )
-                  "
-                  name="edit"
-              /></span>
-            </div>
-            <div class="create_memu__card__description-food">
-              <span>{{ daysWeekMenu[dayWeek].snackevening }} </span>
-            </div>
-          </q-card-section>
-        </q-card>
-
-        <q-card bordered class="create-menu__card">
-          <q-card-section>
-            <div class="create-menu__card__title">
-              <span class="create-menu__card__title__text">
-                {{ $t("dinner") }}
-                <q-icon
-                  class="create-menu__card__icon-edit"
-                  @click="
-                    showDialog(
-                      daysWeekMenu[dayWeek].traductorName,
-                      'dinner',
-                      daysWeekMenu[dayWeek]['dinner']
-                    )
-                  "
-                  name="edit"
-                />
-              </span>
-            </div>
-            <div class="create_memu__card__description-food">
-              <span>{{ daysWeekMenu[dayWeek].dinner }} </span>
-            </div>
-          </q-card-section>
-        </q-card> -->
       </q-tab-panel>
     </q-tab-panels>
 
     <section>
       <DialogCreateFood
         v-model="dialogCreateFoodVisible"
-        :day-week="dayWeekSelected"
-        :name-moment-food="nameMomentFoodSelected"
+        :day-week="dayWeekSelected === '' ? '' : $t(dayWeekSelected)"
+        :name-moment-food="
+          nameMomentFoodSelected === '' ? '' : $t(nameMomentFoodSelected)
+        "
         :description-food-prop="descriptionFoodSelected"
         @saveFood="saveFood"
         @close-dialog="closeDialog"
@@ -214,14 +114,18 @@ const daysWeekMenu = computed(() => {
   display: flex;
   align-items: center;
   font-size: var(--font-medium-large);
-  background: var(--q-primary-ligth);
+  background: var(--q-primary-extra-ligth);
   min-height: 40px;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
   padding: 10px;
 }
+.board-menu__card__section-day__icon {
+  margin-left: 10px;
+  background-color: var(--q-primary-ligth);
+}
 .board-menu__card__section-food {
-  background: var(--q-primary-ligth);
+  background: var(--q-primary-extra-ligth);
   min-height: 140px;
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;

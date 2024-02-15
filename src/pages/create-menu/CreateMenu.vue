@@ -9,18 +9,13 @@ const tab = ref("monday");
 
 const {
   backToHome,
-  closeDialog,
   createMenu,
   saveFood,
   markMenuToCurrent,
   isCurrentMenu,
   nameMenu,
   menuCreated,
-  dayWeekSelected,
-  descriptionFoodSelected,
   dialogCreateMenuNameVisible,
-  dialogCreateMenuVisible,
-  nameMomentFoodSelected,
 } = useCreateFood();
 </script>
 
@@ -42,7 +37,7 @@ const {
       </section>
 
       <section v-if="menuCreated" class="create_menu__section-board-menu">
-        <BoardMenu :week-menu="menuCreated" />
+        <BoardMenu :week-menu="menuCreated" @save-food="saveFood" />
       </section>
 
       <!--  <q-tabs
