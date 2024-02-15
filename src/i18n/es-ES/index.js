@@ -14,7 +14,7 @@ export default {
   label_email: "Email",
   label_name: "Nombre",
   label_password: "Contraseña",
-  label_your_current_menu: "Tu menú actual",
+  label_your_current_menu: "Menú actual",
   loading: "Cargando...",
   lunch: "Comida",
   max_characters: "Máximo {number} caracteres",
