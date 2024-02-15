@@ -15,6 +15,7 @@ const {
   nameMomentFoodSelected,
   descriptionFoodSelected,
   dayWeekSelected,
+  foodNames,
   saveFood,
   showDialog,
   closeDialog,
@@ -53,7 +54,20 @@ const daysWeekMenu = computed(() => {
         :key="dayWeek"
         :name="dayWeek"
       >
-        <q-card bordered class="create-menu__card">
+        <div
+          v-for="typeFood in foodNames"
+          :key="typeFood"
+          class="board-menu__card"
+        >
+          <section class="board-menu__card__section-day">
+            {{ $t(typeFood) }}
+          </section>
+          <hr class="board-menu__card__hr" />
+          <section class="board-menu__card__section-food">
+            {{ daysWeekMenu[dayWeek][typeFood] }}
+          </section>
+        </div>
+        <!-- <q-card bordered class="create-menu__card">
           <q-card-section>
             <div class="create-menu__card__title">
               <span class="create-menu__card__title__text"
@@ -167,7 +181,7 @@ const daysWeekMenu = computed(() => {
               <span>{{ daysWeekMenu[dayWeek].dinner }} </span>
             </div>
           </q-card-section>
-        </q-card>
+        </q-card> -->
       </q-tab-panel>
     </q-tab-panels>
 
@@ -185,38 +199,38 @@ const daysWeekMenu = computed(() => {
 </template>
 
 <style scoped>
+.board-menu__card {
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px 0px;
+}
+.board-menu__card__hr {
+  border: 0;
+  height: 2px;
+  background-color: white;
+  margin: 0;
+}
+.board-menu__card__section-day {
+  display: flex;
+  align-items: center;
+  font-size: var(--font-medium-large);
+  background: var(--q-primary-ligth);
+  min-height: 40px;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  padding: 10px;
+}
+.board-menu__card__section-food {
+  background: var(--q-primary-ligth);
+  min-height: 140px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  padding: 10px;
+}
 .q-tab-panels {
   background: none;
 }
 .q-tab-panel {
   padding: 0;
-}
-.create-menu__tabs,
-.create-menu__tab_panels {
-  width: 100%;
-  max-width: 1200px;
-}
-.create-menu__card {
-  margin: 20px 0;
-  min-height: 200px;
-  font-size: var(--font-medium-large);
-  background-image: linear-gradient(
-    rgb(169, 182, 183) 0%,
-    rgb(228, 232, 233) 50%
-  );
-}
-.create-menu__card__title {
-  margin-bottom: 10px;
-}
-.create-menu__card__title__text {
-  border-bottom: 4px solid var(--steel-dark);
-  color: var(--steel-dark);
-  padding: 6px;
-}
-.create-menu__card__icon-edit {
-  cursor: pointer;
-}
-.create_memu__card__description-food {
-  font-size: var(--font-small);
 }
 </style>

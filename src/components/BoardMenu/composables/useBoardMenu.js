@@ -6,6 +6,14 @@ export const useBoardMenu = () => {
   const nameMomentFoodSelected = ref("");
   const descriptionFoodSelected = ref("");
 
+  const foodNames = ref([
+    "breakfast",
+    "snackmorning",
+    "lunch",
+    "snackevening",
+    "dinner",
+  ]);
+
   const saveFood = () => {};
 
   const showDialog = (dayWeek, nameMomentFood, descriptionFood) => {
@@ -26,5 +34,6 @@ export const useBoardMenu = () => {
     nameMomentFoodSelected,
     descriptionFoodSelected,
     dialogCreateFoodVisible,
+    foodNames,
   };
 };
