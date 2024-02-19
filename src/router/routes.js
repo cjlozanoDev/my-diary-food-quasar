@@ -70,6 +70,23 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/list-menus",
+    meta: {
+      auth: true,
+    },
+    component: () => import("layouts/MainLayout.vue"),
+    children: [
+      {
+        path: "",
+        name: "ListMenus",
+        meta: {
+          namePage: "List of menus",
+        },
+        component: () => import("pages/list-menus/ListMenus.vue"),
+      },
+    ],
+  },
   // Always leave this as last one,
   // but you can also remove it
   {
