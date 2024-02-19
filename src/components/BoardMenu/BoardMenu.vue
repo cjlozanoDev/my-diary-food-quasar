@@ -77,7 +77,14 @@ const daysWeekMenu = computed(() => {
           </section>
           <hr class="board-menu__card__hr" />
           <section class="board-menu__card__section-food">
-            {{ daysWeekMenu[dayWeek][typeFood] }}
+            <span v-if="daysWeekMenu[dayWeek][typeFood].length"
+              >{{ daysWeekMenu[dayWeek][typeFood] }}
+            </span>
+            <span class="board-menu__card__section_food__no-text" v-else
+              >¡Ups! Parece que aún no has añadido nada. <br />Para escribir,
+              haz click en el lapiz que está en la parte superior de esta
+              tarjeta.</span
+            >
           </section>
         </div>
       </q-tab-panel>
@@ -130,6 +137,10 @@ const daysWeekMenu = computed(() => {
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
   padding: 10px;
+}
+.board-menu__card__section_food__no-text {
+  font-style: italic;
+  font-size: 0.9em;
 }
 .q-tab-panels {
   background: none;
