@@ -12,6 +12,19 @@ export const useMenusStore = defineStore("menusStore", {
     addMenu(menu) {
       this.menus.push(menu);
     },
+    setMenuCompleted(dataMenu) {
+      const menuToUpdated = this.menus.find((menu) => menu.id === dataMenu.id);
+      menuToUpdated = dataMenu;
+    },
+    setMenuWeek(propsMenu = { id, descriptionFood, dayWeek, nameMomentFood }) {
+      const menuToUpdated = this.menus.find((menu) => menu.id === propsMenu.id);
+      const menuToUpdatedMenuJSON = { ...JSON.parse(menuToUpdated.menu) };
+
+      menuToUpdatedMenuJSON[propsMenu.dayWeek][propsMenu.nameMomentFood] =
+        propsMenu.descriptionFood;
+
+      menuToUpdated.menu = JSON.stringify(menuToUpdatedMenuJSON);
+    },
     async markCurrentMenu(idMenu) {
       const previousCurrentMenu = this.currentMenu;
       previousCurrentMenu.currentMenu = false;

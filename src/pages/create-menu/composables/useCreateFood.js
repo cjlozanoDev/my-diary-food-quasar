@@ -19,7 +19,7 @@ export const useCreateFood = () => {
     monday: {
       completeName: "Monday",
       traductorName: "monday",
-      breakfast: "Esto sería un desayuno rico",
+      breakfast: "",
       snackmorning: "",
       lunch: "",
       snackevening: "",

@@ -51,7 +51,7 @@ const createMenuApi = async (
 const updateMenuApi = (idMenu, menu) => {
   const docRef = doc(db, "menus", idMenu);
   return updateDoc(docRef, {
-    menu: JSON.stringify(menu),
+    menu: typeof menu === "string" ? menu : JSON.stringify(menu),
   });
 };
 
