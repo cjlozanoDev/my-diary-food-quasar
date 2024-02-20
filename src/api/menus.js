@@ -11,7 +11,7 @@ import {
 } from "./firebase";
 
 const userStoreLocalStorage = JSON.parse(localStorage.getItem("userStore"));
-const userUid = userStoreLocalStorage.uid;
+const userUid = userStoreLocalStorage?.uid;
 
 const getMenusUserApi = () => {
   const q = query(collection(db, "menus"), where("creatorUid", "==", userUid));

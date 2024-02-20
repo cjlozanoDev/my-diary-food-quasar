@@ -1,5 +1,6 @@
 <script setup>
 import DiaryButton from "src/components/Button/DiaryButton.vue";
+import { formatDateFromMillis } from "src/utils/formatDates";
 
 defineProps({
   menu: {
@@ -31,11 +32,14 @@ defineProps({
       </span>
     </div>
 
-    <img
-      src="src/assets/foodIconCardListMenu.svg"
-      alt="Icon image dish and fork"
-      class="card_list_menu__icon"
-    />
+    <section class="card_list_menu__section_icon">
+      <img
+        src="src/assets/foodIconCardListMenu.svg"
+        alt="Icon image dish and fork"
+        class="card_list_menu__icon"
+      />
+      {{ formatDateFromMillis(menu.created_at) }}
+    </section>
   </section>
 </template>
 
@@ -67,6 +71,11 @@ defineProps({
 .card_list_menu__info__title {
   font-weight: bold;
   font-size: var(--font-medium-large);
+}
+.card_list_menu__section_icon {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 .card_list_menu__icon {
   width: 60px;
