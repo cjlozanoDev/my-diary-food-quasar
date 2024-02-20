@@ -1,4 +1,6 @@
 <script setup>
+import DiaryButton from "src/components/Button/DiaryButton.vue";
+
 defineProps({
   menu: {
     type: Object,
@@ -8,25 +10,66 @@ defineProps({
 </script>
 
 <template>
-  <section class="card-list-menu" v-if="Object.keys(menu)">hola</section>
+  <section class="card-list-menu" v-if="Object.keys(menu)">
+    <div class="card_list_menu__info">
+      <span class="card_list_menu__info__title"> {{ menu.name }} </span>
+      <span class="card_list_menu__info__description">
+        {{
+          menu.description
+            ? ""
+            : "Este ménu no tiene descripción, puedes añadirla pulsando el botón de ver menú."
+        }}
+      </span>
+      <span class="">
+        <DiaryButton
+          class="card_list_menu__info__section-enter"
+          color="#ff0000"
+          size="sm"
+          icon-right="arrow_forward"
+          label="Ver menú"
+        />
+      </span>
+    </div>
+
+    <img
+      src="src/assets/foodIconCardListMenu.svg"
+      alt="Icon image dish and fork"
+      class="card_list_menu__icon"
+    />
+  </section>
 </template>
 
 <style scoped>
 .card-list-menu {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  padding: var(--spacing-md);
   background: var(--q-primary-extra-ligth);
-  height: 100px;
+  border-radius: 20px;
+  height: 150px;
   width: 100%;
   position: relative;
 }
-
-.card-list-menu:before {
-  content: "";
-  position: absolute;
-  border-bottom: 50px solid transparent;
-  border-right: 50px solid red;
-  border-top: 50px solid transparent;
-  height: 100px;
-  width: 0px;
-  margin-left: -20px;
+.card_list_menu__info {
+  display: flex;
+  flex-direction: column;
+}
+.card_list_menu__info__description {
+  font-style: italic;
+}
+.card_list_menu__info__section-enter {
+  margin: 10px 0px;
+  background-color: var(--q-primary-ligth);
+  font-size: 20px;
+}
+.card_list_menu__info__title {
+  font-weight: bold;
+  font-size: var(--font-medium-large);
+}
+.card_list_menu__icon {
+  width: 60px;
+  transform: rotate(-9deg);
 }
 </style>

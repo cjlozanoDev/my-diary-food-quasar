@@ -24,5 +24,6 @@ const menusComputed = computed(() => {
 <style scoped>
 .list-menus__card-list {
   margin-bottom: 20px;
+  max-width: 1200px;
 }
 </style>
