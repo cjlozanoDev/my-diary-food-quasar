@@ -11,13 +11,17 @@ const menusComputed = computed(() => {
 </script>
 
 <template>
-  <div class="page-my-diary-food">
-    <CardListMenu
-      class="list-menus__card-list"
-      v-for="menu in menusComputed"
-      :key="menu.id"
-      :menu="menu"
-    />
+  <div>
+    <span class="head-diary-food head-subtitle">Tus menús</span>
+
+    <section class="page-my-diary-food">
+      <CardListMenu
+        class="list-menus__card-list"
+        v-for="menu in menusComputed"
+        :key="menu.id"
+        :menu="menu"
+      />
+    </section>
   </div>
 </template>
 
