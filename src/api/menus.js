@@ -9,19 +9,25 @@ import {
   query,
   where,
 } from "./firebase";
+import { useUserStore } from "src/store/useUserStore";
 
-const userStoreLocalStorage = JSON.parse(localStorage.getItem("userStore"));
-const userUid = userStoreLocalStorage?.uid;
+/* const userStoreLocalStorage = JSON.parse(localStorage.getItem("userStore"));
+const userUid = userStoreLocalStorage ? userStoreLocalStorage.uid : ""; */
 
 const getMenusUserApi = () => {
-  const q = query(collection(db, "menus"), where("creatorUid", "==", userUid));
+  const userStore = useUserStore();
+  const q = query(
+    collection(db, "menus"),
+    where("creatorUid", "==", userStore.uid)
+  );
   return getDocs(q);
 };
 
 const getCurrenMenuApi = () => {
+  const userStore = useUserStore();
   const q = query(
     collection(db, "menus"),
-    where("creatorUid", "==", userUid),
+    where("creatorUid", "==", userStore.uid),
     where("currentMenu", "==", true)
   );
   return getDocs(q);
@@ -32,8 +38,9 @@ const createMenuApi = async (
   menu,
   props = { currentMenu: false }
 ) => {
+  const userStore = useUserStore();
   const menuToCreate = {
-    creatorUid: userUid,
+    creatorUid: userStore.uid,
     currentMenu: props.currentMenu,
     name: nameMenu,
     menu,
