@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import { useMenusStore } from "src/store/useMenusStore";
 import { useStatePageStore } from "src/store/useStatePageStore";
+import { formatDateFromMillisToDateLuxon } from "src/utils/datesUtils";
 import SkeletonCardListMenu from "components/skeletons/SkeletonCardListMenu.vue";
 import CardListMenu from "./components/CardListMenu.vue";
 
@@ -9,7 +10,11 @@ const menusStore = useMenusStore();
 const statePageStore = useStatePageStore();
 
 const menusComputed = computed(() => {
-  return menusStore.menus;
+  return [...menusStore.menus].sort((a, b) => {
+    const fechaA = formatDateFromMillisToDateLuxon(a.created_at);
+    const fechaB = formatDateFromMillisToDateLuxon(b.created_at);
+    return fechaB - fechaA;
+  });
 });
 </script>
 

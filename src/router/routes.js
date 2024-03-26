@@ -81,7 +81,8 @@ const routes = [
         path: "",
         name: "ListMenus",
         meta: {
-          namePage: "List of menus",
+          namePage: "Listado de menús",
+          nameBackPage: "Home",
         },
         component: () => import("pages/list-menus/ListMenus.vue"),
       },

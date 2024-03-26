@@ -1,6 +1,6 @@
 <script setup>
 import DiaryButton from "src/components/Button/DiaryButton.vue";
-import { formatDateFromMillis } from "src/utils/formatDates";
+import { formatDateFromMillis } from "src/utils/datesUtils";
 
 defineProps({
   menu: {
