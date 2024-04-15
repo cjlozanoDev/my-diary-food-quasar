@@ -7,3 +7,12 @@ export const formatDateFromMillisToDateLuxon = (date) => {
 export const formatDateFromMillis = (date, format = "dd/MM/yyyy") => {
   return DateTime.fromMillis(date).toFormat(format);
 };
+
+export const getDateToday = () => {
+  return DateTime.now();
+};
+
+export const getCurrentDateMinusDays = (days = 30) => {
+  const currentDay = DateTime.now();
+  return currentDay.minus({ days });
+};

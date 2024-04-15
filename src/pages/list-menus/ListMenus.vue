@@ -3,6 +3,7 @@ import { computed, ref, watch } from "vue";
 import { useMenusStore } from "src/store/useMenusStore";
 import { useStatePageStore } from "src/store/useStatePageStore";
 import { formatDateFromMillisToDateLuxon } from "src/utils/datesUtils";
+import FiltersMenus from "components/filter-menus/FiltersMenus.vue";
 import SkeletonCardListMenu from "components/skeletons/SkeletonCardListMenu.vue";
 import CardListMenu from "./components/CardListMenu.vue";
 
@@ -46,6 +47,9 @@ watch(currentPage, () => {
     <span class="head-diary-food head-subtitle">Tus menús</span>
 
     <section class="page-my-diary-food">
+      <section class="list-menus__filters">
+        <FiltersMenus />
+      </section>
       <SkeletonCardListMenu
         custom-class="section_skeleton"
         v-if="statePageStore.loadingMenus"
@@ -94,6 +98,9 @@ watch(currentPage, () => {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%;
+}
+.list-menus__filters {
   width: 100%;
 }
 .tool-pagination {

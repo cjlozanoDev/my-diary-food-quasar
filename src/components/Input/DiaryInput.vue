@@ -15,6 +15,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  filled: {
+    type: Boolean,
+    default: false,
+  },
   hint: {
     type: String,
     default: "",
@@ -79,6 +83,7 @@ const value = computed({
     outlined
     v-model="value"
     :type="type"
+    :filled="filled"
     :hint="hint"
     :label="label"
     :lazy-rules="lazyRules"
