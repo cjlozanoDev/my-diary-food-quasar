@@ -3,12 +3,25 @@ import { computed, ref, watch } from "vue";
 import { useMenusStore } from "src/store/useMenusStore";
 import { useStatePageStore } from "src/store/useStatePageStore";
 import { formatDateFromMillisToDateLuxon } from "src/utils/datesUtils";
+import {
+  formatJSDateToLuxon,
+  formatDateLuxonStartOf,
+} from "src/utils/datesUtils";
 import FiltersMenus from "components/filter-menus/FiltersMenus.vue";
 import SkeletonCardListMenu from "components/skeletons/SkeletonCardListMenu.vue";
 import CardListMenu from "./components/CardListMenu.vue";
 
 const menusStore = useMenusStore();
 const statePageStore = useStatePageStore();
+
+const filtersValues = ref({
+  name: "",
+  description: "",
+  dateRanges: {
+    start: null,
+    end: null,
+  },
+});
 
 const currentPage = ref(1);
 const numCardsByPages = 10;
@@ -26,7 +39,7 @@ const paginatedMenus = computed(() => {
   const numEnd = currentPage.value * numCardsByPages;
   const numStart = numEnd - numCardsByPages;
 
-  return menusComputed.value.slice(numStart, numEnd);
+  return filteredMenus.value.slice(numStart, numEnd);
 });
 
 const totalPages = computed(() => {
@@ -35,6 +48,53 @@ const totalPages = computed(() => {
 
 const forceRenderedComponentCard = () => {
   componentKey.value += 1;
+};
+
+const filteredMenus = computed(() =>
+  menusComputed.value
+    .filter((menu) => filterByName(menu))
+    .filter((menu) => filterByDescription(menu))
+    .filter((menu) => filterByDatesRange(menu))
+);
+
+const filterByName = (menu) => {
+  return menu.name.includes(filtersValues.value.name);
+};
+
+const filterByDescription = (menu) => {
+  if (!menu.description && filtersValues.value.description === "") return true;
+  return (
+    menu.description &&
+    menu.description.includes(filtersValues.value.description)
+  );
+};
+
+const filterByDatesRange = (menu) => {
+  if (
+    !filtersValues.value.dateRanges.start &&
+    !filtersValues.value.dateRanges.end
+  )
+    return true;
+
+  const dateCreatedAt = formatDateLuxonStartOf(
+    formatDateFromMillisToDateLuxon(menu.created_at)
+  );
+
+  const dateLuxonStart = formatDateLuxonStartOf(
+    formatJSDateToLuxon(filtersValues.value.dateRanges.start)
+  );
+  const dateLuxonEnd = formatDateLuxonStartOf(
+    formatJSDateToLuxon(filtersValues.value.dateRanges.end)
+  );
+
+  return dateCreatedAt >= dateLuxonStart && dateCreatedAt <= dateLuxonEnd;
+};
+
+const updateFilterValuesMenus = (name, description, dateRanges) => {
+  filtersValues.value.name = name;
+  filtersValues.value.description = description;
+  filtersValues.value.dateRanges.start = dateRanges.start;
+  filtersValues.value.dateRanges.end = dateRanges.end;
 };
 
 watch(currentPage, () => {
@@ -48,7 +108,7 @@ watch(currentPage, () => {
 
     <section class="page-my-diary-food">
       <section class="list-menus__filters">
-        <FiltersMenus />
+        <FiltersMenus @filter-menus="updateFilterValuesMenus" />
       </section>
       <SkeletonCardListMenu
         custom-class="section_skeleton"

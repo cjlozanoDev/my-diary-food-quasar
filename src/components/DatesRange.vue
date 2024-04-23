@@ -1,9 +1,11 @@
 <script setup>
 import { computed } from "vue";
 import { DatePicker } from "v-calendar";
+import DiaryButton from "src/components/diary-food-icon/DiaryFoodIcon.vue";
+import DiaryInput from "src/components/Input/DiaryInput.vue";
 import "v-calendar/style.css";
 
-const emit = defineEmits("update-range-date");
+const emit = defineEmits(["update-range-date"]);
 
 const props = defineProps({
   datesRangeObject: {
@@ -41,63 +43,30 @@ const datesRangeComp = computed({
 });
 </script>
 
-<style scoped>
-.rango-fechas__contenedor-fechas {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.input-text-fecha {
-  background-color: white;
-  height: 56px;
-}
-
-.rango-fechas__contenedor-fechas__icon {
-  margin-top: 24px;
-}
-
-.rango-fechas__contenedor-fechas__icon.sin-label {
-  margin-top: 0px;
-}
-
-.rango_fechas__options {
-  margin-top: 10px;
-}
-</style>
-
 <template>
   <div>
     <DatePicker v-model.range="datesRangeComp" color="pink">
       <template #default="{ inputValue, inputEvents }">
-        <div class="rango-fechas__contenedor-fechas">
+        <div class="dates-range__container-dates">
           <div>
-            <label for="fecha-desde">
-              {{ labelDateFrom }}
-            </label>
-            <input
-              name="fecha-desde"
-              class="input-text-fecha"
-              :value="inputValue.start"
+            <DiaryInput
+              label="fecha desde"
+              v-model="inputValue.start"
               v-on="inputEvents.start"
               placeholder="Fecha desde"
-              solo
+              bg-color="white"
             />
           </div>
 
-          <span :class="['rango-fechas__contenedor-fechas__icon']"> -> </span>
+          <DiaryButton name="arrow_forward" />
 
           <div>
-            <label for="fecha-hasta">
-              {{ labelDateUntil }}
-            </label>
-            <input
-              name="fecha-hasta"
-              class="input-text-fecha"
-              :value="inputValue.end"
+            <DiaryInput
+              label="Fecha hasta"
+              v-model="inputValue.end"
               v-on="inputEvents.end"
               placeholder="Fecha hasta"
-              solo
+              bg-color="white"
             />
           </div>
         </div>
@@ -109,5 +78,27 @@ const datesRangeComp = computed({
 <style scoped>
 .vc-calendar .vc-day.on-right {
   margin-left: 0 !important;
+}
+
+.dates-range__container-dates {
+  display: flex;
+  align-items: baseline;
+}
+
+.input-text-fecha {
+  background-color: white;
+  height: 56px;
+}
+
+.dates-range__container-dates__icon {
+  margin-top: 24px;
+}
+
+.dates-range__container-dates__icon.sin-label {
+  margin-top: 0px;
+}
+
+.rango_fechas__options {
+  margin-top: 10px;
 }
 </style>
