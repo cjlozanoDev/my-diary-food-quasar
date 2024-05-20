@@ -77,7 +77,9 @@ defineProps({
     :size="size"
     :square="square"
     :type="type"
-  />
+  >
+    <slot />
+  </q-btn>
   <q-btn
     v-else
     :color="color"
@@ -92,5 +94,7 @@ defineProps({
     :size="size"
     :square="square"
     :type="type"
-  />
+  >
+    <slot />
+  </q-btn>
 </template>

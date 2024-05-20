@@ -15,6 +15,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  dense: {
+    type: Boolean,
+    default: false,
+  },
   filled: {
     type: Boolean,
     default: false,
@@ -30,6 +34,10 @@ const props = defineProps({
   lazyRules: {
     type: Boolean,
     default: false,
+  },
+  mask: {
+    type: String,
+    default: "",
   },
   outlined: {
     type: Boolean,
@@ -84,9 +92,11 @@ const value = computed({
     v-model="value"
     :type="type"
     :filled="filled"
+    :dense="dense"
     :hint="hint"
     :label="label"
     :lazy-rules="lazyRules"
+    :mask="mask"
     :placeholder="placeholder"
     :reactive-rules="reactiveRules"
     :rules="rules"

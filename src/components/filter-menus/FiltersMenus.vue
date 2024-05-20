@@ -2,7 +2,6 @@
 import DiaryInput from "src/components/Input/DiaryInput.vue";
 import DiaryButton from "src/components/Button/DiaryButton.vue";
 import DatesRange from "../DatesRange.vue";
-import { getDateToday, getCurrentDateMinusDays } from "src/utils/datesUtils";
 import { ref } from "vue";
 
 const emit = defineEmits(["filter-menus"]);
@@ -34,6 +33,7 @@ const filterMenus = () => {
     <DiaryInput
       v-model="nameMenu"
       class="filter-menus__input"
+      dense
       bg-color="white"
       type="text"
       :label="`${$t('label_name')}`"
@@ -41,6 +41,7 @@ const filterMenus = () => {
     <DiaryInput
       v-model="descriptionMenu"
       class="filter-menus__input"
+      dense
       bg-color="white"
       type="text"
       :label="`${$t('label_description')}`"
@@ -48,6 +49,7 @@ const filterMenus = () => {
     <DatesRange
       :dates-range-object="datesRangeObject"
       @update-range-date="updateRangeDate"
+      dense
     />
 
     <DiaryButton
@@ -73,7 +75,6 @@ const filterMenus = () => {
   width: 156px;
 }
 .filters-menus__button-search {
-  height: 45px;
-  margin-top: 5px;
+  height: 40px;
 }
 </style>

@@ -8,8 +8,14 @@ import {
   formatDateLuxonStartOf,
 } from "src/utils/datesUtils";
 import FiltersMenus from "components/filter-menus/FiltersMenus.vue";
+import FiltersMenusSmartphone from "components/filter-menus/FiltersMenusSmartphone.vue";
 import SkeletonCardListMenu from "components/skeletons/SkeletonCardListMenu.vue";
 import CardListMenu from "./components/CardListMenu.vue";
+import { useQuasar } from "quasar";
+
+const $q = useQuasar();
+
+const isMobile = computed(() => $q.platform.is.mobile);
 
 const menusStore = useMenusStore();
 const statePageStore = useStatePageStore();
@@ -104,11 +110,17 @@ watch(currentPage, () => {
 
 <template>
   <div>
-    <span class="head-diary-food head-subtitle">Tus menús</span>
+    <span class="head-diary-food head-subtitle">Tus menús </span>
 
     <section class="page-my-diary-food">
       <section class="list-menus__filters">
-        <FiltersMenus @filter-menus="updateFilterValuesMenus" />
+        <FiltersMenus
+          v-if="!isMobile"
+          @filter-menus="updateFilterValuesMenus"
+        />
+        <span v-else class="list-menus__component-filters-menus-smartphone">
+          <FiltersMenusSmartphone />
+        </span>
       </section>
       <SkeletonCardListMenu
         custom-class="section_skeleton"
@@ -162,6 +174,7 @@ watch(currentPage, () => {
 }
 .list-menus__filters {
   width: 100%;
+  max-width: 1200px;
 }
 .tool-pagination {
   margin-top: 10px;
@@ -174,5 +187,10 @@ watch(currentPage, () => {
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+}
+.list-menus__component-filters-menus-smartphone {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
 }
 </style>

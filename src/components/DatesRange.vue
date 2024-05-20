@@ -24,6 +24,10 @@ const props = defineProps({
     type: String,
     default: "Fecha Hasta",
   },
+  dense: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const datesRangeComp = computed({
@@ -51,6 +55,7 @@ const datesRangeComp = computed({
           <div>
             <DiaryInput
               label="fecha desde"
+              :dense="dense"
               v-model="inputValue.start"
               v-on="inputEvents.start"
               placeholder="Fecha desde"
@@ -63,6 +68,7 @@ const datesRangeComp = computed({
           <div>
             <DiaryInput
               label="Fecha hasta"
+              :dense="dense"
               v-model="inputValue.end"
               v-on="inputEvents.end"
               placeholder="Fecha hasta"
