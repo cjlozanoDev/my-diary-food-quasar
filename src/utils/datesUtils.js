@@ -4,6 +4,13 @@ export const formatJSDateToLuxon = (date) => {
   return DateTime.fromJSDate(date);
 };
 
+export const formatDateFromJSDate = (date, format = "dd/MM/yyyy") => {
+  if (!date) {
+    return null;
+  }
+  return DateTime.fromJSDate(date).toFormat(format);
+};
+
 export const formatDateFromMillisToDateLuxon = (date) => {
   return DateTime.fromMillis(date);
 };

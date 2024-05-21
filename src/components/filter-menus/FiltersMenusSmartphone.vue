@@ -1,7 +1,7 @@
 <script setup>
 import DiaryInput from "src/components/Input/DiaryInput.vue";
 import DiaryButton from "src/components/Button/DiaryButton.vue";
-import DatesRange from "../DatesRange.vue";
+import DatesRangeSmartphone from "../dates-range-smartphone/DatesRangeSmartphone.vue";
 import { ref } from "vue";
 
 const nameMenu = ref("");
@@ -62,23 +62,7 @@ const date = ref("2019/02/01");
           type="text"
           :label="`${$t('label_description')}`"
         />
-        <q-input dense v-model="date" mask="date" :rules="['date']" outlined>
-          <template v-slot:append>
-            <q-icon name="event" class="cursor-pointer">
-              <q-popup-proxy
-                cover
-                transition-show="scale"
-                transition-hide="scale"
-              >
-                <q-date v-model="date">
-                  <div class="row items-center justify-end">
-                    <q-btn v-close-popup label="Close" color="primary" flat />
-                  </div>
-                </q-date>
-              </q-popup-proxy>
-            </q-icon>
-          </template>
-        </q-input>
+        <DatesRangeSmartphone />
         <q-separator />
         <DiaryButton
           class="filters-menus__button-search"

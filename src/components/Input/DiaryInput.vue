@@ -39,6 +39,10 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  readonly: {
+    type: Boolean,
+    default: false,
+  },
   outlined: {
     type: Boolean,
     default: false,
@@ -99,8 +103,13 @@ const value = computed({
     :mask="mask"
     :placeholder="placeholder"
     :reactive-rules="reactiveRules"
+    :readonly="readonly"
     :rules="rules"
     :color="color"
     :counter="counter"
-  />
+  >
+    <template v-slot:prepend>
+      <slot name="prepend" />
+    </template>
+  </q-input>
 </template>
