@@ -13,6 +13,10 @@ const props = defineProps({
     type: Object,
     default: null,
   },
+  dateSelectedName: {
+    type: String,
+    default: "since",
+  },
 });
 
 const value = computed({
@@ -35,7 +39,9 @@ const dateSelected = computed({
   <q-dialog v-model="value" persistent>
     <q-card>
       <q-card-section>
-        <div class="text-h6">Fecha desde</div>
+        <div class="text-h6">
+          {{ dateSelectedName ? "Fecha desde" : "Fecha hasta" }}
+        </div>
       </q-card-section>
 
       <q-card-section class="q-pt-none">

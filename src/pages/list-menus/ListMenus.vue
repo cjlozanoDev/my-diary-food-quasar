@@ -2,11 +2,14 @@
 import { computed, ref, watch } from "vue";
 import { useMenusStore } from "src/store/useMenusStore";
 import { useStatePageStore } from "src/store/useStatePageStore";
-import { formatDateFromMillisToDateLuxon } from "src/utils/datesUtils";
 import {
+  formatDateFromMillisToDateLuxon,
   formatJSDateToLuxon,
   formatDateLuxonStartOf,
+  getDateToday,
+  getDateBeginningOfTime,
 } from "src/utils/datesUtils";
+
 import FiltersMenus from "components/filter-menus/FiltersMenus.vue";
 import FiltersMenusSmartphone from "components/filter-menus/FiltersMenusSmartphone.vue";
 import SkeletonCardListMenu from "components/skeletons/SkeletonCardListMenu.vue";
@@ -32,6 +35,7 @@ const filtersValues = ref({
 const currentPage = ref(1);
 const numCardsByPages = 10;
 const componentKey = ref(0);
+const loadingUpdateMenus = ref(false);
 
 const menusComputed = computed(() => {
   return [...menusStore.menus].sort((a, b) => {
@@ -86,21 +90,31 @@ const filterByDatesRange = (menu) => {
     formatDateFromMillisToDateLuxon(menu.created_at)
   );
 
-  const dateLuxonStart = formatDateLuxonStartOf(
-    formatJSDateToLuxon(filtersValues.value.dateRanges.start)
-  );
-  const dateLuxonEnd = formatDateLuxonStartOf(
-    formatJSDateToLuxon(filtersValues.value.dateRanges.end)
-  );
+  const dateLuxonStart = filtersValues.value.dateRanges.start
+    ? formatDateLuxonStartOf(
+        formatJSDateToLuxon(filtersValues.value.dateRanges.start)
+      )
+    : getDateBeginningOfTime();
+
+  const dateLuxonEnd = filtersValues.value.dateRanges.end
+    ? formatDateLuxonStartOf(
+        formatJSDateToLuxon(filtersValues.value.dateRanges.end)
+      )
+    : getDateToday();
 
   return dateCreatedAt >= dateLuxonStart && dateCreatedAt <= dateLuxonEnd;
 };
 
 const updateFilterValuesMenus = (name, description, dateRanges) => {
-  filtersValues.value.name = name;
-  filtersValues.value.description = description;
-  filtersValues.value.dateRanges.start = dateRanges.start;
-  filtersValues.value.dateRanges.end = dateRanges.end;
+  loadingUpdateMenus.value = true;
+
+  setTimeout(() => {
+    filtersValues.value.name = name;
+    filtersValues.value.description = description;
+    filtersValues.value.dateRanges.start = dateRanges.start;
+    filtersValues.value.dateRanges.end = dateRanges.end;
+    loadingUpdateMenus.value = false;
+  }, "200");
 };
 
 watch(currentPage, () => {
@@ -119,12 +133,12 @@ watch(currentPage, () => {
           @filter-menus="updateFilterValuesMenus"
         />
         <span v-else class="list-menus__component-filters-menus-smartphone">
-          <FiltersMenusSmartphone />
+          <FiltersMenusSmartphone @filter-menus="updateFilterValuesMenus" />
         </span>
       </section>
       <SkeletonCardListMenu
         custom-class="section_skeleton"
-        v-if="statePageStore.loadingMenus"
+        v-if="statePageStore.loadingMenus || loadingUpdateMenus"
         :number-repeat="4"
       />
       <section class="section-list-menus__card-list__card" v-else>

@@ -70,6 +70,10 @@ a {
   justify-content: center;
   align-items: center;
 }
+.text-error {
+  font-size: var(--font-small);
+  color: var(--q-negative);
+}
 
 @media (min-width: 798px) {
   body::before {

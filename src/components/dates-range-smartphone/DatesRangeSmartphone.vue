@@ -5,17 +5,26 @@ import DialogDateVCalendar from "./components/DialogDateVCalendar.vue";
 import DiaryInput from "src/components/Input/DiaryInput.vue";
 import DiaryFoodIcon from "src/components/diary-food-icon/DiaryFoodIcon.vue";
 
-const dialogDateVisible = ref(false);
-const datesRangeObject = ref({
-  start: null,
-  end: null,
+const emit = defineEmits(["update-date-range"]);
+
+const props = defineProps({
+  datesRangeObject: {
+    type: Object,
+    default: () => ({
+      start: "",
+      end: "",
+    }),
+  },
 });
 
+const dialogDateVisible = ref(false);
+
 const dateSelectedName = ref("since");
+
 const dateSelectedCalendar = computed(() =>
   dateSelectedName.value === "since"
-    ? datesRangeObject.value.start
-    : datesRangeObject.value.end
+    ? props.datesRangeObject.start
+    : props.datesRangeObject.end
 );
 
 const openDialog = (dateSelectedNameInput) => {
@@ -25,13 +34,17 @@ const openDialog = (dateSelectedNameInput) => {
 };
 
 const closeDialog = (dateSelected) => {
+  dialogDateVisible.value = false;
+  const newRangeDate = {
+    ...props.datesRangeObject,
+  };
   if (dateSelectedName.value === "since") {
-    datesRangeObject.value.start = dateSelected;
+    newRangeDate.start = dateSelected;
   }
   if (dateSelectedName.value === "until") {
-    datesRangeObject.value.end = dateSelected;
+    newRangeDate.end = dateSelected;
   }
-  dialogDateVisible.value = false;
+  emit("update-date-range", newRangeDate);
 };
 // since -> desde
 // hasta -> until
@@ -61,11 +74,11 @@ const closeDialog = (dateSelected) => {
         <DiaryFoodIcon name="calendar_month" />
       </template>
     </DiaryInput>
-    <button @click="openDialog">Abrir</button>
 
     <DialogDateVCalendar
       :dialog-date-visible="dialogDateVisible"
       :date-selected-calendar="dateSelectedCalendar"
+      :date-selected-name="dateSelectedName"
       @close-dialog="closeDialog"
     />
   </div>

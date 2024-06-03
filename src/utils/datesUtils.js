@@ -23,6 +23,10 @@ export const getDateToday = () => {
   return DateTime.now();
 };
 
+export const getDateBeginningOfTime = () => {
+  return DateTime.fromObject({ year: 1970, month: 1, day: 1 });
+};
+
 export const formatDateLuxonStartOf = (date, partDate = "day") => {
   return date.startOf(partDate);
 };
