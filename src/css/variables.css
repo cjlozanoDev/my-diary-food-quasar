@@ -3,6 +3,7 @@
   --q-primary: #a85690;
   --q-primary-ligth: #d096c3;
   --q-primary-extra-ligth: #efdbeb;
+  --q-primary-salmon: #f9cad0;
   --q-secondary: #b37841;
   --q-tertiary: #89b5bf;
   --q-accent: #e04f2e;
@@ -18,6 +19,8 @@
   --gray-steel: #d5d8cf;
 
   --orange-light: #fdca8f;
+
+  --yellow-light: #fff4db;
 
   --steel: #576669;
   --steel-dark: #2a4449;

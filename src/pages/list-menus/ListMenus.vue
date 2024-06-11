@@ -33,7 +33,7 @@ const filtersValues = ref({
 });
 
 const currentPage = ref(1);
-const numCardsByPages = 10;
+const numCardsByPages = 2;
 const componentKey = ref(0);
 const loadingUpdateMenus = ref(false);
 
@@ -164,9 +164,9 @@ watch(currentPage, () => {
         :max-pages="6"
         direction-links
         push
-        color="primary"
+        color="primaryLigth"
         active-design="push"
-        active-color="orange"
+        active-color="primary"
       />
     </section>
   </div>
@@ -206,5 +206,9 @@ watch(currentPage, () => {
   display: flex;
   justify-content: flex-end;
   width: 100%;
+}
+
+:deep(.bg-primaryLigth) {
+  background: var(--q-primary-ligth) !important;
 }
 </style>

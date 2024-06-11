@@ -96,6 +96,11 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
+      config: {
+        brand: {
+          primarySalmon: "#f9cad0",
+        },
+      },
       plugins: ["Loading"],
     },
 

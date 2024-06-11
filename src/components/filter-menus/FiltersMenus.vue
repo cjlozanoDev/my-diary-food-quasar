@@ -67,7 +67,7 @@ const filterMenus = () => {
   flex-wrap: wrap;
   gap: 20px;
   margin-bottom: 10px;
-  background-color: mistyrose;
+  background-color: #f9cad0;
   padding: 10px;
   border-radius: 20px;
 }
