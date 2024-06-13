@@ -71,6 +71,24 @@ const routes = [
     ],
   },
   {
+    path: "/viewMenu",
+    meta: {
+      auth: true,
+    },
+    component: () => import("layouts/MainLayout.vue"),
+    children: [
+      {
+        path: "",
+        name: "ViewMenu",
+        meta: {
+          namePage: "Ver menú",
+          nameBackPage: "ListMenus",
+        },
+        component: () => import("pages/view-menu/ViewMenu.vue"),
+      },
+    ],
+  },
+  {
     path: "/list-menus",
     meta: {
       auth: true,

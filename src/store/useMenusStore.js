@@ -4,6 +4,7 @@ import { updateCurrentMenu } from "src/api/menus";
 export const useMenusStore = defineStore("menusStore", {
   state: () => ({
     menus: [],
+    idMenuSelected: 0,
   }),
   actions: {
     setMenus(menus) {
@@ -25,6 +26,9 @@ export const useMenusStore = defineStore("menusStore", {
 
       menuToUpdated.menu = JSON.stringify(menuToUpdatedMenuJSON);
     },
+    setIdMenuSelected(idMenu) {
+      this.idMenuSelected = idMenu;
+    },
     async markCurrentMenu(idMenu) {
       const previousCurrentMenu = this.currentMenu;
       previousCurrentMenu.currentMenu = false;
@@ -45,5 +49,13 @@ export const useMenusStore = defineStore("menusStore", {
         ? {}
         : this.menus.find((menu) => menu.currentMenu);
     },
+    menuSelected() {
+      return !this.idMenuSelected
+        ? {}
+        : this.menus.find((menu) => menu.id === this.idMenuSelected);
+    },
+  },
+  persist: {
+    paths: ["idMenuSelected"],
   },
 });

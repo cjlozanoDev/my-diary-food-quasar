@@ -15,6 +15,9 @@ import FiltersMenusSmartphone from "components/filter-menus/FiltersMenusSmartpho
 import SkeletonCardListMenu from "components/skeletons/SkeletonCardListMenu.vue";
 import CardListMenu from "./components/CardListMenu.vue";
 import { useQuasar } from "quasar";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const $q = useQuasar();
 
@@ -33,7 +36,7 @@ const filtersValues = ref({
 });
 
 const currentPage = ref(1);
-const numCardsByPages = 2;
+const numCardsByPages = 10;
 const componentKey = ref(0);
 const loadingUpdateMenus = ref(false);
 
@@ -117,6 +120,11 @@ const updateFilterValuesMenus = (name, description, dateRanges) => {
   }, "200");
 };
 
+const viewMenu = (idMenu) => {
+  menusStore.setIdMenuSelected(idMenu);
+  router.push({ name: "ViewMenu" });
+};
+
 watch(currentPage, () => {
   forceRenderedComponentCard();
 });
@@ -150,6 +158,7 @@ watch(currentPage, () => {
           >
             <CardListMenu
               v-for="menu in paginatedMenus"
+              @view-menu="viewMenu"
               :key="menu.id"
               :menu="menu"
             />

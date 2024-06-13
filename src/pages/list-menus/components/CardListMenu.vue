@@ -2,12 +2,18 @@
 import DiaryButton from "src/components/Button/DiaryButton.vue";
 import { formatDateFromMillis } from "src/utils/datesUtils";
 
-defineProps({
+const emit = defineEmits(["view-menu"]);
+
+const props = defineProps({
   menu: {
     type: Object,
     default: () => {},
   },
 });
+
+const viewMenu = () => {
+  emit("view-menu", props.menu.id);
+};
 </script>
 
 <template>
@@ -28,6 +34,7 @@ defineProps({
           size="sm"
           icon-right="arrow_forward"
           label="Ver menú"
+          :onclick="viewMenu"
         />
       </span>
     </div>
