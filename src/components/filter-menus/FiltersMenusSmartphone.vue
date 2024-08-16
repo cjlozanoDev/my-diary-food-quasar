@@ -52,6 +52,14 @@ const validateForm = () => {
 const open = () => {
   dialog.value = true;
 };
+const clearFilters = () => {
+  nameMenu.value = "";
+  descriptionMenu.value = "";
+  datesRangeObject.value = {
+    start: null,
+    end: null,
+  };
+};
 </script>
 
 <template>
@@ -91,11 +99,19 @@ const open = () => {
         <p v-if="textError" class="text-error">* {{ textError }}</p>
 
         <q-separator />
-        <DiaryButton
-          class="filters-menus__button-search"
-          :label="`${$t('search')}`"
-          :onclick="filterMenus"
-        />
+        <section class="filter-menus-smartphone__actions">
+          <DiaryButton
+            class="filters-menus__button-search"
+            :label="`${$t('search')}`"
+            :onclick="filterMenus"
+          />
+          <DiaryButton
+            outline
+            class="filters-menus__button-search"
+            :label="`${$t('clear')}`"
+            :onclick="clearFilters"
+          />
+        </section>
       </q-card-section>
     </q-card>
   </q-dialog>
@@ -105,5 +121,9 @@ const open = () => {
 .filters-menus-smartphone__title-filters {
   font-weight: bold;
   font-size: var(--font-medium-large);
+}
+.filter-menus-smartphone__actions {
+  display: flex;
+  gap: var(--spacing-sm);
 }
 </style>

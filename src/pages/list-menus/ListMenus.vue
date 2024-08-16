@@ -14,6 +14,7 @@ import FiltersMenus from "components/filter-menus/FiltersMenus.vue";
 import FiltersMenusSmartphone from "components/filter-menus/FiltersMenusSmartphone.vue";
 import SkeletonCardListMenu from "components/skeletons/SkeletonCardListMenu.vue";
 import CardListMenu from "./components/CardListMenu.vue";
+import DiaryButton from "src/components/Button/DiaryButton.vue";
 import { useQuasar } from "quasar";
 import { useRouter } from "vue-router";
 
@@ -39,6 +40,7 @@ const currentPage = ref(1);
 const numCardsByPages = 10;
 const componentKey = ref(0);
 const loadingUpdateMenus = ref(false);
+const isMenuFilteredOnce = ref(false);
 
 const menusComputed = computed(() => {
   return [...menusStore.menus].sort((a, b) => {
@@ -109,6 +111,7 @@ const filterByDatesRange = (menu) => {
 };
 
 const updateFilterValuesMenus = (name, description, dateRanges) => {
+  isMenuFilteredOnce.value = true;
   loadingUpdateMenus.value = true;
 
   setTimeout(() => {
@@ -125,6 +128,12 @@ const viewMenu = (idMenu) => {
   router.push({ name: "ViewMenu" });
 };
 
+const goToCreateMenu = () => {
+  router.push({
+    name: "CreateMenu",
+  });
+};
+
 watch(currentPage, () => {
   forceRenderedComponentCard();
 });
@@ -135,7 +144,7 @@ watch(currentPage, () => {
     <span class="head-diary-food head-subtitle">Tus menús </span>
 
     <section class="page-my-diary-food">
-      <section class="list-menus__filters">
+      <section class="list-menus__filters" v-if="menusComputed.length">
         <FiltersMenus
           v-if="!isMobile"
           @filter-menus="updateFilterValuesMenus"
@@ -164,6 +173,23 @@ watch(currentPage, () => {
             />
           </div>
         </transition>
+      </section>
+
+      <section v-if="!filteredMenus.length">
+        <div v-if="!isMenuFilteredOnce">
+          <p>¡Vaya!, parece que todavía no has creado ningún menú</p>
+          <section class="list-menus__not-menus">
+            <span class="text-create-menu">{{ $t("create_first_menu") }}</span>
+            <DiaryButton
+              outline
+              :onclick="goToCreateMenu"
+              label="Crear menú"
+              size="sm"
+            />
+          </section>
+        </div>
+
+        <p v-else>No se han encontrado menús con estos filtros</p>
       </section>
 
       <q-pagination
@@ -215,6 +241,11 @@ watch(currentPage, () => {
   display: flex;
   justify-content: flex-end;
   width: 100%;
+}
+.list-menus__not-menus {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
 }
 
 :deep(.bg-primaryLigth) {

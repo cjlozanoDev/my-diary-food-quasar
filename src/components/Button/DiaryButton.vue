@@ -51,6 +51,10 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  style: {
+    type: Object,
+    default: () => {},
+  },
   type: {
     type: String,
     default: "button",
@@ -76,6 +80,7 @@ defineProps({
     :round="round"
     :size="size"
     :square="square"
+    :style="style"
     :type="type"
   >
     <slot />
@@ -93,6 +98,7 @@ defineProps({
     :round="round"
     :size="size"
     :square="square"
+    :style="style"
     :type="type"
   >
     <slot />

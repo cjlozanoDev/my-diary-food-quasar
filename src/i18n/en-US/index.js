@@ -2,6 +2,7 @@ export default {
   answer_register: "Are you not registered? ",
   back: "back",
   breakfast: "Breakfast",
+  clear: "Clear",
   create_account: "Create an account",
   create_first_menu: " Create your first menu",
   create_menu: "Create menu",

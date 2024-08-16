@@ -26,6 +26,15 @@ const filterMenus = () => {
     datesRangeObject.value
   );
 };
+
+const clearFilters = () => {
+  datesRangeObject.value = {
+    start: null,
+    end: null,
+  };
+  nameMenu.value = "";
+  descriptionMenu.value = "";
+};
 </script>
 
 <template>
@@ -56,6 +65,12 @@ const filterMenus = () => {
       class="filters-menus__button-search"
       :label="`${$t('search')}`"
       :onclick="filterMenus"
+    />
+    <DiaryButton
+      outline
+      class="filters-menus__button-search"
+      :label="`${$t('clear')}`"
+      :onclick="clearFilters"
     />
   </div>
 </template>
