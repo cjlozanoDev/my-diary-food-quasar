@@ -1,12 +1,21 @@
 <script setup>
 import DiaryButton from "src/components/Button/DiaryButton.vue";
 import { logoutApi } from "src/api/auth";
-import { computed, ref } from "vue";
+import { watch, computed, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 const rightDrawerOpen = ref(false);
+const tab = ref("home");
+
 const route = useRoute();
 const router = useRouter();
+
+watch(
+  () => route.name,
+  (newRouteName) => {
+    tab.value = newRouteName.toLocaleLowerCase();
+  }
+);
 
 const namePageRouter = computed(() => {
   return route.meta.namePage;
@@ -14,6 +23,12 @@ const namePageRouter = computed(() => {
 
 const toggleRightDrawer = () => {
   rightDrawerOpen.value = !rightDrawerOpen.value;
+};
+
+const goToPage = (namePage) => {
+  router.push({
+    name: namePage,
+  });
 };
 
 const logout = async () => {
@@ -99,14 +114,34 @@ const goToBackPage = () => {
     </q-page-container>
 
     <q-footer elevated class="main-layout__footer text-white">
-      <q-toolbar>
+      <q-tabs v-model="tab" inline-label outside-arrows mobile-arrows>
+        <q-tab
+          name="home"
+          icon="home"
+          label="Inicio"
+          @click="goToPage('Home')"
+        />
+        <q-tab
+          name="listmenus"
+          icon="restaurant_menu"
+          label="Menús"
+          @click="goToPage('ListMenus')"
+        />
+        <q-tab
+          name="createmenu"
+          icon="add_circle"
+          label="Crear menú"
+          @click="goToPage('CreateMenu')"
+        />
+      </q-tabs>
+      <!--  <q-toolbar>
         <q-toolbar-title>
           <q-avatar>
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
           </q-avatar>
           <div>Title</div>
         </q-toolbar-title>
-      </q-toolbar>
+      </q-toolbar> -->
     </q-footer>
   </q-layout>
 </template>
