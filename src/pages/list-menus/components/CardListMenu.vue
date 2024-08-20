@@ -22,9 +22,8 @@ const viewMenu = () => {
       <span class="card_list_menu__info__title"> {{ menu.name }} </span>
       <span class="card_list_menu__info__description">
         {{
-          menu.description
-            ? ""
-            : "Este ménu no tiene descripción, puedes añadirla pulsando el botón de ver menú."
+          menu.description ||
+          "Este ménu no tiene descripción, puedes añadirla pulsando el botón de ver menú."
         }}
       </span>
       <span class="">

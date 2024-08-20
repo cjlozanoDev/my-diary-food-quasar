@@ -35,6 +35,7 @@ const getCurrenMenuApi = () => {
 
 const createMenuApi = async (
   nameMenu,
+  descriptionMenu,
   menu,
   props = { currentMenu: false }
 ) => {
@@ -43,6 +44,7 @@ const createMenuApi = async (
     creatorUid: userStore.uid,
     currentMenu: props.currentMenu,
     name: nameMenu,
+    description: descriptionMenu,
     menu,
     created_at: Date.now(),
   };

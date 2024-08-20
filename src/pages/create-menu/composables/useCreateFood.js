@@ -13,6 +13,7 @@ export const useCreateFood = () => {
   const menusStore = useMenusStore();
 
   const nameMenu = ref("");
+  const descriptionMenu = ref("");
   const menuId = ref(null);
 
   const daysWeekMenu = ref({
@@ -100,14 +101,21 @@ export const useCreateFood = () => {
     router.push({ name: "Home" });
   };
 
-  const createMenu = async (nameMenuForm) => {
+  const createMenu = async (nameMenuForm, descriptionMenuForm) => {
     nameMenu.value = nameMenuForm;
+    descriptionMenu.value = descriptionMenuForm;
+
     dialogCreateMenuNameVisible.value = false;
     try {
       const parsedMenu = JSON.stringify(daysWeekMenu.value);
-      menuCreated.value = await createMenuApi(nameMenuForm, parsedMenu, {
-        currentMenu: !menusStore.menus.length,
-      });
+      menuCreated.value = await createMenuApi(
+        nameMenuForm,
+        descriptionMenuForm,
+        parsedMenu,
+        {
+          currentMenu: !menusStore.menus.length,
+        }
+      );
       menuId.value = menuCreated.value.id;
       menusStore.addMenu(menuCreated.value);
     } catch (error) {
