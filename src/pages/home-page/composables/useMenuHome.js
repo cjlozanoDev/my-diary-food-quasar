@@ -1,8 +1,10 @@
 import { useMenusStore } from "src/store/useMenusStore";
 import { computed } from "vue";
 import { updateMenuApi } from "src/api/menus";
+import { ref } from "vue";
 
 export const useMenuHome = () => {
+  const dialogUpdateMainDataMenuVisible = ref(false);
   const menusStore = useMenusStore();
 
   const updateWeekMenu = async (descriptionFood, dayWeek, nameMomentFood) => {
@@ -20,10 +22,21 @@ export const useMenuHome = () => {
     }
   };
 
+  const openDialogUpdateMainDataMenuVisible = () => {
+    dialogUpdateMainDataMenuVisible.value = true;
+  };
+
+  const closeDialogUpdateMainDataMenuVisible = () => {
+    dialogUpdateMainDataMenuVisible.value = false;
+  };
+
   const currentMenu = computed(() => menusStore.currentMenu);
 
   return {
     updateWeekMenu,
+    openDialogUpdateMainDataMenuVisible,
+    closeDialogUpdateMainDataMenuVisible,
     currentMenu,
+    dialogUpdateMainDataMenuVisible,
   };
 };
