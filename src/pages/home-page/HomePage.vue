@@ -12,6 +12,7 @@ const {
   updateWeekMenu,
   openDialogUpdateMainDataMenuVisible,
   closeDialogUpdateMainDataMenuVisible,
+  updateMainDataMenu,
   currentMenu,
   dialogUpdateMainDataMenuVisible,
 } = useMenuHome();
@@ -49,6 +50,7 @@ const {
           :dialog-visible="dialogUpdateMainDataMenuVisible"
           :name-menu="currentMenu.name"
           :description-menu="currentMenu.description"
+          @updateMainDataMenu="updateMainDataMenu"
           @close-dialog="closeDialogUpdateMainDataMenuVisible"
         />
       </article>

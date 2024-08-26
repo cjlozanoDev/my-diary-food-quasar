@@ -1,11 +1,17 @@
 <script setup>
 import BoardMenu from "src/components/BoardMenu/BoardMenu.vue";
 import DiaryButton from "src/components/Button/DiaryButton.vue";
+import DialogUpdateMainDataMenu from "src/components/dialog-update-main-data-menu/DialogUpdateMainDataMenu.vue";
+import { useStatePageStore } from "src/store/useStatePageStore";
 import { useMenusStore } from "src/store/useMenusStore";
-import { updateMenuApi } from "src/api/menus";
-import { computed } from "vue";
+import { updateMenuApi, updateMainDataMenuApi } from "src/api/menus";
+import { computed, ref } from "vue";
+import { useI18n } from "vue-i18n";
 
 const menusStore = useMenusStore();
+const dialogUpdateMainDataMenuVisible = ref(false);
+const statePageStore = useStatePageStore();
+const { t } = useI18n();
 
 const isCurrentMenu = computed(() => menusStore.menuSelected.currentMenu);
 
@@ -27,8 +33,37 @@ const updateWeekMenu = async (descriptionFood, dayWeek, nameMomentFood) => {
   }
 };
 
+const updateMainDataMenu = async (nameMenu, descriptionMenu) => {
+  statePageStore.setLoading(true, t("loading"));
+  closeDialogUpdateMainDataMenuVisible();
+  try {
+    await updateMainDataMenuApi(
+      menusStore.menuSelected.id,
+      nameMenu,
+      descriptionMenu
+    );
+    menusStore.setMainDataMenu({
+      id: menusStore.menuSelected.id,
+      nameMenu,
+      description: descriptionMenu,
+    });
+  } catch (error) {
+    throw new Error(error.message);
+  } finally {
+    statePageStore.setLoading(false);
+  }
+};
+
 const markMenuToCurrent = () => {
   menusStore.markCurrentMenu(menusStore.menuSelected.id);
+};
+
+const openDialogUpdateMainDataMenuVisible = () => {
+  dialogUpdateMainDataMenuVisible.value = true;
+};
+
+const closeDialogUpdateMainDataMenuVisible = () => {
+  dialogUpdateMainDataMenuVisible.value = false;
 };
 </script>
 
@@ -36,6 +71,14 @@ const markMenuToCurrent = () => {
   <div v-if="menusStore.menuSelected">
     <span class="head-diary-food head-subtitle">
       Ver menú: {{ menusStore.menuSelected.name }}
+      <DiaryButton
+        icon="edit"
+        color="white"
+        text-color="black"
+        :round="true"
+        size="xs"
+        :onclick="openDialogUpdateMainDataMenuVisible"
+      />
     </span>
 
     <section class="page-my-diary-food">
@@ -68,6 +111,13 @@ const markMenuToCurrent = () => {
         />
       </article>
     </section>
+    <DialogUpdateMainDataMenu
+      :dialog-visible="dialogUpdateMainDataMenuVisible"
+      :name-menu="menusStore.menuSelected.name"
+      :description-menu="menusStore.menuSelected.description"
+      @updateMainDataMenu="updateMainDataMenu"
+      @close-dialog="closeDialogUpdateMainDataMenuVisible"
+    />
   </div>
 </template>
 

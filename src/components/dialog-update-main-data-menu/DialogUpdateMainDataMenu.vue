@@ -22,6 +22,8 @@ const props = defineProps({
 
 const newNameMenu = ref("");
 const newDescriptionMenu = ref("");
+const numNameMaxCharacters = 80;
+const numDescriptionMaxCharacters = 120;
 
 const handleBeforeShowDialog = () => {
   newNameMenu.value = props.nameMenu;
@@ -46,43 +48,59 @@ const updateMainDataMenu = () => {
 <template>
   <q-dialog @before-show="handleBeforeShowDialog" v-model="value" persistent>
     <q-card class="dialog-update-main-data-menu">
-      <q-card-section class="dialog-update-main-data-menu__card__section-head">
-        <div>
-          <div class="text-h6">Edición datos principales del menú</div>
-        </div>
-        <q-avatar square>
-          <img src="src/assets/tablePencil.png" />
-        </q-avatar>
-      </q-card-section>
+      <q-form @submit.prevent="updateMainDataMenu" class="q-gutter-md">
+        <q-card-section
+          class="dialog-update-main-data-menu__card__section-head"
+        >
+          <div>
+            <div class="text-h6">Edición datos principales del menú</div>
+          </div>
+          <q-avatar square>
+            <img src="src/assets/tablePencil.png" />
+          </q-avatar>
+        </q-card-section>
 
-      <q-card-section class="q-pt-none">
-        <DiaryInput v-model="newNameMenu" label="Nombre" stack-label filled />
-      </q-card-section>
+        <q-card-section class="q-pt-none">
+          <DiaryInput
+            v-model="newNameMenu"
+            label="Nombre"
+            stack-label
+            filled
+            :rules="[
+              (val) => (val && val.length > 0) || $t('type_something'),
+              (val) =>
+                (val && val.length < numNameMaxCharacters) ||
+                $t('max_characters', { number: numNameMaxCharacters }),
+            ]"
+          />
+        </q-card-section>
 
-      <q-card-section class="q-pt-none">
-        <DiaryInput
-          class="text-area"
-          label="Descripción"
-          stack-label
-          v-model="newDescriptionMenu"
-          filled
-          type="textarea"
-        />
-      </q-card-section>
+        <q-card-section class="q-pt-none">
+          <DiaryInput
+            class="text-area"
+            label="Descripción"
+            stack-label
+            v-model="newDescriptionMenu"
+            filled
+            type="textarea"
+            :rules="[
+              (val) =>
+                val.length < numDescriptionMaxCharacters ||
+                $t('max_characters', { number: numDescriptionMaxCharacters }),
+            ]"
+          />
+        </q-card-section>
 
-      <q-card-actions align="right" class="text-primary">
-        <DiaryButton
-          flat
-          label="cancel"
-          color="primary"
-          :onclick="closeDialog"
-        />
-        <DiaryButton
-          label="Aceptar"
-          color="primary"
-          :onclick="updateMainDataMenu"
-        />
-      </q-card-actions>
+        <q-card-actions align="right" class="text-primary">
+          <DiaryButton
+            flat
+            label="cancel"
+            color="primary"
+            :onclick="closeDialog"
+          />
+          <DiaryButton label="Aceptar" color="primary" type="submit" />
+        </q-card-actions>
+      </q-form>
     </q-card>
   </q-dialog>
 </template>

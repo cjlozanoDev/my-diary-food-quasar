@@ -1,16 +1,26 @@
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
-import { createMenuApi, updateMenuApi } from "src/api/menus";
+import {
+  createMenuApi,
+  updateMenuApi,
+  updateMainDataMenuApi,
+} from "src/api/menus";
 import { useMenusStore } from "src/store/useMenusStore";
+import { useStatePageStore } from "src/store/useStatePageStore";
+import { useI18n } from "vue-i18n";
 
 export const useCreateFood = () => {
   const router = useRouter();
 
+  const dialogUpdateMainDataMenuVisible = ref(false);
   const dialogCreateMenuNameVisible = ref(true);
 
   const menuCurrentMarked = ref(false);
   const menuCreated = ref(null);
   const menusStore = useMenusStore();
+  const statePageStore = useStatePageStore();
+
+  const { t } = useI18n();
 
   const nameMenu = ref("");
   const descriptionMenu = ref("");
@@ -128,6 +138,37 @@ export const useCreateFood = () => {
     menuCurrentMarked.value = true;
   };
 
+  const updateMainDataMenu = async (nameMenuForm, descriptionMenuForm) => {
+    statePageStore.setLoading(true, t("loading"));
+    closeDialogUpdateMainDataMenuVisible();
+    try {
+      await updateMainDataMenuApi(
+        menuCreated.value.id,
+        nameMenuForm,
+        descriptionMenuForm
+      );
+      menusStore.setMainDataMenu({
+        id: menuCreated.value.id,
+        nameMenu,
+        description: descriptionMenu,
+      });
+      nameMenu.value = nameMenuForm;
+      descriptionMenu.value = descriptionMenuForm;
+    } catch (error) {
+      throw new Error(error.message);
+    } finally {
+      statePageStore.setLoading(false);
+    }
+  };
+
+  const openDialogUpdateMainDataMenuVisible = () => {
+    dialogUpdateMainDataMenuVisible.value = true;
+  };
+
+  const closeDialogUpdateMainDataMenuVisible = () => {
+    dialogUpdateMainDataMenuVisible.value = false;
+  };
+
   const isCurrentMenu = computed(
     () => menusStore.menus.length === 1 || menuCurrentMarked.value
   );
@@ -137,9 +178,14 @@ export const useCreateFood = () => {
     backToHome,
     createMenu,
     markMenuToCurrent,
+    updateMainDataMenu,
+    openDialogUpdateMainDataMenuVisible,
+    closeDialogUpdateMainDataMenuVisible,
+    dialogUpdateMainDataMenuVisible,
     dialogCreateMenuNameVisible,
     menuCreated,
     isCurrentMenu,
     nameMenu,
+    descriptionMenu,
   };
 };

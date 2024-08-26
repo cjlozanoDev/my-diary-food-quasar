@@ -64,6 +64,14 @@ const updateMenuApi = (idMenu, menu) => {
   });
 };
 
+const updateMainDataMenuApi = (idMenu, nameMenu, descriptionMenu) => {
+  const docRef = doc(db, "menus", idMenu);
+  return updateDoc(docRef, {
+    name: nameMenu,
+    description: descriptionMenu,
+  });
+};
+
 const updateCurrentMenu = (idPreviousCurrentMenu, idNewCurrentMendu) => {
   const menuNewCurrentDocRef = doc(db, "menus", idNewCurrentMendu);
   const menuPreviousCurrentRef = doc(db, "menus", idPreviousCurrentMenu);
@@ -88,4 +96,5 @@ export {
   createMenuApi,
   updateMenuApi,
   updateCurrentMenu,
+  updateMainDataMenuApi,
 };

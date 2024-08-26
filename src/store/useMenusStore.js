@@ -26,6 +26,11 @@ export const useMenusStore = defineStore("menusStore", {
 
       menuToUpdated.menu = JSON.stringify(menuToUpdatedMenuJSON);
     },
+    setMainDataMenu(propsMenu = { id, nameMenu, description }) {
+      const menuToUpdated = this.menus.find((menu) => menu.id === propsMenu.id);
+      menuToUpdated.name = propsMenu.nameMenu;
+      menuToUpdated.description = propsMenu.description;
+    },
     setIdMenuSelected(idMenu) {
       this.idMenuSelected = idMenu;
     },

@@ -2,6 +2,7 @@
 import DiaryButton from "src/components/Button/DiaryButton.vue";
 import BoardMenu from "src/components/BoardMenu/BoardMenu.vue";
 import DialogCreateMenuName from "./components/DialogCreateMenuName.vue";
+import DialogUpdateMainDataMenu from "src/components/dialog-update-main-data-menu/DialogUpdateMainDataMenu.vue";
 import { useCreateFood } from "./composables/useCreateFood";
 import { ref } from "vue";
 
@@ -12,17 +13,37 @@ const {
   createMenu,
   saveFood,
   markMenuToCurrent,
+  openDialogUpdateMainDataMenuVisible,
+  closeDialogUpdateMainDataMenuVisible,
+  updateMainDataMenu,
   isCurrentMenu,
   nameMenu,
+  descriptionMenu,
   menuCreated,
   dialogCreateMenuNameVisible,
+  dialogUpdateMainDataMenuVisible,
 } = useCreateFood();
 </script>
 
 <template>
   <div>
-    <span class="head-diary-food head-subtitle">Nombre: {{ nameMenu }}</span>
+    <span class="head-diary-food head-subtitle"
+      >Nombre: {{ nameMenu }}
+      <DiaryButton
+        icon="edit"
+        color="white"
+        text-color="black"
+        :round="true"
+        size="xs"
+        :onclick="openDialogUpdateMainDataMenuVisible"
+    /></span>
     <main v-if="!dialogCreateMenuNameVisible" class="page-my-diary-food">
+      <p>
+        <strong> Descripción: </strong>
+        <span class="create-menu__text-decription-menu"
+          >{{ descriptionMenu || "Este menú no tiene descripción" }}
+        </span>
+      </p>
       <section class="create_menu__section-marked-menu">
         <DiaryButton
           push
@@ -47,6 +68,13 @@ const {
         @close-dialog="backToHome"
       />
     </section>
+    <DialogUpdateMainDataMenu
+      :dialog-visible="dialogUpdateMainDataMenuVisible"
+      :name-menu="nameMenu"
+      :description-menu="descriptionMenu"
+      @updateMainDataMenu="updateMainDataMenu"
+      @close-dialog="closeDialogUpdateMainDataMenuVisible"
+    />
   </div>
 </template>
 
@@ -102,6 +130,9 @@ const {
 }
 .create_memu__card__description-food {
   font-size: var(--font-small);
+}
+.create-menu__text-decription-menu {
+  font-style: italic;
 }
 
 @media (min-width: 798px) {
