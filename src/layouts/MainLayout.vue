@@ -3,12 +3,14 @@ import DiaryButton from "src/components/Button/DiaryButton.vue";
 import { logoutApi } from "src/api/auth";
 import { watch, computed, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { useUserStore } from "src/store/useUserStore";
 
 const rightDrawerOpen = ref(false);
 const tab = ref("home");
 
 const route = useRoute();
 const router = useRouter();
+const userStore = useUserStore();
 
 watch(
   () => route.name,
@@ -84,7 +86,52 @@ const goToBackPage = () => {
         "
       >
         <q-list padding>
-          <q-item clickable @click="logout" v-ripple>
+          <q-item
+            clickable
+            to="/home"
+            active-class="main_layout__link-menu"
+            exact
+            v-ripple
+          >
+            <q-item-section avatar>
+              <q-icon name="home" />
+            </q-item-section>
+
+            <q-item-section> Inicio </q-item-section>
+          </q-item>
+
+          <q-item
+            clickable
+            to="/list-menus"
+            active-class="main_layout__link-menu"
+            v-ripple
+          >
+            <q-item-section avatar>
+              <q-icon name="restaurant_menu" />
+            </q-item-section>
+
+            <q-item-section> Mis menús </q-item-section>
+          </q-item>
+
+          <q-item
+            clickable
+            to="create-menu"
+            active-class="main_layout__link-menu"
+            v-ripple
+          >
+            <q-item-section avatar>
+              <q-icon name="add_circle" />
+            </q-item-section>
+
+            <q-item-section> Crear menú </q-item-section>
+          </q-item>
+
+          <q-item
+            clickable
+            active-class="main_layout__link-menu"
+            @click="logout"
+            v-ripple
+          >
             <q-item-section avatar>
               <q-icon name="logout" />
             </q-item-section>
@@ -103,8 +150,8 @@ const goToBackPage = () => {
           <q-avatar size="56px" class="q-mb-sm">
             <img src="src/assets/AvatarChef.jpeg" />
           </q-avatar>
-          <div class="text-weight-bold">Razvan Stoenescu</div>
-          <div>@rstoenescu</div>
+          <div class="text-weight-bold">Chef</div>
+          <div>{{ userStore.email }}</div>
         </div>
       </q-img>
     </q-drawer>
@@ -124,7 +171,7 @@ const goToBackPage = () => {
         <q-tab
           name="listmenus"
           icon="restaurant_menu"
-          label="Menús"
+          label="Mis menús"
           @click="goToPage('ListMenus')"
         />
         <q-tab
@@ -156,6 +203,10 @@ const goToBackPage = () => {
 }
 .main-layout__avatar-app {
   margin-right: var(--spacing-sm);
+}
+.main_layout__link-menu {
+  color: white;
+  background-color: var(--q-tertiary);
 }
 .main-layout__name-page {
   font-size: var(--font-medium);

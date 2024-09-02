@@ -6,9 +6,9 @@ import DiaryInput from "src/components/Input/DiaryInput.vue";
 
 const { locale } = useI18n({ useScope: "global" });
 
-const changeLanguage = () => {
+/* const changeLanguage = () => {
   locale.value = "en-US";
-};
+}; */
 
 const { email, password, errorInvalidCredentials, onSubmit } =
   useServicesLogin();
@@ -87,8 +87,6 @@ const { email, password, errorInvalidCredentials, onSubmit } =
               </q-form>
             </q-card-section>
           </q-card>
-
-          <button @click="changeLanguage">cambiar a inglés</button>
         </section>
         <section class="section-create__account">
           <p>
