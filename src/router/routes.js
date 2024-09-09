@@ -36,6 +36,24 @@ const routes = [
     ],
   },
   {
+    path: "/forgot-password",
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem("signedin")) {
+        next({ path: "home" });
+      } else {
+        next();
+      }
+    },
+    component: () => import("layouts/CreateAccountLayout.vue"),
+    children: [
+      {
+        path: "/forgot-password",
+        name: "ForgotPassword",
+        component: () => import("pages/forgot-password/ForgotPassword.vue"),
+      },
+    ],
+  },
+  {
     path: "/home",
     meta: {
       auth: true,

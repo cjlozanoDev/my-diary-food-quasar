@@ -89,6 +89,7 @@ const { email, password, errorInvalidCredentials, onSubmit } =
           </q-card>
         </section>
         <section class="section-create__account">
+          <p><a href="/forgot-password">¿Olvidaste la contraseña?</a></p>
           <p>
             {{ $t("answer_register")
             }}<a href="/create-account"> {{ $t("create_account") }} </a>
@@ -133,6 +134,10 @@ const { email, password, errorInvalidCredentials, onSubmit } =
   justify-content: center;
 }
 .section-create__account {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: var(--spacing-sm);
   font-size: 1.1em;
 }
 .btn-login {

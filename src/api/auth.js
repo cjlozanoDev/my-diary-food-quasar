@@ -2,6 +2,7 @@ import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
   signOut,
 } from "firebase/auth";
 
@@ -51,6 +52,10 @@ const createUserWithEmailAndPasswordApi = (email, password) => {
   return createUserWithEmailAndPassword(auth, email, password);
 };
 
+const sendPasswordResetEmailApi = (email) => {
+  return sendPasswordResetEmail(auth, email);
+};
+
 const addUserCollectionApi = async (username, { email, uid }) => {
   return setDoc(doc(db, "users", uid), {
     name: username,
@@ -68,6 +73,7 @@ const logoutApi = () => signOut(auth);
 export {
   onAuthStateChangedApi,
   createUserWithEmailAndPasswordApi,
+  sendPasswordResetEmailApi,
   addUserCollectionApi,
   signInWithEmailAndPasswordApi,
   logoutApi,
