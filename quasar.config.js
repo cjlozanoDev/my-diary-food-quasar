@@ -163,6 +163,9 @@ module.exports = configure(function (/* ctx */) {
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-capacitor-apps/configuring-capacitor
     capacitor: {
       hideSplashscreen: true,
+      appName: "MyDiaryFood",
+      version: "0.1.0_beta",
+      description: "App con la que podrás gestionar tus menús semanales",
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/configuring-electron
