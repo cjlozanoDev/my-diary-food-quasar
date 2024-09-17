@@ -1,11 +1,15 @@
 <script setup>
 import { computed, ref } from "vue";
 import { sendPasswordResetEmailApi } from "src/api/auth";
+import { useRouter } from "vue-router";
 import DiaryInput from "src/components/Input/DiaryInput.vue";
 import DiaryButton from "src/components/Button/DiaryButton.vue";
 
+const router = useRouter();
+
 const widthSizeScreen = ref(window.innerWidth);
 const email = ref("");
+const emailSent = ref(false);
 
 const sizeAvatar = computed(() => {
   if (widthSizeScreen.value >= 960) return "300px";
@@ -15,9 +19,14 @@ const sizeAvatar = computed(() => {
 const onSubmit = async () => {
   try {
     await sendPasswordResetEmailApi(email.value);
+    emailSent.value = true;
   } catch (error) {
     console.log("el error es", error);
   }
+};
+
+const goToLogin = () => {
+  router.push({ name: "Login" });
 };
 </script>
 
@@ -35,7 +44,7 @@ const onSubmit = async () => {
     </header>
 
     <main class="page-my-diary-food">
-      <section class="section-container-form">
+      <section v-if="!emailSent" class="section-container-form">
         <q-card class="section-container-form__card">
           <q-card-section>
             <q-form
@@ -65,6 +74,18 @@ const onSubmit = async () => {
             </q-form>
           </q-card-section>
         </q-card>
+      </section>
+
+      <section class="section-email-sent" v-else>
+        <p>
+          El email para reestablecer la contraseña ha sido enviado al email
+          proporcionado. Sigue los pasos indicados en él.
+        </p>
+        <DiaryButton
+          label="Volver a la pantalla principal"
+          :onclick="goToLogin"
+          color="primary"
+        />
       </section>
     </main>
   </div>
@@ -97,5 +118,13 @@ const onSubmit = async () => {
   width: 100%;
   display: flex;
   justify-content: center;
+}
+.section-email-sent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffff;
+  padding: var(--spacing-sm);
+  border: solid;
 }
 </style>
