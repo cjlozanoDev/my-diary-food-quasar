@@ -19,7 +19,7 @@ const goToCreateMenu = () => {
     <section class="section-image">
       <img
         class="img-chef-empty-dish"
-        src="src/assets/checkEmptyDish.png"
+        src="/assets/checkEmptyDish.png"
         alt="Image Chef with empty dish"
       />
     </section>

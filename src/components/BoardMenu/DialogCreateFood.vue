@@ -54,7 +54,7 @@ const saveFood = () => {
           <span class="text-name-moment-food"> {{ nameMomentFood }} </span>
         </div>
         <q-avatar square>
-          <img src="src/assets/tablePencil.png" />
+          <img src="/assets/tablePencil.png" />
         </q-avatar>
       </q-card-section>
 

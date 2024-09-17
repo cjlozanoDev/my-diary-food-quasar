@@ -34,7 +34,7 @@ const goToLogin = () => {
       <q-toolbar>
         <q-toolbar-title>
           <q-avatar :size="sizeAvatar">
-            <img src="src/assets/LogoMyDiaryFood.png" />
+            <img src="/assets/LogoMyDiaryFood.png" />
           </q-avatar>
         </q-toolbar-title>
         <DiaryButton

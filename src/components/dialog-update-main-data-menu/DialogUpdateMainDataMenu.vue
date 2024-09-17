@@ -56,7 +56,7 @@ const updateMainDataMenu = () => {
             <div class="text-h6">Edición datos principales del menú</div>
           </div>
           <q-avatar square>
-            <img src="src/assets/tablePencil.png" />
+            <img src="/assets/tablePencil.png" />
           </q-avatar>
         </q-card-section>
 

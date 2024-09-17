@@ -40,7 +40,7 @@ const createMenu = () => {
           Escribe un nombre para tu menú.</span
         >
         <q-avatar square>
-          <img src="src/assets/dishNameMenu.png" />
+          <img src="/assets/dishNameMenu.png" />
         </q-avatar>
       </q-card-section>
 

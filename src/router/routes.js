@@ -29,7 +29,7 @@ const routes = [
     component: () => import("layouts/CreateAccountLayout.vue"),
     children: [
       {
-        path: "/create-account",
+        path: "",
         name: "CreateAccount",
         component: () => import("pages/create-account/CreateAccount.vue"),
       },
@@ -47,7 +47,7 @@ const routes = [
     component: () => import("layouts/CreateAccountLayout.vue"),
     children: [
       {
-        path: "/forgot-password",
+        path: "",
         name: "ForgotPassword",
         component: () => import("pages/forgot-password/ForgotPassword.vue"),
       },

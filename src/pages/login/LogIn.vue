@@ -18,7 +18,7 @@ const { email, password, errorInvalidCredentials, onSubmit } =
   <div class="login">
     <header class="login-header">
       <q-img
-        src="src/assets/LogoMyDiaryFood.png"
+        src="/assets/LogoMyDiaryFood.png"
         spinner-color="white"
         class="logo-app"
       />

@@ -34,7 +34,7 @@ const goToLogin = () => {
   <div>
     <header class="forgot-password__header">
       <q-avatar class="avatar" :size="sizeAvatar">
-        <img src="src/assets/padlock.png" />
+        <img src="/assets/padlock.png" />
       </q-avatar>
       <span class="text-forgot-password" v-text="'¿Olvidaste la contraseña?'" />
       <p>

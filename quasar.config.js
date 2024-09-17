@@ -52,7 +52,7 @@ module.exports = configure(function (/* ctx */) {
         browser: ["es2019", "edge88", "firefox78", "chrome87", "safari13.1"],
         node: "node16",
       },
-
+      publicPath: "/",
       vueRouterMode: "history", // available values: 'hash', 'history'
       // vueRouterBase,
       // vueDevtools,
@@ -162,9 +162,15 @@ module.exports = configure(function (/* ctx */) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-capacitor-apps/configuring-capacitor
     capacitor: {
-      hideSplashscreen: true,
       appName: "MyDiaryFood",
       version: "0.1.0_beta",
+      plugins: {
+        SplashScreen: {
+          launchShowDuration: 3000,
+          launchAutoHide: true,
+          androidScaleType: "CENTER_CROP",
+        },
+      },
       description: "App con la que podrás gestionar tus menús semanales",
     },
 

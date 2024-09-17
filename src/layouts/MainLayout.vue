@@ -58,7 +58,7 @@ const goToBackPage = () => {
             size="50px"
             v-if="namePageRouter === 'Principal'"
           >
-            <img src="src/assets/LogoMyDiaryFood.png" />
+            <img src="/assets/LogoMyDiaryFood.png" />
           </q-avatar>
           <DiaryButton
             v-else
@@ -148,7 +148,7 @@ const goToBackPage = () => {
       >
         <div class="absolute-bottom bg-transparent">
           <q-avatar size="56px" class="q-mb-sm">
-            <img src="src/assets/AvatarChef.jpeg" />
+            <img src="/assets/AvatarChef.png" />
           </q-avatar>
           <div class="text-weight-bold">Chef</div>
           <div>{{ userStore.email }}</div>

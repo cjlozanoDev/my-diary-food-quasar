@@ -30,7 +30,7 @@ const { username, email, password, errorEmailAlreadyInUse, onSubmit } =
   <div class="create-account">
     <header class="create-account__header">
       <q-avatar :size="sizeAvatar">
-        <img src="src/assets/AvatarChef.jpeg" />
+        <img src="/assets/avatarChef.png" />
       </q-avatar>
       <span class="text-create-acccount" v-text="$t('create_account')" />
     </header>

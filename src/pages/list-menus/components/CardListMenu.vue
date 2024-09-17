@@ -40,7 +40,7 @@ const viewMenu = () => {
 
     <section class="card_list_menu__section_icon">
       <img
-        src="src/assets/foodIconCardListMenu.svg"
+        src="/assets/foodIconCardListMenu.svg"
         alt="Icon image dish and fork"
         class="card_list_menu__icon"
       />
