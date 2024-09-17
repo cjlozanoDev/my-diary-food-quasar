@@ -161,34 +161,29 @@ const goToBackPage = () => {
     </q-page-container>
 
     <q-footer elevated class="main-layout__footer text-white">
-      <q-tabs v-model="tab" inline-label outside-arrows mobile-arrows>
+      <q-tabs v-model="tab" outside-arrows mobile-arrows>
         <q-tab
           name="home"
           icon="home"
           label="Inicio"
           @click="goToPage('Home')"
+          style="width: 100px"
         />
         <q-tab
           name="listmenus"
           icon="restaurant_menu"
           label="Mis menús"
           @click="goToPage('ListMenus')"
+          style="width: 100px"
         />
         <q-tab
           name="createmenu"
           icon="add_circle"
           label="Crear menú"
           @click="goToPage('CreateMenu')"
+          style="width: 100px"
         />
       </q-tabs>
-      <!--  <q-toolbar>
-        <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
-          </q-avatar>
-          <div>Title</div>
-        </q-toolbar-title>
-      </q-toolbar> -->
     </q-footer>
   </q-layout>
 </template>
