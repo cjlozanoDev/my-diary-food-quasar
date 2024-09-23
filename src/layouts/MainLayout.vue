@@ -148,7 +148,7 @@ const goToBackPage = () => {
       >
         <div class="absolute-bottom bg-transparent">
           <q-avatar size="56px" class="q-mb-sm">
-            <img src="/assets/AvatarChef.png" />
+            <img src="/assets/avatarChef.png" />
           </q-avatar>
           <div class="text-weight-bold">Chef</div>
           <div>{{ userStore.email }}</div>

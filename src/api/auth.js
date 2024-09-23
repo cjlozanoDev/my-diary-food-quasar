@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
+  sendEmailVerification,
   signOut,
 } from "firebase/auth";
 
@@ -12,14 +13,20 @@ import { useStatePageStore } from "src/store/useStatePageStore";
 import { useMenusStore } from "src/store/useMenusStore";
 import { getMenusUserApi } from "./menus";
 
-const onAuthStateChangedApi = () => {
+const onAuthStateChangedApi = (router) => {
   onAuthStateChanged(auth, (user) => {
     const userStore = useUserStore();
 
     if (user) {
-      localStorage.setItem("signedin", "true");
-      userStore.setUser(auth);
-      getMenusUser();
+      if (!user.emailVerified) {
+        router.push({
+          name: "EmailNoVerified",
+        });
+      } else {
+        localStorage.setItem("signedin", "true");
+        userStore.setUser(auth);
+        getMenusUser();
+      }
     }
     if (!user) {
       localStorage.removeItem("signedin");
@@ -68,6 +75,10 @@ const signInWithEmailAndPasswordApi = (email, password) => {
   return signInWithEmailAndPassword(auth, email, password);
 };
 
+const sendEmailVerificationApi = () => {
+  return sendEmailVerification(auth.currentUser);
+};
+
 const logoutApi = () => signOut(auth);
 
 export {
@@ -76,5 +87,6 @@ export {
   sendPasswordResetEmailApi,
   addUserCollectionApi,
   signInWithEmailAndPasswordApi,
+  sendEmailVerificationApi,
   logoutApi,
 };

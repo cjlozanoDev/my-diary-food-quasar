@@ -54,6 +54,17 @@ const routes = [
     ],
   },
   {
+    path: "/email-no-verified",
+    component: () => import("layouts/CreateAccountLayout.vue"),
+    children: [
+      {
+        path: "",
+        name: "EmailNoVerified",
+        component: () => import("pages/email-no-verified/EmailNoVerified.vue"),
+      },
+    ],
+  },
+  {
     path: "/home",
     meta: {
       auth: true,

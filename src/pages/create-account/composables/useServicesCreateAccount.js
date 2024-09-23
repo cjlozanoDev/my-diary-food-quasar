@@ -2,6 +2,8 @@ import { ref } from "vue";
 import {
   createUserWithEmailAndPasswordApi,
   addUserCollectionApi,
+  sendEmailVerificationApi,
+  logoutApi,
 } from "src/api/auth";
 import { errorCodes } from "src/utils/errorCodes";
 import { useStatePageStore } from "src/store/useStatePageStore";
@@ -15,6 +17,7 @@ export const useServicesCreateAccount = () => {
   const username = ref("");
   const email = ref("");
   const password = ref("");
+  const emailSent = ref(false);
 
   const errorEmailAlreadyInUse = ref(false);
 
@@ -28,8 +31,10 @@ export const useServicesCreateAccount = () => {
         password.value
       );
       await addUserCollectionApi(username.value, userCredential.user);
+      await sendEmailVerificationApi();
+      emailSent.value = true;
+
       errorEmailAlreadyInUse.value = false;
-      router.push({ name: "Home" });
     } catch (error) {
       if (error.code === errorCodes["email_already_in_use"]) {
         errorEmailAlreadyInUse.value = true;
@@ -41,11 +46,17 @@ export const useServicesCreateAccount = () => {
     }
   };
 
+  const goToLogin = () => {
+    router.push({ name: "Login" });
+  };
+
   return {
     username,
     email,
     password,
     errorEmailAlreadyInUse,
+    emailSent,
+    goToLogin,
     onSubmit,
   };
 };
