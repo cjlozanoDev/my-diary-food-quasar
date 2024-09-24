@@ -5,12 +5,14 @@ export const useUserStore = defineStore("userStore", {
     name: "",
     uid: "",
     email: "",
+    emailVerified: false,
   }),
   actions: {
     setUser(user) {
       this.name = "";
       this.email = user.currentUser.email;
       this.uid = user.currentUser.uid;
+      this.emailVerified = user.currentUser.emailVerified;
     },
     removeUser() {
       this.name = "";

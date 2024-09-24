@@ -18,18 +18,20 @@ const onAuthStateChangedApi = (router) => {
     const userStore = useUserStore();
 
     if (user) {
+      userStore.setUser(auth);
+      localStorage.setItem("signedin", "true");
       if (!user.emailVerified) {
         router.push({
           name: "EmailNoVerified",
         });
       } else {
-        localStorage.setItem("signedin", "true");
-        userStore.setUser(auth);
+        localStorage.setItem("emailVerified", "true");
         getMenusUser();
       }
     }
     if (!user) {
       localStorage.removeItem("signedin");
+      localStorage.removeItem("emailVerified");
       userStore.removeUser();
     }
   });
@@ -89,4 +91,5 @@ export {
   signInWithEmailAndPasswordApi,
   sendEmailVerificationApi,
   logoutApi,
+  auth,
 };

@@ -22,15 +22,8 @@ const onResize = () => {
   widthSizeScreen.value = window.innerWidth;
 };
 
-const {
-  username,
-  email,
-  password,
-  errorEmailAlreadyInUse,
-  emailSent,
-  onSubmit,
-  goToLogin,
-} = useServicesCreateAccount();
+const { username, email, password, errorEmailAlreadyInUse, onSubmit } =
+  useServicesCreateAccount();
 </script>
 
 <template>
@@ -42,7 +35,7 @@ const {
       <span class="text-create-acccount" v-text="$t('create_account')" />
     </header>
     <main class="page-my-diary-food center">
-      <section v-if="!emailSent" class="section-container-form">
+      <section class="section-container-form">
         <q-card class="create-account__card-form">
           <q-card-section>
             <q-form
@@ -109,18 +102,6 @@ const {
             </q-form>
           </q-card-section>
         </q-card>
-      </section>
-
-      <section class="info-box" v-else>
-        <p>
-          Se ha enviado un email al correo proporcionado para que puedas
-          verificar tu cuenta. Sigue los pasos indicados en él.
-        </p>
-        <DiaryButton
-          label="Volver a la pantalla principal"
-          :onclick="goToLogin"
-          color="primary"
-        />
       </section>
     </main>
   </div>

@@ -55,6 +55,16 @@ const routes = [
   },
   {
     path: "/email-no-verified",
+    beforeEnter: (to, from, next) => {
+      if (
+        localStorage.getItem("emailVerified") ||
+        !localStorage.getItem("signedin")
+      ) {
+        next({ path: "home" });
+      } else {
+        next();
+      }
+    },
     component: () => import("layouts/CreateAccountLayout.vue"),
     children: [
       {

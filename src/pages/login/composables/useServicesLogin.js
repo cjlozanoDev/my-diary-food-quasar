@@ -18,13 +18,14 @@ export const useServicesLogin = () => {
   const onSubmit = async () => {
     statePageStore.setLoading(true, t("loading"));
     try {
-      await signInWithEmailAndPasswordApi(email.value, password.value);
-      router.push({ name: "Home" });
-      /* const userCredential = await createUserWithEmailAndPasswordApi(
+      const { user } = await signInWithEmailAndPasswordApi(
         email.value,
         password.value
-      ); */
-      // await addUserCollectionApi(userCredential.user);
+      );
+      if (user.emailVerified) {
+        router.push({ name: "Home" });
+      }
+
       errorInvalidCredentials.value = false;
     } catch (error) {
       if (error.code === errorCodes["invalid_credentials"]) {

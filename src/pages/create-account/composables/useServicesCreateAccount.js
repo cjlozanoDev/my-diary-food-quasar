@@ -3,7 +3,6 @@ import {
   createUserWithEmailAndPasswordApi,
   addUserCollectionApi,
   sendEmailVerificationApi,
-  logoutApi,
 } from "src/api/auth";
 import { errorCodes } from "src/utils/errorCodes";
 import { useStatePageStore } from "src/store/useStatePageStore";
@@ -17,7 +16,6 @@ export const useServicesCreateAccount = () => {
   const username = ref("");
   const email = ref("");
   const password = ref("");
-  const emailSent = ref(false);
 
   const errorEmailAlreadyInUse = ref(false);
 
@@ -32,8 +30,8 @@ export const useServicesCreateAccount = () => {
       );
       await addUserCollectionApi(username.value, userCredential.user);
       await sendEmailVerificationApi();
-      emailSent.value = true;
-
+      localStorage.setItem("emailSent", "true");
+      router.push({ name: "EmailNoVerified" });
       errorEmailAlreadyInUse.value = false;
     } catch (error) {
       if (error.code === errorCodes["email_already_in_use"]) {
@@ -55,7 +53,6 @@ export const useServicesCreateAccount = () => {
     email,
     password,
     errorEmailAlreadyInUse,
-    emailSent,
     goToLogin,
     onSubmit,
   };

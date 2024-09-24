@@ -101,7 +101,7 @@ module.exports = configure(function (/* ctx */) {
           primarySalmon: "#f9cad0",
         },
       },
-      plugins: ["Loading"],
+      plugins: ["Loading", "Notify"],
     },
 
     // animations: 'all', // --- includes all animations
