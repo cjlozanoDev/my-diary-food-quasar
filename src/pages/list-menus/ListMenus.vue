@@ -141,7 +141,7 @@ watch(currentPage, () => {
 
 <template>
   <div>
-    <span class="head-diary-food head-subtitle">Tus menús </span>
+    <span class="head-diary-food head-sm">Tus menús </span>
 
     <section class="page-my-diary-food">
       <section class="list-menus__filters" v-if="menusComputed.length">
@@ -180,12 +180,7 @@ watch(currentPage, () => {
           <p>¡Vaya!, parece que todavía no has creado ningún menú</p>
           <section class="list-menus__not-menus">
             <span class="text-create-menu">{{ $t("create_first_menu") }}</span>
-            <DiaryButton
-              outline
-              :onclick="goToCreateMenu"
-              label="Crear menú"
-              size="sm"
-            />
+            <DiaryButton outline :onclick="goToCreateMenu" label="Crear menú" />
           </section>
         </div>
 
@@ -245,6 +240,7 @@ watch(currentPage, () => {
 .list-menus__not-menus {
   display: flex;
   align-items: center;
+  font-size: var(--font-large);
   gap: var(--spacing-sm);
 }
 

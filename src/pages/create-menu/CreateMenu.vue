@@ -27,7 +27,7 @@ const {
 
 <template>
   <div>
-    <span class="head-diary-food head-subtitle"
+    <span class="head-diary-food head-sm"
       >Nombre: {{ nameMenu }}
       <DiaryButton
         icon="edit"

@@ -69,7 +69,7 @@ const closeDialogUpdateMainDataMenuVisible = () => {
 
 <template>
   <div v-if="menusStore.menuSelected">
-    <span class="head-diary-food head-subtitle">
+    <span class="head-diary-food head-sm">
       Ver menú: {{ menusStore.menuSelected.name }}
       <DiaryButton
         icon="edit"
