@@ -83,7 +83,7 @@ const createMenu = () => {
           <div class="q-form__actions">
             <DiaryButton
               flat
-              label="cancel"
+              :label="$t('cancel')"
               color="primary"
               :onclick="closeDialog"
             />
