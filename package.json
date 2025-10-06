@@ -13,9 +13,12 @@
     "build": "quasar build"
   },
   "dependencies": {
-    "@capacitor/android": "^6.1.2",
-    "@capacitor/core": "6.1.2",
-    "@capacitor/splash-screen": "^6.0.2",
+    "@capacitor/android": "^7.0.0",
+    "@capacitor/cli": "^7.0.0",
+    "@capacitor/core": "^7.0.0",
+    "@capacitor/splash-screen": "^7.0.0",
+    "@capacitor/status-bar": "^7.0.0",
+    "@capawesome/capacitor-android-edge-to-edge-support": "^7.2.3",
     "@popperjs/core": "^2.11.8",
     "@quasar/extras": "^1.16.12",
     "firebase": "^10.5.2",
@@ -39,7 +42,7 @@
     "prettier": "^2.5.1"
   },
   "engines": {
-    "node": "^18 || ^16 || ^14.19",
+    "node": "^20 || ^18 || ^16 || ^14.19",
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
   }

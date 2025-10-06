@@ -16,6 +16,7 @@ import { getMenusUserApi } from "./menus";
 const onAuthStateChangedApi = (router) => {
   onAuthStateChanged(auth, (user) => {
     const userStore = useUserStore();
+    const menusStore = useMenusStore();
 
     if (user) {
       userStore.setUser(auth);
@@ -32,6 +33,7 @@ const onAuthStateChangedApi = (router) => {
     if (!user) {
       localStorage.removeItem("signedin");
       localStorage.removeItem("emailVerified");
+      menusStore.resetStateMenu();
       userStore.removeUser();
     }
   });

@@ -16,6 +16,7 @@ export const useServicesCreateAccount = () => {
   const username = ref("");
   const email = ref("");
   const password = ref("");
+  const tooglePassword = ref(true);
 
   const errorEmailAlreadyInUse = ref(false);
 
@@ -53,6 +54,7 @@ export const useServicesCreateAccount = () => {
     email,
     password,
     errorEmailAlreadyInUse,
+    tooglePassword,
     goToLogin,
     onSubmit,
   };

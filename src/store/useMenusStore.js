@@ -34,6 +34,10 @@ export const useMenusStore = defineStore("menusStore", {
     setIdMenuSelected(idMenu) {
       this.idMenuSelected = idMenu;
     },
+    resetStateMenu() {
+      this.menus = [];
+      this.idMenuSelected = 0;
+    },
     async markCurrentMenu(idMenu) {
       const previousCurrentMenu = this.currentMenu;
       previousCurrentMenu.currentMenu = false;

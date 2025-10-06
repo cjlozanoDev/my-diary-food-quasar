@@ -3,6 +3,7 @@ import { useI18n } from "vue-i18n";
 import { useServicesLogin } from "./composables/useServicesLogin";
 import DiaryButton from "src/components/Button/DiaryButton.vue";
 import DiaryInput from "src/components/Input/DiaryInput.vue";
+import DiaryFoodIcon from "src/components/diary-food-icon/DiaryFoodIcon.vue";
 
 const { locale } = useI18n({ useScope: "global" });
 
@@ -10,7 +11,7 @@ const { locale } = useI18n({ useScope: "global" });
   locale.value = "en-US";
 }; */
 
-const { email, password, errorInvalidCredentials, onSubmit } =
+const { email, password, tooglePassword, errorInvalidCredentials, onSubmit } =
   useServicesLogin();
 </script>
 
@@ -59,7 +60,7 @@ const { email, password, errorInvalidCredentials, onSubmit } =
                   autocomplete="on"
                   v-model="password"
                   :label="`${$t('label_password')} *`"
-                  type="password"
+                  :type="tooglePassword ? 'password' : 'text'"
                   lazy-rules
                   reactive-rules
                   :hint="
@@ -74,7 +75,15 @@ const { email, password, errorInvalidCredentials, onSubmit } =
                       $t('min_characters', { number: 6 }),
                   ]"
                   color="primary"
-                />
+                >
+                  <template v-slot:append>
+                    <DiaryFoodIcon
+                      name="visibility"
+                      class="cursor-pointer"
+                      @click="tooglePassword = !tooglePassword"
+                    />
+                  </template>
+                </DiaryInput>
 
                 <div class="section_form__actions">
                   <DiaryButton

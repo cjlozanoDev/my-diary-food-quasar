@@ -1,6 +1,7 @@
 <script setup>
 import DiaryButton from "src/components/Button/DiaryButton.vue";
 import DiaryInput from "src/components/Input/DiaryInput.vue";
+import DiaryFoodIcon from "src/components/diary-food-icon/DiaryFoodIcon.vue";
 import { onMounted, onUnmounted, ref, computed } from "vue";
 import { useServicesCreateAccount } from "./composables/useServicesCreateAccount";
 
@@ -22,8 +23,14 @@ const onResize = () => {
   widthSizeScreen.value = window.innerWidth;
 };
 
-const { username, email, password, errorEmailAlreadyInUse, onSubmit } =
-  useServicesCreateAccount();
+const {
+  username,
+  email,
+  password,
+  tooglePassword,
+  errorEmailAlreadyInUse,
+  onSubmit,
+} = useServicesCreateAccount();
 </script>
 
 <template>
@@ -78,7 +85,7 @@ const { username, email, password, errorEmailAlreadyInUse, onSubmit } =
                 v-model="password"
                 outlined
                 :label="`${$t('label_password')} *`"
-                type="password"
+                :type="tooglePassword ? 'password' : 'text'"
                 lazy-rules
                 reactive-rules
                 autocomplete="on"
@@ -89,7 +96,15 @@ const { username, email, password, errorEmailAlreadyInUse, onSubmit } =
                     $t('min_characters', { number: 6 }),
                 ]"
                 color="primary"
-              />
+              >
+                <template v-slot:append>
+                  <DiaryFoodIcon
+                    name="visibility"
+                    class="cursor-pointer"
+                    @click="tooglePassword = !tooglePassword"
+                  />
+                </template>
+              </DiaryInput>
 
               <div class="section_form__actions">
                 <DiaryButton

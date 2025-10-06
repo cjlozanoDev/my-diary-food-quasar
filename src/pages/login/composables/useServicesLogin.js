@@ -12,6 +12,7 @@ export const useServicesLogin = () => {
   const email = ref("");
   const password = ref("");
   const errorInvalidCredentials = ref(false);
+  const tooglePassword = ref(true);
 
   const { t } = useI18n();
 
@@ -42,6 +43,7 @@ export const useServicesLogin = () => {
     email,
     password,
     errorInvalidCredentials,
+    tooglePassword,
     onSubmit,
   };
 };
