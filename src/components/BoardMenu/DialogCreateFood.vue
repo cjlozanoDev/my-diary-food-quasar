@@ -70,7 +70,7 @@ const saveFood = () => {
       <q-card-actions align="right" class="text-primary">
         <DiaryButton
           flat
-          label="cancel"
+          :label="$t('cancel')"
           color="primary"
           :onclick="closeDialog"
         />
