@@ -19,7 +19,12 @@ const viewMenu = () => {
 <template>
   <section class="card-list-menu" v-if="Object.keys(menu)">
     <div class="card_list_menu__info">
-      <span class="card_list_menu__info__title"> {{ menu.name }} </span>
+      <span class="card_list_menu__info__title">
+        {{ menu.name }}
+        <span v-if="menu.currentMenu" class="text-current-menu"
+          >(Menú marcado como actual)</span
+        >
+      </span>
       <span class="card_list_menu__info__description">
         {{
           menu.description ||
@@ -86,5 +91,9 @@ const viewMenu = () => {
 .card_list_menu__icon {
   width: 60px;
   transform: rotate(-9deg);
+}
+.text-current-menu {
+  font-size: var(--font-small);
+  font-style: italic;
 }
 </style>
